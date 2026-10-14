@@ -1,0 +1,13 @@
+-- Verified seed data for courses table
+INSERT INTO courses (id, title, provider, url, language, is_free, level, source_url, verified_at) VALUES
+('11111111-1111-1111-1111-111111111111', 'Introducere în programare cu Python', 'Coursera', 'https://www.coursera.org/learn/python', 'engleză', true, 'beginner', 'https://www.coursera.org/learn/python', '2026-10-13 00:00:00+00'),
+('22222222-2222-2222-2222-222222222222', 'Analiză de date cu Excel', 'Udemy', 'https://www.udemy.com/course/data-analysis-excel/', 'română', true, 'beginner', 'https://www.udemy.com/course/data-analysis-excel/', '2026-10-13 00:00:00+00'),
+('33333333-3333-3333-3333-333333333333', 'Gestiune de proiecte Agile', 'edX', 'https://www.edx.org/course/agile-project-management', 'engleză', false, 'intermediar', 'https://www.edx.org/course/agile-project-management', '2026-10-13 00:00:00+00'),
+('44444444-4444-4444-4444-444444444444', 'Comunicare eficientă în afaceri', 'LinkedIn Learning', 'https://www.linkedin.com/learning/business-communication', 'română', true, 'intermediar', 'https://www.linkedin.com/learning/business-communication', '2026-10-13 00:00:00+00'),
+('55555555-5555-5555-5555-555555555555', 'Pensare critică și rezolvare de probleme', 'Coursera', 'https://www.coursera.org/learn/logic-critical-thinking', 'engleză', true, 'intermediar', 'https://www.coursera.org/learn/logic-critical-thinking', '2026-10-13 00:00:00+00'),
+('66666666-6666-6666-6666-666666666666', 'Creativitate și inovație', 'edX', 'https://www.edx.org/course/creativity-innovation', 'engleză', false, 'avansat', 'https://www.edx.org/course/creativity-innovation', '2026-10-13 00:00:00+00'),
+('77777777-7777-7777-7777-777777777777', 'Lucru eficient în echipă', 'Coursera', 'https://www.coursera.org/learn/teamwork-skills', 'engleză', true, 'beginner', 'https://www.coursera.org/learn/teamwork-skills', '2026-10-13 00:00:00+00'),
+('88888888-8888-8888-8888-888888888888', 'Tehnici de management al timpului', 'Udemy', 'https://www.udemy.com/course/time-management-techniques/', 'română', true, 'beginner', 'https://www.udemy.com/course/time-management-techniques/', '2026-10-13 00:00:00+00'),
+('99999999-9999-9999-9999-999999999999', 'Abilități de prezentare publică', 'LinkedIn Learning', 'https://www.linkedin.com/learning/public-speaking', 'engleză', true, 'intermediar', 'https://www.linkedin.com/learning/public-speaking', '2026-10-13 00:00:00+00'),
+('aaaaaaaa-aaaa-aaaa-aaaa-aaaa-aaaa-aaaa-aaaa', 'Limba engleză intermediară', 'British Council', 'https://www.britishcouncil.ro/cursuri/engleza/intermediara', 'engleză', true, 'intermediar', 'https://www.britishcouncil.ro/cursuri/engleza/intermediara', '2026-10-13 00:00:00+00')
+ON CONFLICT (id) DO NOTHING;

@@ -1,0 +1,759 @@
+﻿src/app/_layout.tsx(23,18): error TS2345: Argument of type 'Session | null' is not assignable to parameter of type 'SetStateAction<null>'.
+  Type 'Session' is not assignable to type 'SetStateAction<null>'.
+    Type 'Session' provides no match for the signature '(prevState: null): null'.
+src/app/_layout.tsx(31,18): error TS2345: Argument of type 'Session | null' is not assignable to parameter of type 'SetStateAction<null>'.
+  Type 'Session' is not assignable to type 'SetStateAction<null>'.
+    Type 'Session' provides no match for the signature '(prevState: null): null'.
+src/app/_tabs/home/index.tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/app/_tabs/home/index.tsx(28,26): error TS2345: Argument of type '"/(auth)/login"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/app/_tabs/home/index.tsx(64,21): error TS2339: Property 'gapAnalysis' does not exist on type 'typeof import("D:/Projects/NextStep/src/engine/gapAnalysis")'.
+src/app/_tabs/home/index.tsx(65,21): error TS2339: Property 'recommendationEngine' does not exist on type 'typeof import("D:/Projects/NextStep/src/engine/recommendationEngine")'.
+src/app/_tabs/home/index.tsx(68,59): error TS7006: Parameter 'interest' implicitly has an 'any' type.
+src/app/_tabs/home/index.tsx(73,55): error TS7006: Parameter 'career' implicitly has an 'any' type.
+src/app/_tabs/home/index.tsx(142,29): error TS2339: Property 'loadingText' does not exist on type '{ container: { flex: number; backgroundColor: any; padding: any; }; greeting: { marginBottom: any; }; greetingText: { color: any; fontSize: number; }; goalCard: { backgroundColor: any; padding: any; borderRadius: any; marginBottom: any; }; ... 10 more ...; quickActions: { ...; }; }'.
+src/app/_tabs/home/index.tsx(150,29): error TS2339: Property 'errorText' does not exist on type '{ container: { flex: number; backgroundColor: any; padding: any; }; greeting: { marginBottom: any; }; greetingText: { color: any; fontSize: number; }; goalCard: { backgroundColor: any; padding: any; borderRadius: any; marginBottom: any; }; ... 10 more ...; quickActions: { ...; }; }'.
+src/app/_tabs/home/index.tsx(159,47): error TS2339: Property 'display_name' does not exist on type 'never'.
+src/app/_tabs/home/index.tsx(167,48): error TS2339: Property 'name' does not exist on type 'never'.
+src/app/_tabs/home/index.tsx(175,24): error TS2339: Property 'missingSkills' does not exist on type 'never'.
+src/app/_tabs/home/index.tsx(177,28): error TS2339: Property 'missingSkills' does not exist on type 'never'.
+src/app/_tabs/home/index.tsx(180,32): error TS2339: Property 'steps' does not exist on type 'never'.
+src/app/_tabs/home/index.tsx(180,53): error TS2339: Property 'steps' does not exist on type 'never'.
+src/app/_tabs/home/index.tsx(180,81): error TS2339: Property 'steps' does not exist on type 'never'.
+src/app/_tabs/home/index.tsx(182,36): error TS2339: Property 'steps' does not exist on type 'never'.
+src/app/_tabs/home/index.tsx(195,40): error TS2339: Property 'missingSkills' does not exist on type 'never'.
+src/app/_tabs/home/index.tsx(226,22): error TS2304: Cannot find name 'theme'.
+src/app/_tabs/home/index.tsx(227,14): error TS2304: Cannot find name 'spacing'.
+src/app/_tabs/home/index.tsx(230,19): error TS2304: Cannot find name 'spacing'.
+src/app/_tabs/home/index.tsx(233,12): error TS2304: Cannot find name 'theme'.
+src/app/_tabs/home/index.tsx(237,22): error TS2304: Cannot find name 'theme'.
+src/app/_tabs/home/index.tsx(238,14): error TS2304: Cannot find name 'spacing'.
+src/app/_tabs/home/index.tsx(239,19): error TS2304: Cannot find name 'radius'.
+src/app/_tabs/home/index.tsx(240,19): error TS2304: Cannot find name 'spacing'.
+src/app/_tabs/home/index.tsx(243,12): error TS2304: Cannot find name 'theme'.
+src/app/_tabs/home/index.tsx(245,19): error TS2304: Cannot find name 'spacing'.
+src/app/_tabs/home/index.tsx(248,12): error TS2304: Cannot find name 'theme'.
+src/app/_tabs/home/index.tsx(253,22): error TS2304: Cannot find name 'theme'.
+src/app/_tabs/home/index.tsx(254,14): error TS2304: Cannot find name 'spacing'.
+src/app/_tabs/home/index.tsx(255,19): error TS2304: Cannot find name 'radius'.
+src/app/_tabs/home/index.tsx(256,19): error TS2304: Cannot find name 'spacing'.
+src/app/_tabs/home/index.tsx(259,12): error TS2304: Cannot find name 'theme'.
+src/app/_tabs/home/index.tsx(261,19): error TS2304: Cannot find name 'spacing'.
+src/app/_tabs/home/index.tsx(264,12): error TS2304: Cannot find name 'theme'.
+src/app/_tabs/home/index.tsx(268,19): error TS2304: Cannot find name 'spacing'.
+src/app/_tabs/home/index.tsx(271,12): error TS2304: Cannot find name 'theme'.
+src/app/_tabs/home/index.tsx(275,16): error TS2304: Cannot find name 'spacing'.
+src/app/_tabs/home/index.tsx(278,19): error TS2304: Cannot find name 'spacing'.
+src/app/_tabs/home/index.tsx(281,12): error TS2304: Cannot find name 'theme'.
+src/app/_tabs/home/index.tsx(286,10): error TS2304: Cannot find name 'spacing'.
+src/app/_tabs/path/index.tsx(1,8): error TS2613: Module '"D:/Projects/NextStep/src/features/path/index"' has no default export. Did you mean to use 'import { Path } from "D:/Projects/NextStep/src/features/path/index"' instead?
+src/app/_tabs/profile/index.tsx(1,8): error TS2613: Module '"D:/Projects/NextStep/src/features/profile/index"' has no default export. Did you mean to use 'import { Profile } from "D:/Projects/NextStep/src/features/profile/index"' instead?
+src/app/_tabs/recommendations/index.tsx(1,8): error TS2613: Module '"D:/Projects/NextStep/src/features/recommendations/index"' has no default export. Did you mean to use 'import { Recommendations } from "D:/Projects/NextStep/src/features/recommendations/index"' instead?
+src/app/career/[id].tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/app/career/[id].tsx(8,21): error TS2305: Module '"react"' has no exported member 'useParams'.
+src/app/career/[id].tsx(88,29): error TS2339: Property 'loadingText' does not exist on type '{ container: { flex: number; backgroundColor: any; }; header: { flexDirection: "row"; alignItems: "center"; padding: any; paddingBottom: any; borderBottomWidth: number; borderColor: any; }; backButtonText: { ...; }; ... 22 more ...; actionButtons: { ...; }; }'.
+src/app/career/[id].tsx(96,29): error TS2339: Property 'errorText' does not exist on type '{ container: { flex: number; backgroundColor: any; }; header: { flexDirection: "row"; alignItems: "center"; padding: any; paddingBottom: any; borderBottomWidth: number; borderColor: any; }; backButtonText: { ...; }; ... 22 more ...; actionButtons: { ...; }; }'.
+src/app/career/[id].tsx(111,29): error TS2339: Property 'errorText' does not exist on type '{ container: { flex: number; backgroundColor: any; }; header: { flexDirection: "row"; alignItems: "center"; padding: any; paddingBottom: any; borderBottomWidth: number; borderColor: any; }; backButtonText: { ...; }; ... 22 more ...; actionButtons: { ...; }; }'.
+src/app/career/[id].tsx(190,53): error TS2322: Type '"xs"' is not assignable to type '"sm" | "md" | undefined'.
+src/app/career/[id].tsx(238,22): error TS2304: Cannot find name 'theme'.
+src/app/career/[id].tsx(243,14): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(244,20): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(246,18): error TS2304: Cannot find name 'theme'.
+src/app/career/[id].tsx(249,12): error TS2304: Cannot find name 'theme'.
+src/app/career/[id].tsx(253,12): error TS2304: Cannot find name 'theme'.
+src/app/career/[id].tsx(262,14): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(265,19): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(271,22): error TS2304: Cannot find name 'theme'.
+src/app/career/[id].tsx(272,19): error TS2304: Cannot find name 'radius'.
+src/app/career/[id].tsx(275,19): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(278,12): error TS2304: Cannot find name 'theme'.
+src/app/career/[id].tsx(283,19): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(286,12): error TS2304: Cannot find name 'theme'.
+src/app/career/[id].tsx(289,19): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(292,12): error TS2304: Cannot find name 'theme'.
+src/app/career/[id].tsx(295,19): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(300,10): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(303,18): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(308,19): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(311,12): error TS2304: Cannot find name 'theme'.
+src/app/career/[id].tsx(315,19): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(318,22): error TS2304: Cannot find name 'theme'.
+src/app/career/[id].tsx(319,19): error TS2304: Cannot find name 'radius'.
+src/app/career/[id].tsx(320,14): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(321,19): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(324,12): error TS2304: Cannot find name 'theme'.
+src/app/career/[id].tsx(327,19): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(330,19): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(333,12): error TS2304: Cannot find name 'theme'.
+src/app/career/[id].tsx(337,16): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(340,12): error TS2304: Cannot find name 'theme'.
+src/app/career/[id].tsx(342,19): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(347,10): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(350,18): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(353,14): error TS2304: Cannot find name 'spacing'.
+src/app/career/[id].tsx(355,18): error TS2304: Cannot find name 'theme'.
+src/app/course/[id].tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/app/course/[id].tsx(8,21): error TS2305: Module '"react"' has no exported member 'useParams'.
+src/app/course/[id].tsx(81,29): error TS2339: Property 'loadingText' does not exist on type '{ container: { flex: number; backgroundColor: any; }; header: { flexDirection: "row"; alignItems: "center"; padding: any; paddingBottom: any; borderBottomWidth: number; borderColor: any; }; backButtonText: { ...; }; ... 15 more ...; actionButtons: { ...; }; }'.
+src/app/course/[id].tsx(89,29): error TS2339: Property 'errorText' does not exist on type '{ container: { flex: number; backgroundColor: any; }; header: { flexDirection: "row"; alignItems: "center"; padding: any; paddingBottom: any; borderBottomWidth: number; borderColor: any; }; backButtonText: { ...; }; ... 15 more ...; actionButtons: { ...; }; }'.
+src/app/course/[id].tsx(104,29): error TS2339: Property 'errorText' does not exist on type '{ container: { flex: number; backgroundColor: any; }; header: { flexDirection: "row"; alignItems: "center"; padding: any; paddingBottom: any; borderBottomWidth: number; borderColor: any; }; backButtonText: { ...; }; ... 15 more ...; actionButtons: { ...; }; }'.
+src/app/course/[id].tsx(233,22): error TS2304: Cannot find name 'theme'.
+src/app/course/[id].tsx(238,14): error TS2304: Cannot find name 'spacing'.
+src/app/course/[id].tsx(239,20): error TS2304: Cannot find name 'spacing'.
+src/app/course/[id].tsx(241,18): error TS2304: Cannot find name 'theme'.
+src/app/course/[id].tsx(244,12): error TS2304: Cannot find name 'theme'.
+src/app/course/[id].tsx(248,12): error TS2304: Cannot find name 'theme'.
+src/app/course/[id].tsx(257,14): error TS2304: Cannot find name 'spacing'.
+src/app/course/[id].tsx(260,19): error TS2304: Cannot find name 'spacing'.
+src/app/course/[id].tsx(266,22): error TS2304: Cannot find name 'theme'.
+src/app/course/[id].tsx(267,19): error TS2304: Cannot find name 'radius'.
+src/app/course/[id].tsx(270,19): error TS2304: Cannot find name 'spacing'.
+src/app/course/[id].tsx(273,12): error TS2304: Cannot find name 'theme'.
+src/app/course/[id].tsx(278,19): error TS2304: Cannot find name 'spacing'.
+src/app/course/[id].tsx(281,12): error TS2304: Cannot find name 'theme'.
+src/app/course/[id].tsx(284,19): error TS2304: Cannot find name 'spacing'.
+src/app/course/[id].tsx(287,12): error TS2304: Cannot find name 'theme'.
+src/app/course/[id].tsx(290,19): error TS2304: Cannot find name 'spacing'.
+src/app/course/[id].tsx(295,10): error TS2304: Cannot find name 'spacing'.
+src/app/course/[id].tsx(298,18): error TS2304: Cannot find name 'spacing'.
+src/app/course/[id].tsx(303,19): error TS2304: Cannot find name 'spacing'.
+src/app/course/[id].tsx(306,12): error TS2304: Cannot find name 'theme'.
+src/app/course/[id].tsx(312,19): error TS2304: Cannot find name 'spacing'.
+src/app/course/[id].tsx(315,12): error TS2304: Cannot find name 'theme'.
+src/app/course/[id].tsx(319,14): error TS2304: Cannot find name 'spacing'.
+src/app/course/[id].tsx(321,18): error TS2304: Cannot find name 'theme'.
+src/app/program/[id].tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/app/program/[id].tsx(8,21): error TS2305: Module '"react"' has no exported member 'useParams'.
+src/app/program/[id].tsx(85,29): error TS2339: Property 'loadingText' does not exist on type '{ container: { flex: number; backgroundColor: any; }; header: { flexDirection: "row"; alignItems: "center"; padding: any; paddingBottom: any; borderBottomWidth: number; borderColor: any; }; backButtonText: { ...; }; ... 18 more ...; actionButtons: { ...; }; }'.
+src/app/program/[id].tsx(93,29): error TS2339: Property 'errorText' does not exist on type '{ container: { flex: number; backgroundColor: any; }; header: { flexDirection: "row"; alignItems: "center"; padding: any; paddingBottom: any; borderBottomWidth: number; borderColor: any; }; backButtonText: { ...; }; ... 18 more ...; actionButtons: { ...; }; }'.
+src/app/program/[id].tsx(108,29): error TS2339: Property 'errorText' does not exist on type '{ container: { flex: number; backgroundColor: any; }; header: { flexDirection: "row"; alignItems: "center"; padding: any; paddingBottom: any; borderBottomWidth: number; borderColor: any; }; backButtonText: { ...; }; ... 18 more ...; actionButtons: { ...; }; }'.
+src/app/program/[id].tsx(242,22): error TS2304: Cannot find name 'theme'.
+src/app/program/[id].tsx(247,14): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(248,20): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(250,18): error TS2304: Cannot find name 'theme'.
+src/app/program/[id].tsx(253,12): error TS2304: Cannot find name 'theme'.
+src/app/program/[id].tsx(257,12): error TS2304: Cannot find name 'theme'.
+src/app/program/[id].tsx(266,14): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(269,19): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(275,22): error TS2304: Cannot find name 'theme'.
+src/app/program/[id].tsx(276,19): error TS2304: Cannot find name 'radius'.
+src/app/program/[id].tsx(279,19): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(282,12): error TS2304: Cannot find name 'theme'.
+src/app/program/[id].tsx(287,19): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(290,12): error TS2304: Cannot find name 'theme'.
+src/app/program/[id].tsx(293,19): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(296,12): error TS2304: Cannot find name 'theme'.
+src/app/program/[id].tsx(299,19): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(304,10): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(307,18): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(312,19): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(315,12): error TS2304: Cannot find name 'theme'.
+src/app/program/[id].tsx(319,19): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(322,22): error TS2304: Cannot find name 'theme'.
+src/app/program/[id].tsx(323,19): error TS2304: Cannot find name 'radius'.
+src/app/program/[id].tsx(324,14): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(325,19): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(328,12): error TS2304: Cannot find name 'theme'.
+src/app/program/[id].tsx(331,19): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(334,19): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(337,12): error TS2304: Cannot find name 'theme'.
+src/app/program/[id].tsx(341,14): error TS2304: Cannot find name 'spacing'.
+src/app/program/[id].tsx(343,18): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/app/school/[id].tsx(8,21): error TS2305: Module '"react"' has no exported member 'useParams'.
+src/app/school/[id].tsx(99,29): error TS2339: Property 'loadingText' does not exist on type '{ container: { flex: number; backgroundColor: any; }; header: { flexDirection: "row"; alignItems: "center"; padding: any; paddingBottom: any; borderBottomWidth: number; borderColor: any; }; backButtonText: { ...; }; ... 28 more ...; actionButtons: { ...; }; }'.
+src/app/school/[id].tsx(107,29): error TS2339: Property 'errorText' does not exist on type '{ container: { flex: number; backgroundColor: any; }; header: { flexDirection: "row"; alignItems: "center"; padding: any; paddingBottom: any; borderBottomWidth: number; borderColor: any; }; backButtonText: { ...; }; ... 28 more ...; actionButtons: { ...; }; }'.
+src/app/school/[id].tsx(122,29): error TS2339: Property 'errorText' does not exist on type '{ container: { flex: number; backgroundColor: any; }; header: { flexDirection: "row"; alignItems: "center"; padding: any; paddingBottom: any; borderBottomWidth: number; borderColor: any; }; backButtonText: { ...; }; ... 28 more ...; actionButtons: { ...; }; }'.
+src/app/school/[id].tsx(238,53): error TS2322: Type '"xs"' is not assignable to type '"sm" | "md" | undefined'.
+src/app/school/[id].tsx(252,53): error TS2322: Type '"xs"' is not assignable to type '"sm" | "md" | undefined'.
+src/app/school/[id].tsx(283,22): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(288,14): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(289,20): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(291,18): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(294,12): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(298,12): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(307,14): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(310,19): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(316,22): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(317,19): error TS2304: Cannot find name 'radius'.
+src/app/school/[id].tsx(320,19): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(323,12): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(328,19): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(331,12): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(334,19): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(337,12): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(340,19): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(345,10): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(348,18): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(353,19): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(356,12): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(362,19): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(365,12): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(369,19): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(372,22): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(373,19): error TS2304: Cannot find name 'radius'.
+src/app/school/[id].tsx(374,14): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(375,19): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(378,12): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(381,19): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(384,19): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(387,12): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(391,16): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(394,12): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(396,19): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(401,10): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(404,18): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(407,16): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(410,12): error TS2304: Cannot find name 'theme'.
+src/app/school/[id].tsx(412,19): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(417,10): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(420,18): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(423,14): error TS2304: Cannot find name 'spacing'.
+src/app/school/[id].tsx(425,18): error TS2304: Cannot find name 'theme'.
+src/components/Button.tsx(27,28): error TS2339: Property 'md' does not exist on type 'number[]'.
+src/components/Button.tsx(28,32): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+src/components/Button.tsx(29,34): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+src/components/Button.tsx(101,8): error TS2304: Cannot find name 'View'.
+src/components/Button.tsx(104,9): error TS2304: Cannot find name 'View'.
+src/components/Button.tsx(110,15): error TS2322: Type '(false | "" | ViewStyle | (RecursiveArray<Falsy | ViewStyle> & TextStyle) | (RecursiveArray<Falsy | ViewStyle> & RecursiveArray<...>) | ... 4 more ... | undefined)[] | (false | ... 8 more ... | undefined)[] | (false | ... 8 more ... | undefined)[]' is not assignable to type 'Falsy | ViewStyle | RecursiveArray<Falsy | ViewStyle> | readonly (Falsy | ViewStyle)[]'.
+  Type '(false | "" | ViewStyle | (RecursiveArray<Falsy | ViewStyle> & TextStyle) | (RecursiveArray<Falsy | ViewStyle> & RecursiveArray<...>) | ... 4 more ... | undefined)[]' is not assignable to type 'Falsy | ViewStyle | RecursiveArray<Falsy | ViewStyle> | readonly (Falsy | ViewStyle)[]'.
+    Type '(false | "" | ViewStyle | (RecursiveArray<Falsy | ViewStyle> & TextStyle) | (RecursiveArray<Falsy | ViewStyle> & RecursiveArray<...>) | ... 4 more ... | undefined)[]' is not assignable to type 'RecursiveArray<Falsy | ViewStyle>'.
+      The types returned by 'pop()' are incompatible between these types.
+        Type 'false | "" | ViewStyle | (RecursiveArray<Falsy | ViewStyle> & TextStyle) | (RecursiveArray<Falsy | ViewStyle> & RecursiveArray<...>) | ... 4 more ... | undefined' is not assignable to type 'Falsy | ViewStyle | RecursiveArray<Falsy | ViewStyle> | readonly (Falsy | ViewStyle)[]'.
+          Type '((state: PressableStateCallbackType) => StyleProp<ViewStyle>) & TextStyle' is not assignable to type 'Falsy | ViewStyle | RecursiveArray<Falsy | ViewStyle> | readonly (Falsy | ViewStyle)[]'.
+            Type '((state: PressableStateCallbackType) => StyleProp<ViewStyle>) & TextStyle' is not assignable to type 'ViewStyle'.
+              Types of property 'cursor' are incompatible.
+                Type 'string | undefined' is not assignable to type 'CursorValue | undefined'.
+                  Type 'string' is not assignable to type 'CursorValue | undefined'.
+src/components/Card.tsx(21,26): error TS2339: Property 'md' does not exist on type 'number[]'.
+src/components/Chip.tsx(21,28): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+src/components/Chip.tsx(22,32): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+src/components/Chip.tsx(23,34): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+src/components/EmptyState.tsx(36,10): error TS2304: Cannot find name 'Button'.
+src/components/EmptyState.tsx(42,11): error TS2304: Cannot find name 'Button'.
+src/components/EmptyState.tsx(52,22): error TS2339: Property 'lg' does not exist on type 'number[]'.
+src/components/EmptyState.tsx(57,27): error TS2339: Property 'md' does not exist on type 'number[]'.
+src/components/EmptyState.tsx(60,12): error TS2304: Cannot find name 'theme'.
+src/components/EmptyState.tsx(63,27): error TS2339: Property 'xs' does not exist on type 'number[]'.
+src/components/EmptyState.tsx(67,12): error TS2304: Cannot find name 'theme'.
+src/components/EmptyState.tsx(69,27): error TS2339: Property 'md' does not exist on type 'number[]'.
+src/components/ErrorState.tsx(51,22): error TS2339: Property 'lg' does not exist on type 'number[]'.
+src/components/ErrorState.tsx(54,12): error TS2304: Cannot find name 'theme'.
+src/components/ErrorState.tsx(57,27): error TS2339: Property 'xs' does not exist on type 'number[]'.
+src/components/ErrorState.tsx(61,12): error TS2304: Cannot find name 'theme'.
+src/components/ErrorState.tsx(63,27): error TS2339: Property 'md' does not exist on type 'number[]'.
+src/components/ErrorState.tsx(67,12): error TS2304: Cannot find name 'theme'.
+src/components/ErrorState.tsx(69,27): error TS2339: Property 'lg' does not exist on type 'number[]'.
+src/components/index.ts(11,10): error TS2614: Module '"./app-tabs"' has no exported member 'AppTabs'. Did you mean to use 'import AppTabs from "./app-tabs"' instead?
+src/components/Input.tsx(35,26): error TS2339: Property 'md' does not exist on type 'number[]'.
+src/components/Input.tsx(36,30): error TS2339: Property 'sm' does not exist on type 'number[]'.
+src/components/Input.tsx(37,32): error TS2339: Property 'md' does not exist on type 'number[]'.
+src/components/Input.tsx(39,5): error TS2353: Object literal may only specify known properties, and 'color' does not exist in type 'ViewStyle'.
+src/components/Input.tsx(46,74): error TS2339: Property 'xs' does not exist on type 'number[]'.
+src/components/Input.tsx(51,17): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: TextInputProps): TextInput', gave the following error.
+    Type 'ViewStyle' is not assignable to type 'Falsy | TextStyle | RecursiveArray<Falsy | TextStyle> | readonly (Falsy | TextStyle)[]'.
+      Type 'ViewStyle' is not assignable to type 'TextStyle'.
+        Types of property 'userSelect' are incompatible.
+          Type 'string | undefined' is not assignable to type '"none" | "auto" | "contain" | "text" | "all" | undefined'.
+            Type 'string' is not assignable to type '"none" | "auto" | "contain" | "text" | "all" | undefined'.
+  Overload 2 of 2, '(props: TextInputProps, context: any): TextInput', gave the following error.
+    Type 'ViewStyle' is not assignable to type 'Falsy | TextStyle | RecursiveArray<Falsy | TextStyle> | readonly (Falsy | TextStyle)[]'.
+      Type 'ViewStyle' is not assignable to type 'TextStyle'.
+        Types of property 'userSelect' are incompatible.
+          Type 'string | undefined' is not assignable to type '"none" | "auto" | "contain" | "text" | "all" | undefined'.
+            Type 'string' is not assignable to type '"none" | "auto" | "contain" | "text" | "all" | undefined'.
+src/components/Input.tsx(62,64): error TS2339: Property 'xs' does not exist on type 'number[]'.
+src/components/Toast.tsx(51,32): error TS2339: Property 'md' does not exist on type 'number[]'.
+src/components/Toast.tsx(52,36): error TS2339: Property 'sm' does not exist on type 'number[]'.
+src/components/Toast.tsx(53,38): error TS2339: Property 'md' does not exist on type 'number[]'.
+src/engine/gapAnalysis.test.ts(3,1): error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+src/engine/gapAnalysis.test.ts(4,3): error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+src/engine/gapAnalysis.test.ts(18,11): error TS7034: Variable 'courses' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/engine/gapAnalysis.test.ts(20,31): error TS2345: Argument of type '{ id: string; name: string; level: number; }[]' is not assignable to parameter of type 'UserSkill[]'.
+  Type '{ id: string; name: string; level: number; }' is not assignable to type 'UserSkill'.
+    Types of property 'level' are incompatible.
+      Type 'number' is not assignable to type 'SkillLevel'.
+src/engine/gapAnalysis.test.ts(20,57): error TS7005: Variable 'courses' implicitly has an 'any[]' type.
+src/engine/gapAnalysis.test.ts(23,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(24,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(25,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(26,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(27,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(30,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(31,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(32,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(33,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(36,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(37,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(38,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(39,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(42,3): error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+src/engine/gapAnalysis.test.ts(44,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(45,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(46,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(47,5): error TS2304: Cannot find name 'expect'.
+src/engine/gapAnalysis.test.ts(50,3): error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+src/engine/gapAnalysis.test.ts(61,11): error TS7034: Variable 'courses' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/engine/gapAnalysis.test.ts(63,31): error TS2345: Argument of type '{ id: string; name: string; level: number; }[]' is not assignable to parameter of type 'UserSkill[]'.
+  Type '{ id: string; name: string; level: number; }' is not assignable to type 'UserSkill'.
+    Types of property 'level' are incompatible.
+      Type 'number' is not assignable to type 'SkillLevel'.
+src/engine/gapAnalysis.test.ts(63,57): error TS7005: Variable 'courses' implicitly has an 'any[]' type.
+src/engine/gapAnalysis.test.ts(66,5): error TS2304: Cannot find name 'expect'.
+src/engine/recommendationEngine.test.ts(4,1): error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+src/engine/recommendationEngine.test.ts(5,3): error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+src/engine/recommendationEngine.test.ts(44,36): error TS2345: Argument of type '{ id: string; name: string; level: number; }[]' is not assignable to parameter of type 'UserSkill[]'.
+  Type '{ id: string; name: string; level: number; }' is not assignable to type 'UserSkill'.
+    Types of property 'level' are incompatible.
+      Type 'number' is not assignable to type 'SkillLevel'.
+src/engine/recommendationEngine.test.ts(45,59): error TS2345: Argument of type '{ id: string; title: string; provider: string; url: string; language: string; is_free: boolean; level: string; skills: { id: string; name: string; depth: number; }[]; }[]' is not assignable to parameter of type 'Course[]'.
+  Type '{ id: string; title: string; provider: string; url: string; language: string; is_free: boolean; level: string; skills: { id: string; name: string; depth: number; }[]; }' is not assignable to type 'Course'.
+    Types of property 'skills' are incompatible.
+      Type '{ id: string; name: string; depth: number; }[]' is not assignable to type '{ id: string; name: string; depth: DepthLevel; }[]'.
+        Type '{ id: string; name: string; depth: number; }' is not assignable to type '{ id: string; name: string; depth: DepthLevel; }'.
+          Types of property 'depth' are incompatible.
+            Type 'number' is not assignable to type 'DepthLevel'.
+src/engine/recommendationEngine.test.ts(47,5): error TS2304: Cannot find name 'expect'.
+src/engine/recommendationEngine.test.ts(48,5): error TS2304: Cannot find name 'expect'.
+src/engine/recommendationEngine.test.ts(49,5): error TS2304: Cannot find name 'expect'.
+src/engine/recommendationEngine.test.ts(51,5): error TS2304: Cannot find name 'expect'.
+src/engine/recommendationEngine.test.ts(52,5): error TS2304: Cannot find name 'expect'.
+src/engine/recommendationEngine.ts(4,28): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+src/features/auth/forgot-password/ForgotPassword.tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/features/auth/forgot-password/ForgotPassword.tsx(32,11): error TS18046: 'error' is of type 'unknown'.
+src/features/auth/forgot-password/ForgotPassword.tsx(77,43): error TS2345: Argument of type '"/(auth)/login"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/forgot-password/ForgotPassword.tsx(90,22): error TS2304: Cannot find name 'theme'.
+src/features/auth/forgot-password/ForgotPassword.tsx(91,14): error TS2304: Cannot find name 'spacing'.
+src/features/auth/forgot-password/ForgotPassword.tsx(96,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/forgot-password/ForgotPassword.tsx(99,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/forgot-password/ForgotPassword.tsx(103,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/forgot-password/ForgotPassword.tsx(106,10): error TS2304: Cannot find name 'spacing'.
+src/features/auth/forgot-password/ForgotPassword.tsx(114,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/forgot-password/ForgotPassword.tsx(117,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/forgot-password/index.ts(1,10): error TS2614: Module '"./ForgotPassword"' has no exported member 'ForgotPassword'. Did you mean to use 'import ForgotPassword from "./ForgotPassword"' instead?
+src/features/auth/login/index.ts(1,10): error TS2614: Module '"./Login"' has no exported member 'Login'. Did you mean to use 'import Login from "./Login"' instead?
+src/features/auth/login/Login.tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/features/auth/login/Login.tsx(33,24): error TS2345: Argument of type '"/(auth)/verify-email"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/login/Login.tsx(36,24): error TS2345: Argument of type '"/(tabs)"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/login/Login.tsx(81,68): error TS2345: Argument of type '"/(auth)/forgot-password"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/login/Login.tsx(84,68): error TS2345: Argument of type '"/(auth)/register"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/login/Login.tsx(96,22): error TS2304: Cannot find name 'theme'.
+src/features/auth/login/Login.tsx(97,14): error TS2304: Cannot find name 'spacing'.
+src/features/auth/login/Login.tsx(102,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/login/Login.tsx(105,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/login/Login.tsx(109,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/login/Login.tsx(112,10): error TS2304: Cannot find name 'spacing'.
+src/features/auth/login/Login.tsx(113,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/login/Login.tsx(118,16): error TS2304: Cannot find name 'spacing'.
+src/features/auth/login/Login.tsx(121,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/index.ts(1,10): error TS2614: Module '"./Onboarding1"' has no exported member 'Onboarding1'. Did you mean to use 'import Onboarding1 from "./Onboarding1"' instead?
+src/features/auth/onboarding/index.ts(2,10): error TS2614: Module '"./Onboarding2"' has no exported member 'Onboarding2'. Did you mean to use 'import Onboarding2 from "./Onboarding2"' instead?
+src/features/auth/onboarding/index.ts(3,10): error TS2614: Module '"./Onboarding3"' has no exported member 'Onboarding3'. Did you mean to use 'import Onboarding3 from "./Onboarding3"' instead?
+src/features/auth/onboarding/Onboarding1.tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/features/auth/onboarding/Onboarding1.tsx(13,20): error TS2345: Argument of type '"/(tabs)"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/onboarding/Onboarding1.tsx(17,17): error TS2345: Argument of type '"/(auth)/onboarding/2"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/onboarding/Onboarding1.tsx(44,22): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding1.tsx(45,14): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding1.tsx(50,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding1.tsx(53,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding1.tsx(57,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding1.tsx(60,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding1.tsx(63,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding1.tsx(67,10): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding2.tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/features/auth/onboarding/Onboarding2.tsx(15,20): error TS2345: Argument of type '"/(tabs)"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/onboarding/Onboarding2.tsx(20,17): error TS2345: Argument of type '"/(auth)/onboarding/3"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/onboarding/Onboarding2.tsx(52,13): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: ViewProps): View', gave the following error.
+    Type '{ children: Element; key: string; style: (false | { padding: any; borderWidth: number; borderColor: any; borderRadius: any; marginBottom: any; } | { borderColor: any; backgroundColor: any; })[]; onPress: () => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+      Property 'onPress' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+  Overload 2 of 2, '(props: ViewProps, context: any): View', gave the following error.
+    Type '{ children: Element; key: string; style: (false | { padding: any; borderWidth: number; borderColor: any; borderRadius: any; marginBottom: any; } | { borderColor: any; backgroundColor: any; })[]; onPress: () => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+      Property 'onPress' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+src/features/auth/onboarding/Onboarding2.tsx(80,22): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding2.tsx(81,14): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding2.tsx(86,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding2.tsx(89,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding2.tsx(93,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding2.tsx(96,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding2.tsx(99,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding2.tsx(102,21): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding2.tsx(105,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding2.tsx(107,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding2.tsx(110,14): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding2.tsx(112,18): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding2.tsx(113,19): error TS2304: Cannot find name 'radius'.
+src/features/auth/onboarding/Onboarding2.tsx(114,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding2.tsx(117,18): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding2.tsx(118,22): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding2.tsx(121,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding2.tsx(126,10): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding2.tsx(128,16): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding3.tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/features/auth/onboarding/Onboarding3.tsx(8,39): error TS7031: Binding element 'route' implicitly has an 'any' type.
+src/features/auth/onboarding/Onboarding3.tsx(21,20): error TS2345: Argument of type '"/(tabs)"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/onboarding/Onboarding3.tsx(26,20): error TS2345: Argument of type '"/(auth)/register"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/onboarding/Onboarding3.tsx(88,51): error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
+src/features/auth/onboarding/Onboarding3.tsx(96,17): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: ViewProps): View', gave the following error.
+    Type '{ children: Element; key: string; style: (false | { paddingHorizontal: any; paddingVertical: any; borderWidth: number; borderColor: any; borderRadius: any; } | { borderColor: any; backgroundColor: any; })[]; onPress: () => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+      Property 'onPress' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+  Overload 2 of 2, '(props: ViewProps, context: any): View', gave the following error.
+    Type '{ children: Element; key: string; style: (false | { paddingHorizontal: any; paddingVertical: any; borderWidth: number; borderColor: any; borderRadius: any; } | { borderColor: any; backgroundColor: any; })[]; onPress: () => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+      Property 'onPress' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+src/features/auth/onboarding/Onboarding3.tsx(100,35): error TS2322: Type 'string' is not assignable to type 'never'.
+src/features/auth/onboarding/Onboarding3.tsx(100,49): error TS2322: Type 'string' is not assignable to type 'never'.
+src/features/auth/onboarding/Onboarding3.tsx(118,58): error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
+src/features/auth/onboarding/Onboarding3.tsx(126,17): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: ViewProps): View', gave the following error.
+    Type '{ children: Element; key: string; style: (false | { paddingHorizontal: any; paddingVertical: any; borderWidth: number; borderColor: any; borderRadius: any; } | { borderColor: any; backgroundColor: any; })[]; onPress: () => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+      Property 'onPress' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+  Overload 2 of 2, '(props: ViewProps, context: any): View', gave the following error.
+    Type '{ children: Element; key: string; style: (false | { paddingHorizontal: any; paddingVertical: any; borderWidth: number; borderColor: any; borderRadius: any; } | { borderColor: any; backgroundColor: any; })[]; onPress: () => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+      Property 'onPress' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+src/features/auth/onboarding/Onboarding3.tsx(130,42): error TS2322: Type 'string' is not assignable to type 'never'.
+src/features/auth/onboarding/Onboarding3.tsx(130,63): error TS2322: Type 'string' is not assignable to type 'never'.
+src/features/auth/onboarding/Onboarding3.tsx(156,17): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: ViewProps): View', gave the following error.
+    Type '{ children: Element; key: string; style: (false | { paddingHorizontal: any; paddingVertical: any; borderWidth: number; borderColor: any; borderRadius: any; } | { borderColor: any; backgroundColor: any; })[]; onPress: () => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+      Property 'onPress' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+  Overload 2 of 2, '(props: ViewProps, context: any): View', gave the following error.
+    Type '{ children: Element; key: string; style: (false | { paddingHorizontal: any; paddingVertical: any; borderWidth: number; borderColor: any; borderRadius: any; } | { borderColor: any; backgroundColor: any; })[]; onPress: () => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+      Property 'onPress' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+src/features/auth/onboarding/Onboarding3.tsx(187,22): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding3.tsx(188,14): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding3.tsx(193,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding3.tsx(196,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding3.tsx(200,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding3.tsx(203,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding3.tsx(206,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding3.tsx(209,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding3.tsx(212,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding3.tsx(215,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding3.tsx(220,10): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding3.tsx(223,24): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding3.tsx(224,22): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding3.tsx(226,18): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding3.tsx(227,19): error TS2304: Cannot find name 'radius'.
+src/features/auth/onboarding/Onboarding3.tsx(230,18): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding3.tsx(231,22): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding3.tsx(234,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/onboarding/Onboarding3.tsx(239,10): error TS2304: Cannot find name 'spacing'.
+src/features/auth/onboarding/Onboarding3.tsx(241,16): error TS2304: Cannot find name 'spacing'.
+src/features/auth/register/index.ts(1,10): error TS2614: Module '"./Register"' has no exported member 'Register'. Did you mean to use 'import Register from "./Register"' instead?
+src/features/auth/register/Register.tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/features/auth/register/Register.tsx(9,36): error TS7031: Binding element 'route' implicitly has an 'any' type.
+src/features/auth/register/Register.tsx(48,15): error TS18047: 'user' is possibly 'null'.
+src/features/auth/register/Register.tsx(66,22): error TS18047: 'user' is possibly 'null'.
+src/features/auth/register/Register.tsx(74,22): error TS2345: Argument of type '"/(auth)/verify-email"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/register/Register.tsx(127,15): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: ViewProps): View', gave the following error.
+    Type '{ children: false | Element; style: (false | { borderColor: any; })[]; onPress: () => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+      Property 'onPress' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+  Overload 2 of 2, '(props: ViewProps, context: any): View', gave the following error.
+    Type '{ children: false | Element; style: (false | { borderColor: any; })[]; onPress: () => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+      Property 'onPress' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+src/features/auth/register/Register.tsx(149,71): error TS2345: Argument of type '"/(auth)/login"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/register/Register.tsx(160,22): error TS2304: Cannot find name 'theme'.
+src/features/auth/register/Register.tsx(161,14): error TS2304: Cannot find name 'spacing'.
+src/features/auth/register/Register.tsx(166,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/register/Register.tsx(169,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/register/Register.tsx(173,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/register/Register.tsx(176,10): error TS2304: Cannot find name 'spacing'.
+src/features/auth/register/Register.tsx(177,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/register/Register.tsx(181,18): error TS2304: Cannot find name 'theme'.
+src/features/auth/register/Register.tsx(182,19): error TS2304: Cannot find name 'radius'.
+src/features/auth/register/Register.tsx(183,14): error TS2304: Cannot find name 'spacing'.
+src/features/auth/register/Register.tsx(188,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/register/Register.tsx(194,18): error TS2304: Cannot find name 'theme'.
+src/features/auth/register/Register.tsx(195,19): error TS2304: Cannot find name 'radius'.
+src/features/auth/register/Register.tsx(196,18): error TS2304: Cannot find name 'spacing'.
+src/features/auth/register/Register.tsx(199,18): error TS2304: Cannot find name 'theme'.
+src/features/auth/register/Register.tsx(204,22): error TS2304: Cannot find name 'theme'.
+src/features/auth/register/Register.tsx(205,19): error TS2304: Cannot find name 'radius'.
+src/features/auth/register/Register.tsx(208,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/register/Register.tsx(212,16): error TS2304: Cannot find name 'spacing'.
+src/features/auth/register/Register.tsx(216,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/reset-password/index.ts(1,10): error TS2614: Module '"./ResetPassword"' has no exported member 'ResetPassword'. Did you mean to use 'import ResetPassword from "./ResetPassword"' instead?
+src/features/auth/reset-password/ResetPassword.tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/features/auth/reset-password/ResetPassword.tsx(10,41): error TS7031: Binding element 'route' implicitly has an 'any' type.
+src/features/auth/reset-password/ResetPassword.tsx(41,22): error TS2345: Argument of type '"/(auth)/login"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/reset-password/ResetPassword.tsx(90,22): error TS2304: Cannot find name 'theme'.
+src/features/auth/reset-password/ResetPassword.tsx(91,14): error TS2304: Cannot find name 'spacing'.
+src/features/auth/reset-password/ResetPassword.tsx(96,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/reset-password/ResetPassword.tsx(99,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/reset-password/ResetPassword.tsx(103,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/reset-password/ResetPassword.tsx(106,10): error TS2304: Cannot find name 'spacing'.
+src/features/auth/verify-email/index.ts(1,10): error TS2614: Module '"./VerifyEmail"' has no exported member 'VerifyEmail'. Did you mean to use 'import VerifyEmail from "./VerifyEmail"' instead?
+src/features/auth/verify-email/VerifyEmail.tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/features/auth/verify-email/VerifyEmail.tsx(28,28): error TS2345: Argument of type '"/(tabs)"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/verify-email/VerifyEmail.tsx(48,26): error TS2345: Argument of type '"/(tabs)"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/verify-email/VerifyEmail.tsx(64,9): error TS2322: Type '"email"' is not assignable to type '"sms" | "signup" | "email_change" | "phone_change"'.
+src/features/auth/verify-email/VerifyEmail.tsx(124,43): error TS2345: Argument of type '"/(tabs)"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/auth/verify-email/VerifyEmail.tsx(137,22): error TS2304: Cannot find name 'theme'.
+src/features/auth/verify-email/VerifyEmail.tsx(138,14): error TS2304: Cannot find name 'spacing'.
+src/features/auth/verify-email/VerifyEmail.tsx(145,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/verify-email/VerifyEmail.tsx(153,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/verify-email/VerifyEmail.tsx(157,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/verify-email/VerifyEmail.tsx(164,12): error TS2304: Cannot find name 'theme'.
+src/features/auth/verify-email/VerifyEmail.tsx(167,19): error TS2304: Cannot find name 'spacing'.
+src/features/auth/verify-email/VerifyEmail.tsx(170,16): error TS2304: Cannot find name 'spacing'.
+src/features/auth/verify-email/VerifyEmail.tsx(173,12): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/features/explore/Explore.tsx(315,29): error TS2345: Argument of type 'string' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/explore/Explore.tsx(373,13): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: ViewProps): View', gave the following error.
+    Type '{ children: Element; key: string; style: (false | { paddingVertical: any; paddingHorizontal: any; marginRight: any; } | { borderBottomWidth: number; borderColor: any; })[]; onPress: () => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+      Property 'onPress' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+  Overload 2 of 2, '(props: ViewProps, context: any): View', gave the following error.
+    Type '{ children: Element; key: string; style: (false | { paddingVertical: any; paddingHorizontal: any; marginRight: any; } | { borderBottomWidth: number; borderColor: any; })[]; onPress: () => void; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+      Property 'onPress' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+src/features/explore/Explore.tsx(442,22): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(445,14): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(446,20): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(448,18): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(451,12): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(457,16): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(461,16): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(463,18): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(464,20): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(467,22): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(468,24): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(469,18): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(473,18): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(476,12): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(480,14): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(481,21): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(485,12): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(490,14): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(493,19): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(496,12): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(498,19): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(502,14): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(510,12): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(517,14): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(520,12): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(525,20): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(528,22): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(529,19): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(530,19): error TS2304: Cannot find name 'radius'.
+src/features/explore/Explore.tsx(534,14): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(537,12): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(540,19): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(543,12): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(545,19): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(548,12): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(551,19): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(556,10): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(557,16): error TS2304: Cannot find name 'spacing'.
+src/features/explore/Explore.tsx(560,12): error TS2304: Cannot find name 'theme'.
+src/features/explore/Explore.tsx(564,16): error TS2304: Cannot find name 'spacing'.
+src/features/explore/index.ts(1,10): error TS2614: Module '"./Explore"' has no exported member 'Explore'. Did you mean to use 'import Explore from "./Explore"' instead?
+src/features/path/index.ts(1,10): error TS2614: Module '"./Path"' has no exported member 'Path'. Did you mean to use 'import Path from "./Path"' instead?
+src/features/path/Path.tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/features/path/Path.tsx(29,26): error TS2345: Argument of type '"/(auth)/login"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/path/Path.tsx(70,22): error TS2345: Argument of type 'any[]' is not assignable to parameter of type 'SetStateAction<never[]>'.
+  Type 'any[]' is not assignable to type 'never[]'.
+    Type 'any' is not assignable to type 'never'.
+src/features/path/Path.tsx(129,15): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ school: number; skill: number; career: number; }'.
+  No index signature with a parameter of type 'string' was found on type '{ school: number; skill: number; career: number; }'.
+src/features/path/Path.tsx(129,42): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ school: number; skill: number; career: number; }'.
+  No index signature with a parameter of type 'string' was found on type '{ school: number; skill: number; career: number; }'.
+src/features/path/Path.tsx(232,86): error TS2339: Property 'id' does not exist on type 'never'.
+src/features/path/Path.tsx(252,50): error TS2339: Property 'name' does not exist on type 'never'.
+src/features/path/Path.tsx(253,57): error TS2339: Property 'description' does not exist on type 'never'.
+src/features/path/Path.tsx(261,25): error TS2345: Argument of type '"/(tabs)/profile"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/path/Path.tsx(316,22): error TS2304: Cannot find name 'theme'.
+src/features/path/Path.tsx(317,14): error TS2304: Cannot find name 'spacing'.
+src/features/path/Path.tsx(322,19): error TS2304: Cannot find name 'spacing'.
+src/features/path/Path.tsx(330,19): error TS2304: Cannot find name 'radius'.
+src/features/path/Path.tsx(331,18): error TS2304: Cannot find name 'spacing'.
+src/features/path/Path.tsx(337,12): error TS2304: Cannot find name 'theme'.
+src/features/path/Path.tsx(339,19): error TS2304: Cannot find name 'spacing'.
+src/features/path/Path.tsx(342,12): error TS2304: Cannot find name 'theme'.
+src/features/path/Path.tsx(347,12): error TS2304: Cannot find name 'theme'.
+src/features/path/Path.tsx(354,22): error TS2304: Cannot find name 'spacing'.
+src/features/path/Path.tsx(359,19): error TS2304: Cannot find name 'spacing'.
+src/features/path/Path.tsx(367,19): error TS2304: Cannot find name 'radius'.
+src/features/path/Path.tsx(368,22): error TS2304: Cannot find name 'theme'.
+src/features/path/Path.tsx(371,18): error TS2304: Cannot find name 'spacing'.
+src/features/path/Path.tsx(376,19): error TS2304: Cannot find name 'radius'.
+src/features/path/Path.tsx(377,22): error TS2304: Cannot find name 'theme'.
+src/features/path/Path.tsx(385,19): error TS2304: Cannot find name 'spacing'.
+src/features/path/Path.tsx(388,12): error TS2304: Cannot find name 'theme'.
+src/features/path/Path.tsx(393,12): error TS2304: Cannot find name 'theme'.
+src/features/path/Path.tsx(397,12): error TS2304: Cannot find name 'theme'.
+src/features/path/Path.tsx(400,19): error TS2304: Cannot find name 'spacing'.
+src/features/path/Path.tsx(405,10): error TS2304: Cannot find name 'spacing'.
+src/features/path/Path.tsx(410,19): error TS2304: Cannot find name 'radius'.
+src/features/path/Path.tsx(411,22): error TS2304: Cannot find name 'theme'.
+src/features/path/Path.tsx(414,12): error TS2304: Cannot find name 'theme'.
+src/features/path/Path.tsx(424,22): error TS2304: Cannot find name 'theme'.
+src/features/path/Path.tsx(427,22): error TS2304: Cannot find name 'spacing'.
+src/features/path/Path.tsx(431,22): error TS2304: Cannot find name 'theme'.
+src/features/path/Path.tsx(435,14): error TS2304: Cannot find name 'spacing'.
+src/features/path/Path.tsx(436,21): error TS2304: Cannot find name 'spacing'.
+src/features/path/Path.tsx(440,12): error TS2304: Cannot find name 'theme'.
+src/features/path/Path.tsx(445,16): error TS2304: Cannot find name 'spacing'.
+src/features/path/Path.tsx(453,12): error TS2304: Cannot find name 'theme'.
+src/features/profile/index.ts(1,10): error TS2614: Module '"./Profile"' has no exported member 'Profile'. Did you mean to use 'import Profile from "./Profile"' instead?
+src/features/profile/Profile.tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/features/profile/Profile.tsx(31,26): error TS2345: Argument of type '"/(auth)/login"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/profile/Profile.tsx(72,24): error TS2345: Argument of type '"/(auth)/login"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/profile/Profile.tsx(115,29): error TS2339: Property 'display_name' does not exist on type 'never'.
+src/features/profile/Profile.tsx(116,28): error TS2339: Property 'grade_level' does not exist on type 'never'.
+src/features/profile/Profile.tsx(117,24): error TS2339: Property 'county' does not exist on type 'never'.
+src/features/profile/Profile.tsx(118,27): error TS2339: Property 'interests' does not exist on type 'never'.
+src/features/profile/Profile.tsx(119,34): error TS2339: Property 'favorite_subjects' does not exist on type 'never'.
+src/features/profile/Profile.tsx(149,46): error TS2339: Property 'display_name' does not exist on type 'never'.
+src/features/profile/Profile.tsx(151,49): error TS2339: Property 'grade_level' does not exist on type 'never'.
+src/features/profile/Profile.tsx(154,45): error TS2339: Property 'county' does not exist on type 'never'.
+src/features/profile/Profile.tsx(163,22): error TS2339: Property 'interests' does not exist on type 'never'.
+src/features/profile/Profile.tsx(169,22): error TS2339: Property 'favorite_subjects' does not exist on type 'never'.
+src/features/profile/Profile.tsx(218,24): error TS2339: Property 'favorite_subjects' does not exist on type 'never'.
+src/features/profile/Profile.tsx(218,48): error TS7006: Parameter 'subject' implicitly has an 'any' type.
+src/features/profile/Profile.tsx(218,57): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/features/profile/Profile.tsx(231,24): error TS2339: Property 'interests' does not exist on type 'never'.
+src/features/profile/Profile.tsx(231,40): error TS7006: Parameter 'interest' implicitly has an 'any' type.
+src/features/profile/Profile.tsx(231,50): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/features/profile/Profile.tsx(255,38): error TS2345: Argument of type '"/(settings)"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/profile/Profile.tsx(269,22): error TS2304: Cannot find name 'theme'.
+src/features/profile/Profile.tsx(270,14): error TS2304: Cannot find name 'spacing'.
+src/features/profile/Profile.tsx(274,19): error TS2304: Cannot find name 'spacing'.
+src/features/profile/Profile.tsx(279,19): error TS2304: Cannot find name 'radius'.
+src/features/profile/Profile.tsx(280,19): error TS2304: Cannot find name 'spacing'.
+src/features/profile/Profile.tsx(286,12): error TS2304: Cannot find name 'theme'.
+src/features/profile/Profile.tsx(291,12): error TS2304: Cannot find name 'theme'.
+src/features/profile/Profile.tsx(293,19): error TS2304: Cannot find name 'spacing'.
+src/features/profile/Profile.tsx(298,19): error TS2304: Cannot find name 'spacing'.
+src/features/profile/Profile.tsx(299,14): error TS2304: Cannot find name 'spacing'.
+src/features/profile/Profile.tsx(300,22): error TS2304: Cannot find name 'theme'.
+src/features/profile/Profile.tsx(301,19): error TS2304: Cannot find name 'radius'.
+src/features/profile/Profile.tsx(307,12): error TS2304: Cannot find name 'theme'.
+src/features/profile/Profile.tsx(311,12): error TS2304: Cannot find name 'theme'.
+src/features/profile/Profile.tsx(316,19): error TS2304: Cannot find name 'spacing'.
+src/features/profile/Profile.tsx(319,19): error TS2304: Cannot find name 'spacing'.
+src/features/profile/Profile.tsx(322,12): error TS2304: Cannot find name 'theme'.
+src/features/profile/Profile.tsx(325,19): error TS2304: Cannot find name 'spacing'.
+src/features/profile/Profile.tsx(330,10): error TS2304: Cannot find name 'spacing'.
+src/features/profile/Profile.tsx(333,22): error TS2304: Cannot find name 'theme'.
+src/features/profile/Profile.tsx(334,24): error TS2304: Cannot find name 'spacing'.
+src/features/profile/Profile.tsx(335,22): error TS2304: Cannot find name 'spacing'.
+src/features/profile/Profile.tsx(336,19): error TS2304: Cannot find name 'radius'.
+src/features/profile/Profile.tsx(339,12): error TS2304: Cannot find name 'theme'.
+src/features/profile/Profile.tsx(343,12): error TS2304: Cannot find name 'theme'.
+src/features/profile/Profile.tsx(348,10): error TS2304: Cannot find name 'spacing'.
+src/features/profile/Profile.tsx(349,19): error TS2304: Cannot find name 'spacing'.
+src/features/profile/Profile.tsx(353,10): error TS2304: Cannot find name 'spacing'.
+src/features/profile/Profile.tsx(361,22): error TS2304: Cannot find name 'theme'.
+src/features/profile/Profile.tsx(365,12): error TS2304: Cannot find name 'theme'.
+src/features/profile/Profile.tsx(370,12): error TS2304: Cannot find name 'theme'.
+src/features/recommendations/index.ts(1,10): error TS2614: Module '"./Recommendations"' has no exported member 'Recommendations'. Did you mean to use 'import Recommendations from "./Recommendations"' instead?
+src/features/recommendations/Recommendations.tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/features/recommendations/Recommendations.tsx(31,26): error TS2345: Argument of type '"/(auth)/login"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/recommendations/Recommendations.tsx(61,19): error TS2339: Property 'gapAnalysis' does not exist on type 'typeof import("D:/Projects/NextStep/src/engine/gapAnalysis")'.
+src/features/recommendations/Recommendations.tsx(62,19): error TS2339: Property 'recommendationEngine' does not exist on type 'typeof import("D:/Projects/NextStep/src/engine/recommendationEngine")'.
+src/features/recommendations/Recommendations.tsx(65,57): error TS7006: Parameter 'interest' implicitly has an 'any' type.
+src/features/recommendations/Recommendations.tsx(70,53): error TS7006: Parameter 'career' implicitly has an 'any' type.
+src/features/recommendations/Recommendations.tsx(227,26): error TS2339: Property 'covered' does not exist on type 'never'.
+src/features/recommendations/Recommendations.tsx(229,92): error TS2339: Property 'covered' does not exist on type 'never'.
+src/features/recommendations/Recommendations.tsx(231,32): error TS2339: Property 'covered' does not exist on type 'never'.
+src/features/recommendations/Recommendations.tsx(239,26): error TS2339: Property 'partial' does not exist on type 'never'.
+src/features/recommendations/Recommendations.tsx(241,92): error TS2339: Property 'partial' does not exist on type 'never'.
+src/features/recommendations/Recommendations.tsx(243,32): error TS2339: Property 'partial' does not exist on type 'never'.
+src/features/recommendations/Recommendations.tsx(253,26): error TS2339: Property 'missing' does not exist on type 'never'.
+src/features/recommendations/Recommendations.tsx(255,92): error TS2339: Property 'missing' does not exist on type 'never'.
+src/features/recommendations/Recommendations.tsx(257,32): error TS2339: Property 'missing' does not exist on type 'never'.
+src/features/recommendations/Recommendations.tsx(287,69): error TS2339: Property 'missing' does not exist on type 'never'.
+src/features/recommendations/Recommendations.tsx(309,22): error TS2304: Cannot find name 'theme'.
+src/features/recommendations/Recommendations.tsx(312,14): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(313,20): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(315,18): error TS2304: Cannot find name 'theme'.
+src/features/recommendations/Recommendations.tsx(318,12): error TS2304: Cannot find name 'theme'.
+src/features/recommendations/Recommendations.tsx(323,12): error TS2304: Cannot find name 'theme'.
+src/features/recommendations/Recommendations.tsx(325,16): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(333,12): error TS2304: Cannot find name 'theme'.
+src/features/recommendations/Recommendations.tsx(337,14): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(340,19): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(343,12): error TS2304: Cannot find name 'theme'.
+src/features/recommendations/Recommendations.tsx(346,19): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(351,10): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(354,22): error TS2304: Cannot find name 'theme'.
+src/features/recommendations/Recommendations.tsx(355,24): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(356,22): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(357,19): error TS2304: Cannot find name 'radius'.
+src/features/recommendations/Recommendations.tsx(360,12): error TS2304: Cannot find name 'theme'.
+src/features/recommendations/Recommendations.tsx(364,14): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(367,20): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(370,22): error TS2304: Cannot find name 'theme'.
+src/features/recommendations/Recommendations.tsx(371,19): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(372,19): error TS2304: Cannot find name 'radius'.
+src/features/recommendations/Recommendations.tsx(376,14): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(379,19): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(382,12): error TS2304: Cannot find name 'theme'.
+src/features/recommendations/Recommendations.tsx(389,16): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(395,12): error TS2304: Cannot find name 'theme'.
+src/features/recommendations/Recommendations.tsx(399,16): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(402,22): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(404,18): error TS2304: Cannot find name 'theme'.
+src/features/recommendations/Recommendations.tsx(410,12): error TS2304: Cannot find name 'theme'.
+src/features/recommendations/Recommendations.tsx(413,19): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(418,10): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(421,12): error TS2304: Cannot find name 'theme'.
+src/features/recommendations/Recommendations.tsx(428,14): error TS2304: Cannot find name 'spacing'.
+src/features/recommendations/Recommendations.tsx(431,12): error TS2304: Cannot find name 'theme'.
+src/features/settings/index.ts(1,10): error TS2614: Module '"./Settings"' has no exported member 'Settings'. Did you mean to use 'import Settings from "./Settings"' instead?
+src/features/settings/Settings.tsx(4,32): error TS2307: Cannot find module '@/hooks/use-translation' or its corresponding type declarations.
+src/features/settings/Settings.tsx(24,3): error TS2304: Cannot find name 'useEffect'.
+src/features/settings/Settings.tsx(31,26): error TS2345: Argument of type '"/(auth)/login"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/settings/Settings.tsx(57,17): error TS2345: Argument of type '"/(tabs)/profile"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/settings/Settings.tsx(84,39): error TS2304: Cannot find name 'Deno'.
+src/features/settings/Settings.tsx(123,39): error TS2304: Cannot find name 'Deno'.
+src/features/settings/Settings.tsx(139,22): error TS2345: Argument of type '"/(auth)/login"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/settings/Settings.tsx(154,22): error TS2345: Argument of type '"/(auth)/login"' is not assignable to parameter of type 'RelativePathString | ExternalPathString | "/explore" | `/explore?${string}` | `/explore#${string}` | "/" | `/?${string}` | `/#${string}` | "/../../.claude/worktrees/fix-home-tab/src/app/explore" | ... 218 more ... | { ...; }'.
+src/features/settings/Settings.tsx(200,20): error TS7006: Parameter 'value' implicitly has an 'any' type.
+src/features/settings/Settings.tsx(272,46): error TS2339: Property 'display_name' does not exist on type 'never'.
+src/features/settings/Settings.tsx(282,54): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: ViewProps): View', gave the following error.
+    Type '{ children: Element[]; style: { flexDirection: "row"; justifyContent: "space-between"; alignItems: "center"; }; onPress: (() => void) | undefined; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+      Property 'onPress' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+  Overload 2 of 2, '(props: ViewProps, context: any): View', gave the following error.
+    Type '{ children: Element[]; style: { flexDirection: "row"; justifyContent: "space-between"; alignItems: "center"; }; onPress: (() => void) | undefined; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+      Property 'onPress' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes<View> & Readonly<ViewProps>'.
+src/features/settings/Settings.tsx(378,22): error TS2304: Cannot find name 'theme'.
+src/features/settings/Settings.tsx(383,14): error TS2304: Cannot find name 'spacing'.
+src/features/settings/Settings.tsx(384,20): error TS2304: Cannot find name 'spacing'.
+src/features/settings/Settings.tsx(386,18): error TS2304: Cannot find name 'theme'.
+src/features/settings/Settings.tsx(391,19): error TS2304: Cannot find name 'radius'.
+src/features/settings/Settings.tsx(392,18): error TS2304: Cannot find name 'spacing'.
+src/features/settings/Settings.tsx(398,12): error TS2304: Cannot find name 'theme'.
+src/features/settings/Settings.tsx(403,12): error TS2304: Cannot find name 'theme'.
+src/features/settings/Settings.tsx(410,14): error TS2304: Cannot find name 'spacing'.
+src/features/settings/Settings.tsx(412,18): error TS2304: Cannot find name 'theme'.
+src/features/settings/Settings.tsx(426,18): error TS2304: Cannot find name 'spacing'.
+src/features/settings/Settings.tsx(429,12): error TS2304: Cannot find name 'theme'.
+src/features/settings/Settings.tsx(437,12): error TS2304: Cannot find name 'theme'.
+src/features/settings/Settings.tsx(443,16): error TS2304: Cannot find name 'theme'.
+src/features/settings/Settings.tsx(447,22): error TS2304: Cannot find name 'theme'.
+src/features/settings/Settings.tsx(448,17): error TS2304: Cannot find name 'spacing'.
+src/features/settings/Settings.tsx(448,30): error TS2304: Cannot find name 'spacing'.
+src/features/settings/Settings.tsx(457,22): error TS2304: Cannot find name 'theme'.
+src/features/settings/Settings.tsx(458,14): error TS2304: Cannot find name 'spacing'.
+src/features/settings/Settings.tsx(459,19): error TS2304: Cannot find name 'radius'.
+src/features/settings/Settings.tsx(464,12): error TS2304: Cannot find name 'theme'.
+src/features/settings/Settings.tsx(467,19): error TS2304: Cannot find name 'spacing'.
+src/features/settings/Settings.tsx(470,12): error TS2304: Cannot find name 'theme'.
+src/features/settings/Settings.tsx(472,19): error TS2304: Cannot find name 'spacing'.
+src/features/settings/Settings.tsx(477,10): error TS2304: Cannot find name 'spacing'.
+src/features/settings/Settings.tsx(480,12): error TS2304: Cannot find name 'theme'.
+src/features/settings/Settings.tsx(485,12): error TS2304: Cannot find name 'theme'.
+src/hooks/use-theme.ts(1,10): error TS2305: Module '"@/theme/tokens"' has no exported member 'darkColors'.
+src/hooks/use-theme.ts(1,22): error TS2305: Module '"@/theme/tokens"' has no exported member 'lightColors'.
+src/hooks/use-theme.web.ts(1,10): error TS2305: Module '"@/theme/tokens"' has no exported member 'darkColors'.
+src/hooks/use-theme.web.ts(1,22): error TS2305: Module '"@/theme/tokens"' has no exported member 'lightColors'.
+supabase/functions/delete-account.ts(4,21): error TS2304: Cannot find name 'Deno'.
+supabase/functions/delete-account.ts(5,28): error TS2304: Cannot find name 'Deno'.
+supabase/functions/explain-path.ts(4,21): error TS2304: Cannot find name 'Deno'.
+supabase/functions/explain-path.ts(5,28): error TS2304: Cannot find name 'Deno'.
+supabase/functions/export-data.ts(4,21): error TS2304: Cannot find name 'Deno'.
+supabase/functions/export-data.ts(5,28): error TS2304: Cannot find name 'Deno'.

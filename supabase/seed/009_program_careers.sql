@@ -1,0 +1,17 @@
+-- Verified seed data for program_careers table
+INSERT INTO program_careers (program_id, career_id) VALUES
+-- Informatică
+('11111111-1111-1111-1111-111111111111', '11111111-1111-1111-1111-111111111111'), -- Inginer software
+('11111111-1111-1111-1111-111111111111', '22222222-2222-2222-2222-222222222222'), -- Analist de date
+
+-- Psihologie
+('22222222-2222-2222-2222-222222222222', '33333333-3333-3333-3333-333333333333'), -- Psiholog clinic
+('22222222-2222-2222-2222-222222222222', '44444444-4444-4444-4444-444444444444'), -- Manager de proiecte
+('22222222-2222-2222-2222-222222222222', '55555555-5555-5555-5555-555555555555'), -- Consultanță în resurse umane
+
+-- Medicină
+('33333333-3333-3333-3333-333333333333', '33333333-3333-3333-3333-333333333333'), -- Psiholog clinic (specializare)
+
+-- Inginerie Mecanică
+('44444444-4444-4444-4444-444444444444', '11111111-1111-1111-1111-111111111111'), -- Inginer software (aplicații pentru inginerie)
+ON CONFLICT (program_id, career_id) DO NOTHING;

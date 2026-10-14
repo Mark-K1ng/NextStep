@@ -1,12 +1,13 @@
 // Service for program-related data access
-import { supabase } from '@/lib/supabase'
+import { supabase } from "@/lib/supabase";
 
 export const programService = {
   // Get all programs
   async getPrograms() {
     const { data, error } = await supabase
-      .from('programs')
-      .select(`
+      .from("programs")
+      .select(
+        `
         *,
         universities (
           id,
@@ -14,18 +15,22 @@ export const programService = {
           city,
           website
         )
-      `)
-      .order('name')
+      `
+      )
+      .order("name");
 
-    if (error) throw error
-    return data
+    if (error) {
+      throw error;
+    }
+    return data;
   },
 
   // Get program by ID
   async getProgramById(id: string) {
     const { data, error } = await supabase
-      .from('programs')
-      .select(`
+      .from("programs")
+      .select(
+        `
         *,
         universities (
           id,
@@ -33,19 +38,23 @@ export const programService = {
           city,
           website
         )
-      `)
-      .eq('id', id)
-      .single()
+      `
+      )
+      .eq("id", id)
+      .single();
 
-    if (error) throw error
-    return data
+    if (error) {
+      throw error;
+    }
+    return data;
   },
 
   // Get programs by university
   async getProgramsByUniversity(universityId: string) {
     const { data, error } = await supabase
-      .from('programs')
-      .select(`
+      .from("programs")
+      .select(
+        `
         *,
         universities (
           id,
@@ -53,19 +62,23 @@ export const programService = {
           city,
           website
         )
-      `)
-      .eq('university_id', universityId)
-      .order('name')
+      `
+      )
+      .eq("university_id", universityId)
+      .order("name");
 
-    if (error) throw error
-    return data
+    if (error) {
+      throw error;
+    }
+    return data;
   },
 
   // Get programs by degree level
   async getProgramsByDegreeLevel(level: string) {
     const { data, error } = await supabase
-      .from('programs')
-      .select(`
+      .from("programs")
+      .select(
+        `
         *,
         universities (
           id,
@@ -73,37 +86,45 @@ export const programService = {
           city,
           website
         )
-      `)
-      .eq('degree_level', level)
-      .order('name')
+      `
+      )
+      .eq("degree_level", level)
+      .order("name");
 
-    if (error) throw error
-    return data
+    if (error) {
+      throw error;
+    }
+    return data;
   },
 
   // Get skills for a program
   async getProgramSkills(programId: string) {
     const { data, error } = await supabase
-      .from('program_skills')
-      .select(`
+      .from("program_skills")
+      .select(
+        `
         *,
         skills (
           id,
           name,
           category
         )
-      `)
-      .eq('program_id', programId)
+      `
+      )
+      .eq("program_id", programId);
 
-    if (error) throw error
-    return data
+    if (error) {
+      throw error;
+    }
+    return data;
   },
 
   // Get careers for a program
   async getProgramCareers(programId: string) {
     const { data, error } = await supabase
-      .from('program_careers')
-      .select(`
+      .from("program_careers")
+      .select(
+        `
         *,
         careers (
           id,
@@ -113,10 +134,13 @@ export const programService = {
           source_url,
           verified_at
         )
-      `)
-      .eq('program_id', programId)
+      `
+      )
+      .eq("program_id", programId);
 
-    if (error) throw error
-    return data
-  }
-}
+    if (error) {
+      throw error;
+    }
+    return data;
+  },
+};

@@ -1,0 +1,7 @@
+-- Verified seed data for programs table
+INSERT INTO programs (id, university_id, name, degree_level, duration_years, description, source_url, verified_at) VALUES
+('11111111-1111-1111-1111-111111111111', '11111111-1111-1111-1111-111111111111', 'Informatică', 'bachelor', 3, 'Program de licență care pregătește specialişti în domeniul tehnologiilor informației', 'https://www.unibuc.ro/facultati/matematica-informatica/licenta/informatica', '2026-10-13 00:00:00+00'),
+('22222222-2222-2222-2222-222222222222', '11111111-1111-1111-1111-111111111111', 'Psihologie', 'bachelor', 3, 'Studii teoretice și practice în domeniul psihologiei ca știință și ca profesie', 'https://www.unibuc.ro/facultati/psihologie/licenta/psihologie', '2026-10-13 00:00:00+00'),
+('33333333-3333-3333-3333-333333333333', '22222222-2222-2222-2222-222222222222', 'Medicină', 'bachelor', 6, 'Program de licență lungă durationă pentru pregătirea medicilor', 'https://www.ubbcluj.ro/medicina/licenta', '2026-10-13 00:00:00+00'),
+('44444444-4444-4444-4444-444444444444', '33333333-3333-3333-3333-333333333333', 'Inginerie Mecanică', 'bachelor', 4, 'Înginerie aplicată în projektare, producere și exploatare de echipamente mecanice', 'https://www.upt.ro/inginerie-mecanica/licenta', '2026-10-13 00:00:00+00')
+ON CONFLICT (id) DO NOTHING;

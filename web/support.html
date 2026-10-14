@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Suport - NextStep</title>
+    <meta
+      name="description"
+      content="Pagina de suport pentru aplicația NextStep - Descoperă următorul tău pas"
+    />
+    <link rel="icon" href="./images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="./css/global.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo">
+          <img src="./images/logo-glow.png" alt="NextStep Logo" />
+          <h1>NextStep</h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="/">Acasă</a></li>
+            <li><a href="./privacy.html">Politică de confidențialitate</a></li>
+            <li><a href="./terms.html">Termeni și condiții</a></li>
+            <li><a href="./delete-account.html">Șterge contul</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <section class="support-page">
+        <h1>Suport</h1>
+
+        <p>Dacă ai întrebari sau ai nevoie de ajutor, ne poţi contacta:</p>
+        <ul>
+          <li>
+            <strong>E-mail de suport:</strong>
+            <a href="mailto:support@nextstep.app">support@nextstep.app</a>
+          </li>
+          <li>
+            <strong>E-mail pentru feedback:</strong>
+            <a href="mailto:feedback@nextstep.app">feedback@nextstep.app</a>
+          </li>
+          <li>
+            <strong>E-mail pentru confidențialitate:</strong>
+            <a href="mailto:privacy@nextstep.app">privacy@nextstep.app</a>
+          </li>
+          <li>
+            <strong>E-mail pentru aspecto legal:</strong>
+            <a href="mailto:legal@nextstep.app">legal@nextstep.app</a>
+          </li>
+        </ul>
+
+        <p>
+          Sau poţi ne contacta prin intermediul aplicaţiei în secţiunea „Setări»
+          → „Suport“.
+        </p>
+
+        <h2>Întrebări frecvente (FAQ)</h2>
+
+        <div class="faq-item">
+          <h3>Este NextStep gratuită?</h3>
+          <p>
+            Da, NextStep este complet gratuită pentru elevi și studenţi. Nu avem
+            abonamente sau achiziţii în aplicaţie.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Care este grupa de vârstă țintă pentru NextStep?</h3>
+          <p>
+            NextStep este destinată elevilor de la gimnaziu (clasele V-VIII) și
+            liceu (clasele IX-XII), precum şi studenţilor de la facultate în
+            anul primal de studii.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Cum protejeţi datele personale?</h3>
+          <p>
+            Follem supabase pentru stocarea datelor și implementăm măsuri de
+            securitate robuste, inclusiv criptare, autentificare sigură și
+            respectarea normelor de protecţie a datelor personale.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Pot să șterg contul meu?</h3>
+          <p>
+            Da, poţi să ștergi contul tău și toate datele asociate în orice
+            moment prin intermediul aplicaţiei în secţiunea „Setări» → „Profil”
+            → „Șterge contul”.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>NextStep este disponibilă pe ce platforme?</h3>
+          <p>
+            NextStep este disponibilă pe iOS, Android și web prin intermediul
+            aplicaţiei noastre native construite cu Expo.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Cum faceti recomandarile de cursuri?</h3>
+          <p>
+            Recomandarile noastre se bazează pe un motor de recomandări care
+            analizează abilităţile tale curente, obiectivul de cariere ales și
+            te potriveşte cu cursurile care îţi pot cele mai bine dezvolta
+            abilităţile lipsă.
+          </p>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-content">
+          <div class="footer-links">
+            <a href="/">Acasă</a>
+            <a href="./privacy.html">Politică de confidențialitate</a>
+            <a href="./terms.html">Termeni și condiții</a>
+            <a href="./delete-account.html">Șterge contul</a>
+          </div>
+          <div class="footer-legal">
+            <p>
+              &copy; <span id="year"></span> NextStep. Toate drepturile
+              rezervate.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Update copyright year dynamically
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

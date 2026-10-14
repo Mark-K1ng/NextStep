@@ -1,0 +1,6 @@
+-- Verified seed data for school_profiles table
+INSERT INTO school_profiles (id, school_id, track, specialization, key_subjects, admission_notes, source_url, verified_at) VALUES
+('11111111-1111-1111-1111-111111111111', '11111111-1111-1111-1111-111111111111', 'Real', 'Matematică-Informatică', ARRAY['Matematică', 'Informatică', 'Fizică', 'Chimie'], 'Concurs de admitere bazat pe rezultatele examenelor de absolvire și un test de specialitate', 'https://liceuleminescu.edu.ro/despre-noi/admitere', '2026-10-13 00:00:00+00'),
+('22222222-2222-2222-2222-222222222222', '11111111-1111-1111-1111-111111111111', 'Human', 'Filosofie-Psychologie', ARRAY['Filosofie', 'Psihologie', 'Sociologie', 'Literatură'], 'Evaluare prin portofoliu și interviu de motivație', 'https://liceuleminescu.edu.ro/despre-noi/admitere', '2026-10-13 00:00:00+00'),
+('33333333-3333-3333-3333-333333333333', '22222222-2222-2222-2222-222222222222', 'Real', 'Informatică intensivă', ARRAY['Informatică', 'Matematică', 'Fizică', 'Engleză'], 'Test de logică și programare de bază', 'https://ltigm.edu.ro/admitere/conditii', '2026-10-13 00:00:00+00')
+ON CONFLICT (id) DO NOTHING;

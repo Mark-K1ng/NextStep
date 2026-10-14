@@ -26,6 +26,7 @@ You are the lead engineer on NextStep, a production mobile application. You will
 **Core question the app answers:** "Where am I now, where do I want to go, which skills am I missing, and what is the next concrete step?"
 
 **Users**
+
 - Clasele V–VIII: interests → which high school profile fits.
 - Clasele IX–X: interests → which professional domains fit.
 - Clasele XI–XII and students: domain → faculty → career, plus skill gaps and course recommendations.
@@ -33,6 +34,7 @@ You are the lead engineer on NextStep, a production mobile application. You will
 **Business model (context only, do not build billing):** Free for students. Revenue later from schools, universities, companies, and education providers. Recommendation logic must never be influenced by who pays. Do not build ads, payments, or sponsored ranking in this version.
 
 **Scope of this version (MVP). Build exactly this:**
+
 1. Onboarding (3 screens) and account creation.
 2. Student profile: grade level, favorite subjects, interests, goal.
 3. Explore: high schools and their specializations, university programs, careers, skills, courses.
@@ -96,6 +98,7 @@ web/                 static landing site with privacy policy, terms, support, de
 Create `src/theme/tokens.ts` as the single source of truth. No raw hex values or magic numbers inside screens.
 
 **Dark theme (default):**
+
 - background: `#18171F`
 - surface (cards): `#25232F`
 - surface elevated: `#2E2B3A`
@@ -110,6 +113,7 @@ Create `src/theme/tokens.ts` as the single source of truth. No raw hex values or
 - danger: `#EF4444`
 
 **Light theme (optional toggle, follow system by default):**
+
 - background: `#FAF7FF`
 - surface: `#FFFFFF`
 - border: `#E7E0F5`
@@ -118,6 +122,7 @@ Create `src/theme/tokens.ts` as the single source of truth. No raw hex values or
 - primary: `#7C3AED`
 
 Rules:
+
 - Verify contrast. Text on background and on primary buttons must meet WCAG AA (4.5:1 for body text). If `#7C3AED` with white text fails at small sizes, use the pressed shade or increase weight and size, and document it.
 - Spacing scale: 4, 8, 12, 16, 24, 32, 48. Radius scale: 8, 12, 16. Use them only.
 - Typography: Plus Jakarta Sans ExtraBold Italic for the wordmark and hero headings only. Inter for everything else. Define 6 text styles (display, title, heading, body, caption, label) and use only those.
@@ -126,6 +131,7 @@ Rules:
 - Haptics only on meaningful actions. Animations limited to short, purposeful transitions (150–250 ms). No decorative motion.
 
 **Logo and icon:**
+
 - Wordmark: "NextStep", Plus Jakarta Sans ExtraBold Italic, letter spacing about -0.5, white with "Step" in `#A78BFA`, or fully white with a purple symbol.
 - Symbol: a minimal geometric ascending step or arrow, built as SVG with `react-native-svg`.
 - Generate the app icon (1024x1024, no transparency, no rounded corners baked in), adaptive Android icon (foreground and background layers), splash screen, and favicon for the web folder. Place them in `assets/` and wire them in `app.json`.
@@ -154,6 +160,7 @@ The app must look designed by a person with taste, not generated. Enforce all of
 Create these tables with primary keys, foreign keys, NOT NULL where appropriate, check constraints, and indexes on every foreign key and every column used for filtering. Use `uuid` primary keys and `timestamptz` timestamps. Enable RLS on every table in the same migration that creates it.
 
 Reference (public read-only) tables:
+
 - `schools` (id, name, city, county, website, description, source_url, verified_at)
 - `school_profiles` (id, school_id, track, specialization, key_subjects text[], admission_notes, source_url, verified_at)
 - `universities` (id, name, city, website, source_url, verified_at)
@@ -168,6 +175,7 @@ Reference (public read-only) tables:
 - `course_skills` (course_id, skill_id, depth smallint check 1..3)
 
 User-owned tables:
+
 - `profiles` (id uuid primary key references auth.users on delete cascade, display_name, grade_level, county, interests text[], favorite_subjects text[], created_at, updated_at). Collect nothing else. No phone, no address, no photo, no exact location.
 - `user_skills` (user_id, skill_id, level smallint check 1..3, primary key (user_id, skill_id))
 - `user_goals` (id, user_id, career_id, created_at)
@@ -175,6 +183,7 @@ User-owned tables:
 - `consents` (user_id, kind, granted_at, version)
 
 Rules:
+
 - `profiles.id` must equal `auth.users.id`. Create the profile row through a trigger on `auth.users` insert, or through a controlled function, never trusting a client-sent id.
 - Add a `role` concept only if necessary. If you add it, it must not be writable by the user.
 - Deleting an auth user must cascade to all user-owned rows.
@@ -232,6 +241,7 @@ Place in `src/engine/`. No network access, no AI calls inside.
 Inputs: the student's skills with levels, the target career's required skills with importance, available courses with the skills and depth they teach.
 
 Steps:
+
 1. Gap analysis: for each required skill compute `missing`, `partial`, or `covered` by comparing the student's level to the required importance.
 2. Rank missing skills by importance, then by prerequisite relations if present.
 3. Course matching: for each gap, rank courses by skill depth fit, free first, then level, then language match.
@@ -240,6 +250,7 @@ Steps:
 Write unit tests covering: empty skills, full coverage, partial coverage, ties, a course that teaches several gaps, a career with no skills mapped, and invalid input. The engine must return the same output for the same input.
 
 **AI explanation layer (Edge Function `explain-path`):**
+
 - Input is the engine's structured result. The function verifies the JWT, validates input with Zod, and enforces a size cap.
 - It builds a prompt that contains only the structured result and an instruction to explain it in short, clear Romanian, to refuse to add facts not in the input, and to avoid guarantees about jobs or admission.
 - It calls the AI provider from the server using a server-side secret. Never call an AI provider from the app.
@@ -281,6 +292,7 @@ After the build is functionally complete, run these five audits against the repo
 **Audit 5. Cost bomb check.** Find every endpoint that costs money or resources when called and check its protection. (1) Routes that call AI: what stops a script from calling each 100,000 times tonight; check auth, per-user limits, per-IP limits; (2) login, signup, password reset: rate limits, bot protection, whether response differences allow email enumeration; (3) email sending routes someone can spam; (4) expensive queries with no caps or pagination; (5) usage metering enforced server-side and failing closed. Output: endpoint, what one call costs, abuse scenario, projected damage from one night, severity, the exact limiter to add. Implement the limiters (per-user and per-IP counters in a Postgres table or an equivalent, enforced inside the Edge Function before any paid call).
 
 Additional mandatory hardening:
+
 - Enforce HTTPS only. Set Edge Function CORS to the minimum required.
 - Generic error messages to clients, detailed errors only in server logs without personal data.
 - Run `npm audit` and resolve high and critical advisories or document why not.
@@ -355,6 +367,7 @@ Static, no framework required, hosted free on GitHub Pages or Cloudflare Pages. 
 ## 16. DEFINITION OF DONE AND FINAL REPORT
 
 The work is done only when all of the following are true:
+
 - Type check, lint, and all tests pass.
 - RLS tests prove isolation between users.
 - All five security audits show no open CRITICAL or HIGH findings.
@@ -364,6 +377,7 @@ The work is done only when all of the following are true:
 - The app runs on Android and iOS from one codebase.
 
 Final report, in this order and no longer than 60 lines:
+
 1. What was built.
 2. What is verified and how.
 3. What is not verified or not possible from this environment (for example iOS device testing, store submission, legal review).

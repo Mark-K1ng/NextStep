@@ -1,0 +1,8 @@
+Placeholder for web images. In a real implementation, this directory would contain:
+- logo-glow.png
+- favicon.png
+- hero-illustration.png
+- settings-icons/ folder with various icons
+- etc.
+
+For now, we're using placeholder text to indicate where these files would go.

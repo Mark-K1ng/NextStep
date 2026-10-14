@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pagina nu a fost găsită - NextStep</title>
+    <meta
+      name="description"
+      content="Pagina solicitată nu a fost găsită pe site-ul NextStep - Descoperă următorul tău pas"
+    />
+    <link rel="icon" href="./images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="./css/global.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo">
+          <img src="./images/logo-glow.png" alt="NextStep Logo" />
+          <h1>NextStep</h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="/">Acasă</a></li>
+            <li><a href="./privacy.html">Politică de confidențialitate</a></li>
+            <li><a href="./terms.html">Termeni și condiții</a></li>
+            <li><a href="./support.html">Suport</a></li>
+            <li><a href="./delete-account.html">Șterge contul</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <section class="not-found">
+        <div class="not-found-content">
+          <h1>404</h1>
+          <h2>Pagina nu a fost găsită</h2>
+          <p>
+            Ne pare rău, dar pagina pe care ai încercat să o acceszi nu există
+            sau a fost mutată.
+          </p>
+          <div class="not-found-actions">
+            <a href="/" class="btn-primary">Întoarcere laAcasă</a>
+            <a href="./support.html" class="btn-outline">Suport</a>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-content">
+          <div class="footer-links">
+            <a href="/">Acasă</a>
+            <a href="./privacy.html">Politică de confidențialitate</a>
+            <a href="./terms.html">Termeni și condiții</a>
+            <a href="./support.html">Suport</a>
+            <a href="./delete-account.html">Ƞterge contul</a>
+          </div>
+          <div class="footer-legal">
+            <p>
+              &copy; <span id="year"></span> NextStep. Toate drepturile
+              rezervate.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Update copyright year dynamically
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

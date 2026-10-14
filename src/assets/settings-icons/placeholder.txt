@@ -1,0 +1,17 @@
+Placeholder for settings icons. In a real implementation, this directory would contain:
+- user.png
+- palette.png
+- bell.png
+- lock.png
+- file-text.png
+- download.png
+- trash-2.png
+- log-out.png
+- school.png
+- university.png
+- career.png
+- course.png
+- skill.png
+etc.
+
+For now, we're using placeholder text to indicate where these files would go.
