@@ -29,10 +29,13 @@ export default function DetailScreen() {
   const [slideAnim] = useState(() => new Animated.Value(500));
   const hideTimeoutRef = useRef<number | null>(null);
   const itemTypeRef = useRef<string>('');
+  const isMountedRef = useRef(true);
 
   // Cleanup timeout on unmount
   useEffect(() => {
+    isMountedRef.current = true;
     return () => {
+      isMountedRef.current = false;
       if (hideTimeoutRef.current) {
         clearTimeout(hideTimeoutRef.current);
       }
@@ -53,7 +56,9 @@ export default function DetailScreen() {
       .eq('item_type', itemType)
       .single();
 
-    setIsSaved(!!data);
+    if (isMountedRef.current) {
+      setIsSaved(!!data);
+    }
   }, []);
 
   const handleSave = async () => {
@@ -82,8 +87,10 @@ export default function DetailScreen() {
         return;
       }
 
-      setIsSaved(false);
-      setToastType('unsaved');
+      if (isMountedRef.current) {
+        setIsSaved(false);
+        setToastType('unsaved');
+      }
     } else {
       // Add to favorites
       const { error } = await supabase
@@ -98,8 +105,10 @@ export default function DetailScreen() {
         return;
       }
 
-      setIsSaved(true);
-      setToastType('saved');
+      if (isMountedRef.current) {
+        setIsSaved(true);
+        setToastType('saved');
+      }
     }
 
     // If toast is already showing, instantly animate it down and show new one fast
@@ -130,7 +139,9 @@ export default function DetailScreen() {
       clearTimeout(hideTimeoutRef.current);
     }
 
-    setShowToast(true);
+    if (isMountedRef.current) {
+      setShowToast(true);
+    }
     slideAnim.setValue(500);
     
     if (fast) {
@@ -172,19 +183,25 @@ export default function DetailScreen() {
         mass: 1,
         useNativeDriver: true,
       }).start(() => {
-        setShowToast(false);
+        if (isMountedRef.current) {
+          setShowToast(false);
+        }
       });
     }, 2000);
   };
 
   const loadItemData = useCallback(async (itemId: string) => {
     try {
-      setLoading(true);
-      
+      if (isMountedRef.current) {
+        setLoading(true);
+      }
+
       // Try to fetch as school first
       const schoolResult = await fetchSchool(itemId);
       if (schoolResult.data) {
-        setSchool(schoolResult.data);
+        if (isMountedRef.current) {
+          setSchool(schoolResult.data);
+        }
         itemTypeRef.current = 'school';
         // Fetch school profiles
         if (supabase) {
@@ -192,7 +209,9 @@ export default function DetailScreen() {
             .from('school_profiles')
             .select('*')
             .eq('school_id', itemId);
-          setProfiles(profilesData || []);
+          if (isMountedRef.current) {
+            setProfiles(profilesData || []);
+          }
         }
         // Check if saved
         checkIfSaved(itemId, 'school');
@@ -202,7 +221,9 @@ export default function DetailScreen() {
       // Try university
       const universityResult = await fetchUniversity(itemId);
       if (universityResult.data) {
-        setUniversity(universityResult.data);
+        if (isMountedRef.current) {
+          setUniversity(universityResult.data);
+        }
         itemTypeRef.current = 'university';
         checkIfSaved(itemId, 'university');
         return;
@@ -211,7 +232,9 @@ export default function DetailScreen() {
       // Try career
       const careerResult = await fetchCareer(itemId);
       if (careerResult.data) {
-        setCareer(careerResult.data);
+        if (isMountedRef.current) {
+          setCareer(careerResult.data);
+        }
         itemTypeRef.current = 'career';
         checkIfSaved(itemId, 'career');
         return;
@@ -220,22 +243,27 @@ export default function DetailScreen() {
       // Try course
       const courseResult = await fetchCourse(itemId);
       if (courseResult.data) {
-        setCourse(courseResult.data);
+        if (isMountedRef.current) {
+          setCourse(courseResult.data);
+        }
         itemTypeRef.current = 'course';
         checkIfSaved(itemId, 'course');
         return;
       }
 
-      setLoading(false);
+      if (isMountedRef.current) {
+        setLoading(false);
+      }
     } catch {
       // Error loading item
     } finally {
-      setLoading(false);
+      if (isMountedRef.current) {
+        setLoading(false);
+      }
     }
-  }, []);
+  }, [checkIfSaved]);
 
   // Refresh saved state when screen is focused
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useFocusEffect(
     useCallback(() => {
       if (id && itemTypeRef.current) {
@@ -249,8 +277,7 @@ export default function DetailScreen() {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       loadItemData(id as string);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, checkIfSaved]);
+  }, [id, loadItemData]);
 
   const item = school || university || career || course;
 
