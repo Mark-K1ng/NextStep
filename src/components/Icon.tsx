@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import * as LucideIcons from 'lucide-react-native';
+import { View } from 'react-native';
+import { Home, Search, Route, Lightbulb, User } from 'lucide-react-native';
 import { colors } from '../theme';
 
 interface IconProps {
-  name: keyof typeof LucideIcons;
+  name: 'Home' | 'Search' | 'Route' | 'Lightbulb' | 'User';
   size?: number;
   color?: string | number;
 }
@@ -14,22 +14,20 @@ export const Icon: React.FC<IconProps> = ({
   size = 24,
   color = colors.dark.textPrimary,
 }) => {
-  const LucideIcon = LucideIcons[name];
+  const iconProps = { size, color: color as string };
 
-  if (!LucideIcon) {
-    return null;
+  switch (name) {
+    case 'Home':
+      return <Home {...iconProps} />;
+    case 'Search':
+      return <Search {...iconProps} />;
+    case 'Route':
+      return <Route {...iconProps} />;
+    case 'Lightbulb':
+      return <Lightbulb {...iconProps} />;
+    case 'User':
+      return <User {...iconProps} />;
+    default:
+      return null;
   }
-
-  return (
-    <View style={styles.container}>
-      <LucideIcon size={size} color={color as string} />
-    </View>
-  );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
