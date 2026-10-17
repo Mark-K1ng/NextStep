@@ -6,7 +6,7 @@ import { colors } from '../theme';
 interface IconProps {
   name: keyof typeof LucideIcons;
   size?: number;
-  color?: string;
+  color?: string | number;
 }
 
 export const Icon: React.FC<IconProps> = ({
@@ -22,7 +22,7 @@ export const Icon: React.FC<IconProps> = ({
 
   return (
     <View style={styles.container}>
-      <LucideIcon size={size} color={color} />
+      <LucideIcon size={size} color={color as string} />
     </View>
   );
 };

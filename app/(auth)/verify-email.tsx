@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { colors, spacing, title, body, caption } from '../../src/theme';
 import { Button, Input } from '../../src/components';
 import { supabase } from '../../src/lib';
 
 export default function VerifyEmailScreen() {
+  const params = useLocalSearchParams();
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -23,7 +24,7 @@ export default function VerifyEmailScreen() {
 
       // Verify OTP with Supabase
       const { data, error: verifyError } = await supabase.auth.verifyOtp({
-        email: router.params.email || '',
+        email: (params.email as string) || '',
         token: otp,
         type: 'signup',
       });
@@ -54,7 +55,7 @@ export default function VerifyEmailScreen() {
       // Resend OTP email
       const { error: resendError } = await supabase.auth.resend({
         type: 'signup',
-        email: router.params.email || '',
+        email: (params.email as string) || '',
       });
 
       if (resendError) {
@@ -88,7 +89,7 @@ export default function VerifyEmailScreen() {
         textAlign="center"
       />
 
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
       <Button
         title="Verifică"
@@ -152,5 +153,10 @@ const styles = StyleSheet.create({
     color: colors.dark.success,
     marginBottom: spacing.lg,
     textAlign: 'center',
+  },
+  errorText: {
+    ...caption,
+    color: colors.dark.danger,
+    marginBottom: spacing.md,
   },
 });

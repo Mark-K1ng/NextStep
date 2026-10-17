@@ -19,35 +19,35 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: 'Acasă',
-          tabBarIcon: ({ color, size }) => <Icon name="Home" size={size} color={color} />,
+          tabBarIcon: ({ color, size }) => <Icon name="Home" size={size} color={color as string} />,
         }}
       />
       <Tabs.Screen
         name="explore"
         options={{
           title: 'Explorează',
-          tabBarIcon: ({ color, size }) => <Icon name="Compass" size={size} color={color} />,
+          tabBarIcon: ({ color, size }) => <Icon name="Search" size={size} color={color as string} />,
         }}
       />
       <Tabs.Screen
         name="path"
         options={{
           title: 'Traseul meu',
-          tabBarIcon: ({ color, size }) => <Icon name="Map" size={size} color={color} />,
+          tabBarIcon: ({ color, size }) => <Icon name="Route" size={size} color={color as string} />,
         }}
       />
       <Tabs.Screen
         name="recommendations"
         options={{
           title: 'Recomandări',
-          tabBarIcon: ({ color, size }) => <Icon name="Lightbulb" size={size} color={color} />,
+          tabBarIcon: ({ color, size }) => <Icon name="Lightbulb" size={size} color={color as string} />,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profil',
-          tabBarIcon: ({ color, size }) => <Icon name="User" size={size} color={color} />,
+          tabBarIcon: ({ color, size }) => <Icon name="User" size={size} color={color as string} />,
         }}
       />
     </Tabs>

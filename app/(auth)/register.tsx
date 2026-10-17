@@ -56,7 +56,7 @@ export default function RegisterScreen() {
       }
 
       // Navigate to verify email screen with email
-      router.push({ pathname: '/(auth)/verify-email', params: { email } });
+      router.push({ pathname: '/(auth)/verify-email', params: { email } } as any);
     } catch (err) {
       setError('Nu s-a putut crea contul');
     } finally {
