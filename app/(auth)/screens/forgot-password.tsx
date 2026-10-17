@@ -4,6 +4,7 @@ import { router } from 'expo-router';
 import { colors, spacing, title, body, caption } from '../../../src/theme';
 import { Button, Input } from '../../../src/components';
 import { emailSchema } from '../../../src/lib';
+import { supabase } from '../../../src/lib/supabase';
 
 export default function ForgotPasswordScreen() {
   const [email, setEmail] = useState('');
@@ -24,7 +25,20 @@ export default function ForgotPasswordScreen() {
         return;
       }
 
-      // TODO: Implement actual Supabase password reset
+      if (!supabase) {
+        setError('Eroare de conexiune');
+        return;
+      }
+
+      // Send password reset email
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: 'nextstep://reset-password',
+      });
+
+      if (error) {
+        setError('Nu a fost găsit un cont cu acest email');
+        return;
+      }
 
       setSent(true);
     } catch {

@@ -3,16 +3,14 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 // @ts-ignore - Deno Edge Function with Deno-specific imports
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.38.4";
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
-
 // @ts-ignore - Deno Edge Function
 serve(async (req: Request) => {
-  // Handle CORS preflight request
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders });
+  // Only allow POST requests
+  if (req.method !== 'POST') {
+    return new Response(
+      JSON.stringify({ error: 'Method not allowed' }),
+      { status: 405, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 
   try {
@@ -21,7 +19,7 @@ serve(async (req: Request) => {
     if (!authHeader) {
       return new Response(
         JSON.stringify({ error: 'Missing authorization header' }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        { status: 401, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -34,7 +32,7 @@ serve(async (req: Request) => {
     if (!supabaseUrl || !supabaseServiceKey) {
       return new Response(
         JSON.stringify({ error: 'Missing Supabase environment variables' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -48,13 +46,64 @@ serve(async (req: Request) => {
     if (userError || !user) {
       return new Response(
         JSON.stringify({ error: 'Invalid token' }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        { status: 401, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
     const userId = user.id;
 
-    // Delete user's profile data from database
+    // Delete user's data from all user-owned tables (explicit cleanup)
+    const { error: favoritesError } = await supabase
+      .from('user_favorites')
+      .delete()
+      .eq('user_id', userId);
+
+    if (favoritesError) {
+      console.error('Favorites deletion error:', favoritesError);
+      // Continue even if favorites deletion fails
+    }
+
+    const { error: skillsError } = await supabase
+      .from('user_skills')
+      .delete()
+      .eq('user_id', userId);
+
+    if (skillsError) {
+      console.error('Skills deletion error:', skillsError);
+      // Continue even if skills deletion fails
+    }
+
+    const { error: goalsError } = await supabase
+      .from('user_goals')
+      .delete()
+      .eq('user_id', userId);
+
+    if (goalsError) {
+      console.error('Goals deletion error:', goalsError);
+      // Continue even if goals deletion fails
+    }
+
+    const { error: progressError } = await supabase
+      .from('user_progress')
+      .delete()
+      .eq('user_id', userId);
+
+    if (progressError) {
+      console.error('Progress deletion error:', progressError);
+      // Continue even if progress deletion fails
+    }
+
+    const { error: consentsError } = await supabase
+      .from('consents')
+      .delete()
+      .eq('user_id', userId);
+
+    if (consentsError) {
+      console.error('Consents deletion error:', consentsError);
+      // Continue even if consents deletion fails
+    }
+
+    // Delete user's profile (will cascade to other tables with FKs)
     const { error: profileError } = await supabase
       .from('profiles')
       .delete()
@@ -71,20 +120,20 @@ serve(async (req: Request) => {
     if (deleteError) {
       return new Response(
         JSON.stringify({ error: deleteError.message }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
     return new Response(
       JSON.stringify({ success: true, message: 'Account deleted successfully' }),
-      { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
 
   } catch (error) {
     console.error('Delete account error:', error);
     return new Response(
       JSON.stringify({ error: 'Internal server error' }),
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
 });

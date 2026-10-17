@@ -1,7 +1,11 @@
+// @ts-ignore - Deno Edge Function with Deno-specific imports
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+// @ts-ignore - Deno Edge Function with Deno-specific imports
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
+// @ts-ignore - Deno.env is Deno-specific
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+// @ts-ignore - Deno.env is Deno-specific
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
 interface ExplanationRequest {
@@ -13,7 +17,13 @@ interface ExplanationRequest {
   careerName: string;
 }
 
-serve(async (req) => {
+// @ts-ignore - Deno Edge Function
+serve(async (req: Request) => {
+  // Only allow POST requests
+  if (req.method !== 'POST') {
+    return new Response('Method not allowed', { status: 405 });
+  }
+
   try {
     // Verify JWT
     const authHeader = req.headers.get('Authorization');
@@ -39,9 +49,10 @@ serve(async (req) => {
     // Parse request body
     const { gapResult, careerName }: ExplanationRequest = await req.json();
 
-    // Validate input
-    if (!gapResult || !careerName) {
-      return new Response('Invalid input', { status: 400 });
+    // Validate input structure
+    const validationError = validateInput(gapResult, careerName);
+    if (validationError) {
+      return new Response(validationError, { status: 400 });
     }
 
     // Check cache (simple implementation using supabase KV)
@@ -103,4 +114,50 @@ async function generateExplanation(
   explanation += ' Recomandările de cursuri de mai sus te vor ajuta să acoperi aceste lacune.';
 
   return explanation;
+}
+
+function validateInput(gapResult: any, careerName: any): string | null {
+  // Validate careerName
+  if (typeof careerName !== 'string' || careerName.length === 0 || careerName.length > 200) {
+    return 'Invalid career name';
+  }
+
+  // Validate gapResult structure
+  if (!gapResult || typeof gapResult !== 'object') {
+    return 'Invalid gap result';
+  }
+
+  const { covered, partial, missing } = gapResult;
+
+  // Validate arrays
+  if (!Array.isArray(covered) || !Array.isArray(partial) || !Array.isArray(missing)) {
+    return 'Invalid gap result arrays';
+  }
+
+  // Validate array lengths (prevent DoS)
+  if (covered.length > 100 || partial.length > 100 || missing.length > 100) {
+    return 'Too many skills in gap result';
+  }
+
+  // Validate skill objects
+  const validateSkillArray = (arr: any[]) => {
+    for (const skill of arr) {
+      if (!skill || typeof skill !== 'object') {
+        return false;
+      }
+      if (typeof skill.name !== 'string' || skill.name.length > 100) {
+        return false;
+      }
+      if (typeof skill.level !== 'number' || skill.level < 1 || skill.level > 3) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  if (!validateSkillArray(covered) || !validateSkillArray(partial) || !validateSkillArray(missing)) {
+    return 'Invalid skill data in gap result';
+  }
+
+  return null;
 }

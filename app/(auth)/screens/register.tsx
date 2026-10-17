@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, ScrollView, Pressable } from 'react-native';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { colors, spacing, title, body, caption } from '../../../src/theme';
 import { Button, Input } from '../../../src/components';
 import { FormField } from '../../../src/components/FormField';
 import { registerSchema , supabase } from '../../../src/lib';
 
 export default function RegisterScreen() {
+  const { params } = useLocalSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [displayName, setDisplayName] = useState('');
+  const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const gradeLevel = (params as any)?.grade || 'IX';
+  const county = (params as any)?.county || 'București';
+  const subjects = (params as any)?.subjects ? JSON.parse((params as any).subjects as string) : ['informatica'];
+  const interests = (params as any)?.interests ? JSON.parse((params as any).interests as string) : ['tehnologie'];
 
   const handleRegister = async () => {
     try {
@@ -22,11 +28,11 @@ export default function RegisterScreen() {
       const result = registerSchema.safeParse({
         email,
         password,
-        displayName,
-        gradeLevel: 'IX',
-        county: 'București',
-        favoriteSubjects: ['informatica'],
-        interests: ['tehnologie'],
+        displayName: name,
+        gradeLevel,
+        county,
+        favoriteSubjects: subjects,
+        interests,
       });
 
       if (!result.success) {
@@ -45,7 +51,11 @@ export default function RegisterScreen() {
         password,
         options: {
           data: {
-            display_name: displayName,
+            display_name: name,
+            grade_level: gradeLevel,
+            county,
+            favorite_subjects: subjects,
+            interests,
           },
         },
       });
@@ -53,72 +63,13 @@ export default function RegisterScreen() {
       if (signUpError) {
         console.error('Sign up error:', signUpError);
 
-        // Check if user already exists
-        if (signUpError.message.includes('already registered') || signUpError.message.includes('User already registered')) {
-          setError('Există deja un cont cu acest email. Conectează-te.');
-          return;
-        }
-
-        // If it's a database error, the user might still be created despite trigger failure
-        // Try to sign in to check
-        if (signUpError.message.includes('Database error')) {
-          const { data: signInData } = await supabase.auth.signInWithPassword({
-            email,
-            password,
-          });
-
-          if (signInData.user) {
-            // Create profile manually
-            try {
-              const { error: profileError } = await supabase
-                .from('profiles')
-                .insert({
-                  id: signInData.user.id,
-                  display_name: displayName,
-                  grade_level: 'IX',
-                  county: 'București',
-                  interests: ['tehnologie'],
-                  favorite_subjects: ['informatica'],
-                });
-              if (profileError) {
-                console.error('Profile creation error:', profileError);
-              }
-            } catch (err) {
-              console.error('Profile creation failed:', err);
-            }
-            router.push({ pathname: '/(auth)/screens/verify-email', params: { email } } as any);
-            return;
-          }
-        }
-
-        setError(signUpError.message);
+        // Use generic error message to prevent account enumeration
+        setError('Nu s-a putut crea contul. Verifică datele și încearcă din nou.');
         return;
       }
 
-      // If user was created successfully, create profile manually
+      // If user was created successfully, navigate to verification
       if (data.user) {
-        try {
-          // Create profile manually to avoid trigger issues
-          const { error: profileError } = await supabase
-            .from('profiles')
-            .insert({
-              id: data.user.id,
-              display_name: displayName,
-              grade_level: 'IX',
-              county: 'București',
-              interests: ['tehnologie'],
-              favorite_subjects: ['informatica'],
-            });
-
-          if (profileError) {
-            console.error('Profile creation error:', profileError);
-            // Continue anyway - profile can be created later
-          }
-        } catch (err) {
-          console.error('Profile creation failed:', err);
-          // Continue anyway
-        }
-
         router.push({ pathname: '/(auth)/screens/verify-email', params: { email } } as any);
       } else {
         setError('Nu s-a putut crea contul. Încearcă din nou.');
@@ -137,8 +88,8 @@ export default function RegisterScreen() {
       <FormField label="Nume">
         <Input
           placeholder="Numele tău"
-          value={displayName}
-          onChangeText={setDisplayName}
+          value={name}
+          onChangeText={setName}
         />
       </FormField>
 

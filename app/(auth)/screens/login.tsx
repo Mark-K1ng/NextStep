@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { router } from 'expo-router';
-import { colors, spacing, title, body, caption } from '../../../src/theme';
+import { colors, spacing, body, caption } from '../../../src/theme';
 import { Button, Input } from '../../../src/components';
 import { FormField } from '../../../src/components/FormField';
 import { loginSchema , supabase } from '../../../src/lib';
@@ -37,7 +37,7 @@ export default function LoginScreen() {
       });
 
       if (signInError) {
-        setError(signInError.message);
+        setError('Email-ul sau parola sunt incorecte');
         return;
       }
 
@@ -102,10 +102,10 @@ const styles = StyleSheet.create({
     minHeight: '100%',
   },
   title: {
-    ...title,
+    fontSize: 32,
+    fontWeight: 'bold',
     color: colors.dark.textPrimary,
     marginBottom: spacing.xl,
-    fontSize: 32,
   },
   button: {
     marginBottom: spacing.lg,

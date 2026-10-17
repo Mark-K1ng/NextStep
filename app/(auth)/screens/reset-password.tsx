@@ -4,11 +4,13 @@ import { router } from 'expo-router';
 import { colors, spacing, title, body, caption } from '../../../src/theme';
 import { Button, Input } from '../../../src/components';
 import { passwordSchema } from '../../../src/lib';
+import { supabase } from '../../../src/lib/supabase';
 
 export default function ResetPasswordScreen() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const handleReset = async () => {
     try {
@@ -23,10 +25,22 @@ export default function ResetPasswordScreen() {
         return;
       }
 
-      // TODO: Implement actual Supabase password reset with token
+      if (!supabase) {
+        setError('Eroare de conexiune');
+        return;
+      }
 
-      // Navigate to login
-      router.replace('/(auth)/screens/login');
+      // Update user password
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: password,
+      });
+
+      if (updateError) {
+        setError('Link-ul de resetare a expirat sau este invalid');
+        return;
+      }
+
+      setSuccess(true);
     } catch {
       setError('Nu s-a putut reseta parola');
     } finally {
@@ -38,30 +52,46 @@ export default function ResetPasswordScreen() {
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <Text style={styles.title}>Resetează parola</Text>
 
-      <Text style={styles.message}>
-        Introdu noua ta parolă.
-      </Text>
+      {success ? (
+        <>
+          <Text style={styles.message}>
+            Parola a fost resetată cu succes.
+          </Text>
 
-      <Input
-        label="Noua parolă"
-        placeholder="Noua parolă"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+          <Button
+            title="Mergi la conectare"
+            onPress={() => router.replace('/(auth)/screens/login')}
+            style={styles.button}
+          />
+        </>
+      ) : (
+        <>
+          <Text style={styles.message}>
+            Introdu noua ta parolă.
+          </Text>
 
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+          <Input
+            label="Noua parolă"
+            placeholder="Noua parolă"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
 
-      <Button
-        title="Resetează parola"
-        onPress={handleReset}
-        disabled={loading}
-        style={styles.button}
-      />
+          {error ? <Text style={styles.error}>{error}</Text> : null}
 
-      <Pressable onPress={() => router.replace('/(auth)/screens/login')}>
-        <Text style={styles.link}>Înapoi la conectare</Text>
-      </Pressable>
+          <Button
+            title="Resetează parola"
+            onPress={handleReset}
+            disabled={loading}
+            style={styles.button}
+          />
+
+          <Pressable onPress={() => router.replace('/(auth)/screens/login')}>
+            <Text style={styles.link}>Înapoi la conectare</Text>
+          </Pressable>
+        </>
+      )}
     </ScrollView>
   );
 }
@@ -99,5 +129,10 @@ const styles = StyleSheet.create({
     ...caption,
     color: colors.dark.danger,
     marginBottom: spacing.md,
+  },
+  success: {
+    ...body,
+    color: colors.dark.success,
+    marginBottom: spacing.lg,
   },
 });

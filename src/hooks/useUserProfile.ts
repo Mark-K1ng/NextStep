@@ -3,7 +3,7 @@
  * Handles profile fetching and updates
  */
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { supabase } from '../lib';
 import { Profile } from '../types';
 import { ERROR_MESSAGES } from '../constants';
@@ -15,7 +15,9 @@ export interface ProfileState {
 }
 
 export interface UseUserProfileReturn {
-  profileState: ProfileState;
+  profile: Profile | null;
+  loading: boolean;
+  error: string;
   fetchProfile: (userId: string) => Promise<void>;
   updateProfile: (userId: string, updates: Partial<Profile>) => Promise<void>;
   clearError: () => void;
@@ -29,9 +31,50 @@ export function useUserProfile(): UseUserProfileReturn {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const isMounted = useRef(true);
 
   const clearError = useCallback(() => {
-    setError('');
+    if (isMounted.current) {
+      setError('');
+    }
+  }, []);
+
+  const fetchCurrentUserProfile = async () => {
+    try {
+      if (!supabase) return;
+
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data, error: fetchError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single();
+
+      if (fetchError) {
+        // User doesn't have a profile yet, that's okay
+        return;
+      }
+
+      if (isMounted.current) {
+        setProfile(data);
+      }
+    } catch {
+      // Error in fetchCurrentUserProfile
+    }
+  };
+
+  useEffect(() => {
+    isMounted.current = true;
+    // Fetch current user's profile on mount
+    setTimeout(() => {
+      fetchCurrentUserProfile();
+    }, 0);
+
+    return () => {
+      isMounted.current = false;
+    };
   }, []);
 
   /**
@@ -40,11 +83,15 @@ export function useUserProfile(): UseUserProfileReturn {
    */
   const fetchProfile = useCallback(async (userId: string) => {
     try {
-      setError('');
-      setLoading(true);
+      if (isMounted.current) {
+        setError('');
+        setLoading(true);
+      }
 
       if (!supabase) {
-        setError(ERROR_MESSAGES.PROFILE_LOAD_FAILED);
+        if (isMounted.current) {
+          setError(ERROR_MESSAGES.PROFILE_LOAD_FAILED);
+        }
         return;
       }
 
@@ -55,15 +102,23 @@ export function useUserProfile(): UseUserProfileReturn {
         .single();
 
       if (fetchError) {
-        setError(ERROR_MESSAGES.PROFILE_LOAD_FAILED);
+        if (isMounted.current) {
+          setError(ERROR_MESSAGES.PROFILE_LOAD_FAILED);
+        }
         return;
       }
 
-      setProfile(data);
+      if (isMounted.current) {
+        setProfile(data);
+      }
     } catch {
-      setError(ERROR_MESSAGES.PROFILE_LOAD_FAILED);
+      if (isMounted.current) {
+        setError(ERROR_MESSAGES.PROFILE_LOAD_FAILED);
+      }
     } finally {
-      setLoading(false);
+      if (isMounted.current) {
+        setLoading(false);
+      }
     }
   }, []);
 
@@ -74,11 +129,15 @@ export function useUserProfile(): UseUserProfileReturn {
    */
   const updateProfile = useCallback(async (userId: string, updates: Partial<Profile>) => {
     try {
-      setError('');
-      setLoading(true);
+      if (isMounted.current) {
+        setError('');
+        setLoading(true);
+      }
 
       if (!supabase) {
-        setError(ERROR_MESSAGES.PROFILE_UPDATE_FAILED);
+        if (isMounted.current) {
+          setError(ERROR_MESSAGES.PROFILE_UPDATE_FAILED);
+        }
         return;
       }
 
@@ -90,20 +149,30 @@ export function useUserProfile(): UseUserProfileReturn {
         .single();
 
       if (updateError) {
-        setError(ERROR_MESSAGES.PROFILE_UPDATE_FAILED);
+        if (isMounted.current) {
+          setError(ERROR_MESSAGES.PROFILE_UPDATE_FAILED);
+        }
         return;
       }
 
-      setProfile(data);
+      if (isMounted.current) {
+        setProfile(data);
+      }
     } catch {
-      setError(ERROR_MESSAGES.PROFILE_UPDATE_FAILED);
+      if (isMounted.current) {
+        setError(ERROR_MESSAGES.PROFILE_UPDATE_FAILED);
+      }
     } finally {
-      setLoading(false);
+      if (isMounted.current) {
+        setLoading(false);
+      }
     }
   }, []);
 
   return {
-    profileState: { profile, loading, error },
+    profile,
+    loading,
+    error,
     fetchProfile,
     updateProfile,
     clearError,
