@@ -4,6 +4,7 @@ import { router } from 'expo-router';
 import { colors, spacing, title, body, caption } from '../../src/theme';
 import { Button, Input } from '../../src/components';
 import { registerSchema } from '../../src/lib';
+import { supabase } from '../../src/lib';
 
 export default function RegisterScreen() {
   const [email, setEmail] = useState('');
@@ -33,11 +34,29 @@ export default function RegisterScreen() {
         return;
       }
 
-      // TODO: Implement actual Supabase registration
-      console.log('Register:', { email, displayName });
+      if (!supabase) {
+        setError('Supabase nu este configurat');
+        return;
+      }
 
-      // For now, just navigate to verify email
-      router.push('/(auth)/verify-email');
+      // Sign up with Supabase using email OTP
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            display_name: displayName,
+          },
+        },
+      });
+
+      if (signUpError) {
+        setError(signUpError.message);
+        return;
+      }
+
+      // Navigate to verify email screen with email
+      router.push({ pathname: '/(auth)/verify-email', params: { email } });
     } catch (err) {
       setError('Nu s-a putut crea contul');
     } finally {

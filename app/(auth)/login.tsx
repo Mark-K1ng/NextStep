@@ -4,6 +4,7 @@ import { router } from 'expo-router';
 import { colors, spacing, title, body, caption } from '../../src/theme';
 import { Button, Input } from '../../src/components';
 import { loginSchema } from '../../src/lib';
+import { supabase } from '../../src/lib';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -24,10 +25,23 @@ export default function LoginScreen() {
         return;
       }
 
-      // TODO: Implement actual Supabase login
-      console.log('Login:', { email });
+      if (!supabase) {
+        setError('Supabase nu este configurat');
+        return;
+      }
 
-      // For now, just navigate to tabs
+      // Sign in with Supabase
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (signInError) {
+        setError(signInError.message);
+        return;
+      }
+
+      // Navigate to tabs on success
       router.replace('/(tabs)');
     } catch (err) {
       setError('Email-ul sau parola sunt incorecte');

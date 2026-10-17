@@ -5,3 +5,4 @@ export * from './Chip';
 export * from './EmptyState';
 export * from './ErrorState';
 export * from './Toast';
+export * from './Icon';

@@ -9,6 +9,7 @@ interface InputProps extends Omit<TextInputProps, 'style'> {
   error?: string;
   variant?: InputVariant;
   style?: ViewStyle;
+  textAlign?: 'left' | 'center' | 'right';
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -16,6 +17,7 @@ export const Input: React.FC<InputProps> = ({
   error,
   variant = 'default',
   style,
+  textAlign,
   ...props
 }) => {
   const getBorderColor = () => {
@@ -31,6 +33,7 @@ export const Input: React.FC<InputProps> = ({
           styles.input,
           {
             borderColor: getBorderColor(),
+            textAlign: textAlign || 'left',
           },
         ]}
         placeholderTextColor={colors.dark.textSecondary}
@@ -59,6 +62,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
     minHeight: 44,
+    textAlign: 'left' as const,
   },
   error: {
     ...caption,

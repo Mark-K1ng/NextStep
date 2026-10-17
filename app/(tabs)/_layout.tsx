@@ -1,5 +1,6 @@
 import { Tabs } from 'expo-router';
 import { colors } from '../../src/theme';
+import { Icon } from '../../src/components';
 
 export default function TabsLayout() {
   return (
@@ -18,30 +19,35 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: 'Acasă',
+          tabBarIcon: ({ color, size }) => <Icon name="Home" size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="explore"
         options={{
           title: 'Explorează',
+          tabBarIcon: ({ color, size }) => <Icon name="Compass" size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="path"
         options={{
           title: 'Traseul meu',
+          tabBarIcon: ({ color, size }) => <Icon name="Map" size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="recommendations"
         options={{
           title: 'Recomandări',
+          tabBarIcon: ({ color, size }) => <Icon name="Lightbulb" size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profil',
+          tabBarIcon: ({ color, size }) => <Icon name="User" size={size} color={color} />,
         }}
       />
     </Tabs>
