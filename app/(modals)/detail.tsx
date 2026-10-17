@@ -339,7 +339,7 @@ export default function DetailScreen() {
                       <html>
                         <head>
                           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-                          <meta http-equiv="Content-Security-Policy" content="default-src * 'self' blob: data: gap:; style-src * 'self' 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-inline' 'unsafe-eval' blob: data: gap:; frame-src * 'self' blob: data: gap:;">
+                          <meta http-equiv="Content-Security-Policy" content="default-src 'self' blob: data: gap: https://maps.google.com https://maps.gstatic.com https://www.google.com https://google.com; style-src 'self' 'unsafe-inline' blob: data: gap: https://maps.google.com https://maps.gstatic.com https://www.google.com https://google.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: gap: https://maps.google.com https://maps.gstatic.com https://www.google.com https://google.com; frame-src 'self' blob: data: gap: https://maps.google.com https://www.google.com https://google.com; img-src 'self' blob: data: gap: https://maps.google.com https://maps.gstatic.com https://www.google.com https://google.com https://*.googleapis.com data:;">
                           <style>
                             body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #1a1a1a; }
                             iframe { width: 100%; height: 100%; border: 0; filter: invert(85%) hue-rotate(180deg) contrast(95%); }
