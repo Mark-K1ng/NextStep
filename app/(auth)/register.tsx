@@ -52,6 +52,47 @@ export default function RegisterScreen() {
 
       if (signUpError) {
         console.error('Sign up error:', signUpError);
+        
+        // Check if user already exists
+        if (signUpError.message.includes('already registered') || signUpError.message.includes('User already registered')) {
+          setError('Există deja un cont cu acest email. Conectează-te.');
+          return;
+        }
+        
+        // If it's a database error, the user might still be created despite trigger failure
+        // Try to sign in to check
+        if (signUpError.message.includes('Database error')) {
+          console.log('Trying to sign in to check if user was created...');
+          const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+          });
+          
+          if (signInData.user) {
+            console.log('User was created, proceeding to verification');
+            // Create profile manually
+            try {
+              const { error: profileError } = await supabase
+                .from('profiles')
+                .insert({
+                  id: signInData.user.id,
+                  display_name: displayName,
+                  grade_level: 'IX',
+                  county: 'București',
+                  interests: ['tehnologie'],
+                  favorite_subjects: ['informatica'],
+                });
+              if (profileError) {
+                console.error('Profile creation error:', profileError);
+              }
+            } catch (err) {
+              console.error('Profile creation failed:', err);
+            }
+            router.push({ pathname: '/(auth)/verify-email', params: { email } } as any);
+            return;
+          }
+        }
+        
         setError(signUpError.message);
         return;
       }
