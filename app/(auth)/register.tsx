@@ -51,12 +51,39 @@ export default function RegisterScreen() {
       });
 
       if (signUpError) {
+        console.error('Sign up error:', signUpError);
         setError(signUpError.message);
         return;
       }
 
-      // Navigate to verify email screen with email
-      router.push({ pathname: '/(auth)/verify-email', params: { email } } as any);
+      // If user was created successfully, create profile manually
+      if (data.user) {
+        try {
+          // Create profile manually to avoid trigger issues
+          const { error: profileError } = await supabase
+            .from('profiles')
+            .insert({
+              id: data.user.id,
+              display_name: displayName,
+              grade_level: 'IX',
+              county: 'București',
+              interests: ['tehnologie'],
+              favorite_subjects: ['informatica'],
+            });
+
+          if (profileError) {
+            console.error('Profile creation error:', profileError);
+            // Continue anyway - profile can be created later
+          }
+        } catch (err) {
+          console.error('Profile creation failed:', err);
+          // Continue anyway
+        }
+
+        router.push({ pathname: '/(auth)/verify-email', params: { email } } as any);
+      } else {
+        setError('Nu s-a putut crea contul. Încearcă din nou.');
+      }
     } catch (err) {
       setError('Nu s-a putut crea contul');
     } finally {
