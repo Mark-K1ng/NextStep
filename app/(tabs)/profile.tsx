@@ -99,13 +99,15 @@ export default function ProfileScreen() {
         </Pressable>
       </Card>
 
-      <Card style={{ ...styles.card, borderColor: colors.dark.danger }}>
-        <Pressable style={styles.menuItem} onPress={handleDeleteAccount} disabled={loading}>
-          <Text style={[styles.menuText, styles.dangerText]}>
-            {loading ? 'Se șterge...' : 'Șterge contul'}
-          </Text>
-        </Pressable>
-      </Card>
+      <View style={styles.dangerSection}>
+        <Button
+          title={loading ? 'Se șterge...' : 'Șterge contul'}
+          onPress={handleDeleteAccount}
+          disabled={loading}
+          variant="danger"
+          style={styles.dangerButton}
+        />
+      </View>
 
       <Button
         title="Deconectare"
@@ -155,6 +157,9 @@ const styles = StyleSheet.create({
     color: colors.dark.danger,
   },
   button: {
+    marginBottom: spacing.xl,
+  },
+  dangerSection: {
     marginBottom: spacing.xl,
   },
 });
