@@ -2,10 +2,12 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
-    "ignoreDeprecations": "6.0"
+    "ignoreDeprecations": "6.0",
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules",
+    "node_modules/**",
     "supabase/functions"
   ],
   "include": [

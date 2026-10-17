@@ -14,24 +14,33 @@
     "expo-sqlite": "~57.0.4",
     "expo-status-bar": "~57.0.1",
     "lucide-react-native": "^1.58.0",
-    "react": "19.2.3",
+    "react": "19.3.1",
     "react-native": "0.86.3",
     "react-native-safe-area-context": "~5.7.0",
     "react-native-svg": "15.15.4",
+    "react-native-webview": "13.16.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@types/react": "~19.2.4",
+    "@types/react": "19.3.0",
     "eslint": "^9.0.0",
     "eslint-config-expo": "~57.0.2",
     "typescript": "~6.0.3"
   },
+  "overrides": {
+    "react-native-worklets": "0.10.4",
+    "@types/react": "19.3.0"
+  },
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "postinstall": "npm install-scripts approve unrs-resolver@1.12.2"
   },
-  "private": true
+  "private": true,
+  "allowScripts": {
+    "unrs-resolver@1.12.2": true
+  }
 }

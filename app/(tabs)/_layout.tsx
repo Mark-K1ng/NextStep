@@ -1,11 +1,11 @@
 import { Tabs } from 'expo-router';
-import { colors } from '../../src/theme';
+import { colors, spacing } from '../../src/theme';
 import { Icon } from '../../src/components';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, StyleSheet } from 'react-native';
 
 export default function TabsLayout() {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.dark.background }} edges={[]}>
+    <View style={{ flex: 1, backgroundColor: colors.dark.background }}>
       <Tabs
         screenOptions={{
           headerShown: false,
@@ -14,6 +14,9 @@ export default function TabsLayout() {
           tabBarStyle: {
             backgroundColor: colors.dark.surface,
             borderTopColor: colors.dark.border,
+            paddingTop: spacing.sm,
+            paddingBottom: spacing.sm,
+            height: 65,
           },
         }}
       >
@@ -21,38 +24,73 @@ export default function TabsLayout() {
           name="index"
           options={{
             title: 'Acasă',
-            tabBarIcon: ({ color, size }) => <Icon name="Home" size={size} color={color as string} />,
+            tabBarIcon: ({ focused, color, size }) => (
+              <View style={focused ? styles.activePill : styles.iconContainer}>
+                <Icon name="Home" size={size} color={color as string} />
+              </View>
+            ),
           }}
         />
         <Tabs.Screen
           name="explore"
           options={{
             title: 'Explorează',
-            tabBarIcon: ({ color, size }) => <Icon name="Search" size={size} color={color as string} />,
+            tabBarIcon: ({ focused, color, size }) => (
+              <View style={focused ? styles.activePill : styles.iconContainer}>
+                <Icon name="Search" size={size} color={color as string} />
+              </View>
+            ),
           }}
         />
         <Tabs.Screen
           name="path"
           options={{
             title: 'Traseul meu',
-            tabBarIcon: ({ color, size }) => <Icon name="Route" size={size} color={color as string} />,
+            tabBarIcon: ({ focused, color, size }) => (
+              <View style={focused ? styles.activePill : styles.iconContainer}>
+                <Icon name="Route" size={size} color={color as string} />
+              </View>
+            ),
           }}
         />
         <Tabs.Screen
           name="recommendations"
           options={{
             title: 'Recomandări',
-            tabBarIcon: ({ color, size }) => <Icon name="Lightbulb" size={size} color={color as string} />,
+            tabBarIcon: ({ focused, color, size }) => (
+              <View style={focused ? styles.activePill : styles.iconContainer}>
+                <Icon name="Lightbulb" size={size} color={color as string} />
+              </View>
+            ),
           }}
         />
         <Tabs.Screen
           name="profile"
           options={{
             title: 'Profil',
-            tabBarIcon: ({ color, size }) => <Icon name="User" size={size} color={color as string} />,
+            tabBarIcon: ({ focused, color, size }) => (
+              <View style={focused ? styles.activePill : styles.iconContainer}>
+                <Icon name="User" size={size} color={color as string} />
+              </View>
+            ),
           }}
         />
       </Tabs>
-    </SafeAreaView>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  iconContainer: {
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+  },
+  activePill: {
+    backgroundColor: 'rgba(139, 92, 246, 0.15)',
+    borderRadius: 12,
+    // @ts-ignore - borderCurve is iOS 13+ only
+    borderCurve: 'continuous',
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+  },
+});

@@ -1,11 +1,41 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { colors, spacing, heading, body } from '../../src/theme';
 import { Card, Button } from '../../src/components';
 import { SectionHeader } from '../../src/components/SectionHeader';
+import { supabase } from '../../src/lib';
 
 export default function HomeScreen() {
+  const [savedCount, setSavedCount] = useState(0);
+
+  const loadSavedCount = async () => {
+    try {
+      const authResponse = await supabase?.auth.getUser();
+      const user = authResponse?.data?.user;
+      
+      if (!user || !supabase) {
+        setSavedCount(0);
+        return;
+      }
+
+      const { count } = await supabase
+        .from('user_favorites')
+        .select('*', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+
+      setSavedCount(count || 0);
+    } catch (error) {
+      console.error('Error loading saved count:', error);
+      setSavedCount(0);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      loadSavedCount();
+    }, [])
+  );
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <SectionHeader
@@ -54,7 +84,9 @@ export default function HomeScreen() {
 
       <Card style={styles.savedCard} onPress={() => router.push('/saved')}>
         <Text style={styles.savedTitle}>Vezi elementele salvate</Text>
-        <Text style={styles.savedText}>3 elemente salvate pentru comparare</Text>
+        <Text style={styles.savedText}>
+          {savedCount === 0 ? 'Nu ai elemente salvate' : `${savedCount} element${savedCount === 1 ? ' salvat' : 'e salvate'} pentru comparare`}
+        </Text>
       </Card>
     </ScrollView>
   );

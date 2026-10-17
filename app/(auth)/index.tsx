@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
     color: colors.dark.textSecondary,
     textAlign: 'center',
     fontSize: 18,
-    lineHeight: 28,
     fontWeight: '400',
   },
   bottomContent: {

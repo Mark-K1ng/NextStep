@@ -1,9 +1,9 @@
 import { Stack } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View } from 'react-native';
 
 export default function ModalsLayout() {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#18171F' }} edges={[]}>
+    <View style={{ flex: 1, backgroundColor: '#18171F' }}>
       <Stack
         screenOptions={{
           headerShown: false,
@@ -18,6 +18,6 @@ export default function ModalsLayout() {
         <Stack.Screen name="privacy-policy" />
         <Stack.Screen name="terms-of-service" />
       </Stack>
-    </SafeAreaView>
+    </View>
   );
 }

@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
   text: {
     ...caption,
     color: colors.dark.textSecondary,
-    lineHeight: 24,
     marginBottom: spacing.lg,
   },
 });

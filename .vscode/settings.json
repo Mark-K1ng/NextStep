@@ -1,0 +1,15 @@
+{
+  "typescript.tsserver.watchOptions": {
+    "excludeDirectories": ["**/node_modules", "**/node_modules/**"]
+  },
+  "typescript.tsc.autoDetect": "off",
+  "typescript.enablePromptUseWorkspaceTsdk": false,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "js/ts.preferences.quoteStyle": "single",
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "files.exclude": {
+    "**/node_modules/expo-modules-core": true
+  },
+  "typescript.validate.enable": false,
+  "javascript.validate.enable": false
+}

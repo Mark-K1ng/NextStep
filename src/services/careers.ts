@@ -3,16 +3,40 @@
  * Handles career-related API operations
  */
 
-import { ApiClient } from './api';
+import { supabase } from '../lib';
 import { Career, ExploreFilters } from '../types';
+
+export interface CareersResponse {
+  data: Career[];
+  error: string | null;
+}
 
 /**
  * Fetch a single career by ID
  * @param id - Career ID
  * @returns Career data or error
  */
-export async function fetchCareer(id: string) {
-  return ApiClient.fetchOne<Career>('careers', id);
+export async function fetchCareer(id: string): Promise<{ data: Career | null; error: string | null }> {
+  try {
+    if (!supabase) {
+      return { data: null, error: 'Supabase nu este configurat' };
+    }
+
+    const { data, error } = await supabase
+      .from('careers')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) {
+      return { data: null, error: 'Nu s-a putut încărca cariera' };
+    }
+
+    return { data, error: null };
+  } catch (error) {
+    console.error('Error fetching career:', error);
+    return { data: null, error: 'Nu s-a putut încărca cariera' };
+  }
 }
 
 /**
@@ -20,37 +44,31 @@ export async function fetchCareer(id: string) {
  * @param filters - Optional filters (domain, search)
  * @returns Careers array or error
  */
-export async function fetchCareers(filters?: ExploreFilters) {
-  const queryFilters: Record<string, any> = {};
-  
-  if (filters?.domain) {
-    queryFilters.domain = filters.domain;
-  }
-  
-  if (filters?.search) {
-    queryFilters.name = filters.search;
-  }
+export async function fetchCareers(filters?: ExploreFilters): Promise<CareersResponse> {
+  try {
+    if (!supabase) {
+      return { data: [], error: 'Supabase nu este configurat' };
+    }
 
-  return ApiClient.fetchMany<Career>('careers', queryFilters);
-}
+    let query = supabase.from('careers').select('*');
+    
+    if (filters?.domain) {
+      query = query.ilike('domain', `%${filters.domain}%`);
+    }
+    
+    if (filters?.search) {
+      query = query.ilike('name', `%${filters.search}%`);
+    }
 
-/**
- * Fetch paginated careers
- * @param filters - Optional filters
- * @param limit - Number of records per page
- * @param cursor - Optional cursor for pagination
- * @returns Paginated careers
- */
-export async function fetchCareersPaginated(
-  filters?: ExploreFilters,
-  limit = 20,
-  cursor?: string
-) {
-  const queryFilters: Record<string, any> = {};
-  
-  if (filters?.domain) {
-    queryFilters.domain = filters.domain;
+    const { data, error } = await query;
+
+    if (error) {
+      return { data: [], error: 'Nu s-au putut încărca carierele' };
+    }
+
+    return { data: data || [], error: null };
+  } catch (error) {
+    console.error('Error fetching careers:', error);
+    return { data: [], error: 'Nu s-au putut încărca carierele' };
   }
-
-  return ApiClient.fetchPaginated<Career>('careers', queryFilters, limit, cursor);
 }

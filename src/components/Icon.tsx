@@ -1,9 +1,9 @@
 import React from 'react';
-import { Home, Search, Route, Lightbulb, User, ChevronRight, ChevronLeft, BookOpen, GraduationCap, Briefcase, School, Check, X, Settings, LogOut, Trash2, ArrowRight } from 'lucide-react-native';
+import { Home, Search, Route, Lightbulb, User, ChevronRight, ChevronLeft, BookOpen, GraduationCap, Briefcase, School, Check, X, Settings, LogOut, Trash2, ArrowRight, CheckCircle, XCircle, ChevronUp, ChevronDown, Bookmark } from 'lucide-react-native';
 import { colors } from '../theme';
 
 interface IconProps {
-  name: 'Home' | 'Search' | 'Route' | 'Lightbulb' | 'User' | 'ChevronRight' | 'ChevronLeft' | 'BookOpen' | 'GraduationCap' | 'Briefcase' | 'School' | 'Check' | 'X' | 'Settings' | 'LogOut' | 'Trash2' | 'ArrowRight' | string;
+  name: 'Home' | 'Search' | 'Route' | 'Lightbulb' | 'User' | 'ChevronRight' | 'ChevronLeft' | 'BookOpen' | 'GraduationCap' | 'Briefcase' | 'School' | 'Check' | 'X' | 'Settings' | 'LogOut' | 'Trash2' | 'ArrowRight' | 'CheckCircle' | 'XCircle' | 'ChevronUp' | 'ChevronDown' | 'Bookmark' | string;
   size?: number;
   color?: string | number;
 }
@@ -50,6 +50,16 @@ export const Icon: React.FC<IconProps> = ({
       return <Trash2 {...iconProps} />;
     case 'ArrowRight':
       return <ArrowRight {...iconProps} />;
+    case 'CheckCircle':
+      return <CheckCircle {...iconProps} />;
+    case 'XCircle':
+      return <XCircle {...iconProps} />;
+    case 'ChevronUp':
+      return <ChevronUp {...iconProps} />;
+    case 'ChevronDown':
+      return <ChevronDown {...iconProps} />;
+    case 'Bookmark':
+      return <Bookmark {...iconProps} />;
     default:
       return <Home {...iconProps} />;
   }

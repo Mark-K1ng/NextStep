@@ -43,6 +43,7 @@ export interface University {
   name: string;
   city: string;
   website?: string;
+  description?: string;
   source_url: string;
   verified_at: string;
   created_at: string;

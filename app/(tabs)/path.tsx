@@ -1,30 +1,131 @@
-import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, StyleSheet, ScrollView, Text } from 'react-native';
 import { router } from 'expo-router';
-import { colors, spacing } from '../../src/theme';
+import { colors, spacing, body } from '../../src/theme';
 import { Timeline } from '../../src/components/Timeline';
 import { SectionHeader } from '../../src/components/SectionHeader';
-
-const MILESTONES = [
-  { id: '1', label: 'Liceu (Colegiul I.L. Caragiale)', completed: true, current: false },
-  { id: '2', label: 'Bacalaureat', completed: true, current: false },
-  { id: '3', label: 'Facultate (Politehnica)', completed: false, current: true },
-  { id: '4', label: 'Licență', completed: false, current: false },
-  { id: '5', label: 'Primul job', completed: false, current: false },
-  { id: '6', label: 'Software Engineer Senior', completed: false, current: false },
-];
+import { useUserProfile } from '../../src/hooks/useUserProfile';
 
 export default function PathScreen() {
+  const { profile } = useUserProfile();
+  const [milestones, setMilestones] = useState<any[]>([]);
+  const [careerGoal, setCareerGoal] = useState<string>('');
+
+  const suggestCareer = (interests: string[], subjects: string[]): string => {
+    // Simple rule-based career suggestion
+    if (interests.includes('Tehnologie') || subjects.includes('Informatică')) {
+      return 'Software Engineer';
+    }
+    if (interests.includes('Medicină') || subjects.includes('Biologie')) {
+      return 'Doctor';
+    }
+    if (interests.includes('Drept') || subjects.includes('Istorie')) {
+      return 'Avocat';
+    }
+    if (interests.includes('Business') || subjects.includes('Economie')) {
+      return 'Manager de Proiect';
+    }
+    if (interests.includes('Artă') || subjects.includes('Geografie')) {
+      return 'Arhitect';
+    }
+    return 'Specialist în domeniul ales';
+  };
+
+  const generatePath = useCallback(() => {
+    if (!profile) return;
+
+    const currentGrade = profile.grade_level;
+    const interests = profile.interests;
+    const subjects = profile.favorite_subjects;
+
+    // Generate milestones based on current grade
+    const newMilestones: any[] = [];
+
+    // Current status
+    if (currentGrade === 'student') {
+      newMilestones.push({
+        id: '1',
+        label: 'Universitate',
+        completed: true,
+        current: true,
+      });
+    } else if (currentGrade === 'XII') {
+      newMilestones.push({
+        id: '1',
+        label: 'Clasa a XII-a',
+        completed: true,
+        current: true,
+      });
+      newMilestones.push({
+        id: '2',
+        label: 'Bacalaureat',
+        completed: false,
+        current: false,
+      });
+    } else {
+      // V - XI
+      newMilestones.push({
+        id: '1',
+        label: `Clasa ${currentGrade}`,
+        completed: true,
+        current: true,
+      });
+      newMilestones.push({
+        id: '2',
+        label: 'Admitere la liceu',
+        completed: false,
+        current: false,
+      });
+      newMilestones.push({
+        id: '3',
+        label: 'Bacalaureat',
+        completed: false,
+        current: false,
+      });
+    }
+
+    // University
+    newMilestones.push({
+      id: '4',
+      label: 'Facultate',
+      completed: false,
+      current: false,
+    });
+
+    // Career
+    const suggestedCareer = suggestCareer(interests, subjects);
+    setCareerGoal(suggestedCareer);
+    newMilestones.push({
+      id: '5',
+      label: suggestedCareer,
+      completed: false,
+      current: false,
+    });
+
+    setMilestones(newMilestones);
+  }, [profile]);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    generatePath();
+  }, [generatePath]);
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         <SectionHeader
           title="Traseul meu"
-          subtitle="Calea ta către Software Engineer"
+          subtitle={careerGoal ? `Calea ta către ${careerGoal}` : 'Calea ta către cariera dorită'}
           action="Vezi diferențele"
           onActionPress={() => router.push('/gap-analysis')}
         />
-        <Timeline milestones={MILESTONES} />
+        {milestones.length > 0 ? (
+          <Timeline milestones={milestones} />
+        ) : (
+          <Text style={styles.noDataText}>
+            Pentru a vedea traseul tău, completează profilul cu clasa și interesele tale.
+          </Text>
+        )}
       </ScrollView>
     </View>
   );
@@ -40,5 +141,11 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: spacing.lg,
+  },
+  noDataText: {
+    ...body,
+    color: colors.dark.textSecondary,
+    textAlign: 'center',
+    marginTop: spacing.xl,
   },
 });

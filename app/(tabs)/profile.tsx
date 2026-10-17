@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, ScrollView, Modal, StatusBar } from 'react-native';
 import { router } from 'expo-router';
 import { colors, spacing, title, body } from '../../src/theme';
@@ -7,41 +7,91 @@ import { SettingsItem } from '../../src/components/SettingsItem';
 import { SectionHeader } from '../../src/components/SectionHeader';
 import { Card } from '../../src/components/Card';
 import { Input } from '../../src/components/Input';
+import { CheckboxGroup } from '../../src/components/CheckboxGroup';
+import { useUserProfile } from '../../src/hooks/useUserProfile';
 import { supabase } from '../../src/lib';
 
+const INTERESTS = ['Tehnologie', 'Artă', 'Sport', 'Muzică', 'Știință', 'Business', 'Medicină', 'Drept', 'Educație', 'Inginerie'];
+const SUBJECTS = ['Matematică', 'Informatică', 'Fizică', 'Chimie', 'Biologie', 'Geografie', 'Istorie', 'Limba română', 'Limba engleză', 'Economie', 'Psihologie', 'Filozofie'];
+
 export default function ProfileScreen() {
+  const { profile, updateProfile } = useUserProfile();
   const [loading, setLoading] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showPasswordDialog, setShowPasswordDialog] = useState(false);
+  const [showEditDialog, setShowEditDialog] = useState(false);
   const [deletePassword, setDeletePassword] = useState('');
   const [userName, setUserName] = useState('Utilizator');
   const [userEmail, setUserEmail] = useState('user@example.com');
+  const [editName, setEditName] = useState('');
+  const [editInterests, setEditInterests] = useState<string[]>([]);
+  const [editSubjects, setEditSubjects] = useState<string[]>([]);
+
+  const loadUserProfile = useCallback(async () => {
+    if (!supabase) return;
+
+    try {
+      const userResult = await supabase.auth.getUser();
+      if (!userResult) return;
+      
+      const user = userResult.data?.user;
+      if (user) {
+        const displayName = user.user_metadata.display_name ||
+                           user.user_metadata.name ||
+                           user.user_metadata.full_name ||
+                           user.user_metadata.username ||
+                           user.email?.split('@')[0] ||
+                           'Utilizator';
+
+        setUserName(displayName);
+        setUserEmail(user.email || 'user@example.com');
+      }
+
+      if (profile) {
+        setEditName(profile.display_name || '');
+        setEditInterests(profile.interests || []);
+        setEditSubjects(profile.favorite_subjects || []);
+      }
+    } catch (error) {
+      console.error('Error loading user profile:', error);
+    }
+  }, [profile]);
+
+  const handleEditProfile = () => {
+    setEditName(profile?.display_name || '');
+    setEditInterests(profile?.interests || []);
+    setEditSubjects(profile?.favorite_subjects || []);
+    setShowEditDialog(true);
+  };
+
+  const handleSaveProfile = async () => {
+    try {
+      setLoading(true);
+      const userResult = await supabase?.auth.getUser();
+      if (!userResult) return;
+      
+      const user = userResult.data?.user;
+      if (!user || !supabase) return;
+
+      await updateProfile(user.id, {
+        display_name: editName,
+        interests: editInterests,
+        favorite_subjects: editSubjects,
+      });
+
+      setShowEditDialog(false);
+    } catch (error) {
+      console.error('Error saving profile:', error);
+      alert('Eroare la salvarea profilului');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const loadUserProfile = async () => {
-      if (!supabase) return;
-
-      try {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (user) {
-          // Try multiple metadata fields for the name
-          const displayName = user.user_metadata.display_name ||
-                             user.user_metadata.name ||
-                             user.user_metadata.full_name ||
-                             user.user_metadata.username ||
-                             user.email?.split('@')[0] ||
-                             'Utilizator';
-
-          setUserName(displayName);
-          setUserEmail(user.email || 'user@example.com');
-        }
-      } catch (error) {
-        console.error('Error loading user profile:', error);
-      }
-    };
-
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadUserProfile();
-  }, []);
+  }, [loadUserProfile]);
 
   const handleLogout = async () => {
     await supabase?.auth.signOut();
@@ -62,7 +112,10 @@ export default function ProfileScreen() {
         return;
       }
 
-      const { data: { user } } = await supabase.auth.getUser();
+      const userResult = await supabase.auth.getUser();
+      if (!userResult) return;
+      
+      const user = userResult.data?.user;
       if (!user?.email) {
         return;
       }
@@ -129,7 +182,7 @@ export default function ProfileScreen() {
       <SettingsItem
         icon="User"
         label="Editează profilul"
-        onPress={() => {}}
+        onPress={handleEditProfile}
         squircle
       />
       <SettingsItem
@@ -180,6 +233,78 @@ export default function ProfileScreen() {
         style={styles.button}
       />
 
+      {/* Edit Profile Modal */}
+      <Modal
+        visible={showEditDialog}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setShowEditDialog(false)}
+      >
+        <View style={styles.editOverlay}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalTitle}>Editează profilul</Text>
+            
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Nume</Text>
+              <Input
+                placeholder="Numele tău"
+                value={editName}
+                onChangeText={setEditName}
+              />
+            </View>
+
+            <CheckboxGroup
+              label="Interese"
+              options={INTERESTS.map(interest => ({
+                id: interest,
+                label: interest,
+                checked: editInterests.includes(interest),
+              }))}
+              onToggle={(interest) => {
+                setEditInterests(prev =>
+                  prev.includes(interest)
+                    ? prev.filter(i => i !== interest)
+                    : [...prev, interest]
+                );
+              }}
+              columns={2}
+            />
+
+            <CheckboxGroup
+              label="Materii preferate"
+              options={SUBJECTS.map(subject => ({
+                id: subject,
+                label: subject,
+                checked: editSubjects.includes(subject),
+              }))}
+              onToggle={(subject) => {
+                setEditSubjects(prev =>
+                  prev.includes(subject)
+                    ? prev.filter(s => s !== subject)
+                    : [...prev, subject]
+                );
+              }}
+              columns={2}
+            />
+          
+            <View style={styles.buttons}>
+              <Button
+                title="Anulează"
+                onPress={() => setShowEditDialog(false)}
+                variant="secondary"
+                style={styles.button}
+              />
+              <Button
+                title="Salvează"
+                onPress={handleSaveProfile}
+                disabled={loading}
+                style={styles.button}
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
+
       <ConfirmDialog
         visible={showDeleteDialog}
         title="Șterge contul"
@@ -199,8 +324,8 @@ export default function ProfileScreen() {
         statusBarTranslucent
       >
         <StatusBar barStyle="light-content" backgroundColor="rgba(0, 0, 0, 0.7)" />
-        <View style={styles.overlay}>
-          <View style={styles.modalContainer}>
+        <View style={styles.passwordOverlay}>
+          <View style={styles.passwordModalContainer}>
             <Text style={styles.modalTitle}>Confirmă parola</Text>
             <Text style={styles.modalMessage}>Introdu parola pentru a confirma ștergerea contului.</Text>
             
@@ -264,6 +389,34 @@ const styles = StyleSheet.create({
     marginTop: spacing.lg,
     marginBottom: spacing.xl,
   },
+  editOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    justifyContent: 'flex-end',
+  },
+  passwordOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: spacing.xl,
+  },
+  passwordModalContainer: {
+    backgroundColor: colors.dark.surface,
+    borderRadius: 16,
+    padding: spacing.xl,
+    width: '100%',
+    maxWidth: 400,
+  },
+  modalContainer: {
+    backgroundColor: colors.dark.surface,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    // @ts-ignore - borderCurve is iOS 13+ only
+    borderCurve: 'continuous',
+    padding: spacing.xl,
+    maxHeight: '90%',
+  },
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
@@ -272,22 +425,23 @@ const styles = StyleSheet.create({
     padding: spacing.xl,
     paddingTop: 0,
   },
-  modalContainer: {
-    backgroundColor: colors.dark.surface,
-    borderRadius: 16,
-    padding: spacing.xl,
-    width: '100%',
-    maxWidth: 400,
-  },
   modalTitle: {
     ...title,
     color: colors.dark.textPrimary,
-    marginBottom: spacing.md,
+    marginBottom: spacing.lg,
   },
   modalMessage: {
     ...body,
     color: colors.dark.textSecondary,
     marginBottom: spacing.xl,
+  },
+  inputContainer: {
+    marginBottom: spacing.lg,
+  },
+  inputLabel: {
+    ...body,
+    color: colors.dark.textPrimary,
+    marginBottom: spacing.sm,
   },
   passwordInput: {
     marginBottom: spacing.lg,

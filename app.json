@@ -9,7 +9,13 @@
     "scheme": "nextstep",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.nextstep.app"
+      "bundleIdentifier": "com.nextstep.app",
+      "associatedDomains": [
+        {
+          "domains": ["*.supabase.co"],
+          "scheme": "nextstep"
+        }
+      ]
     },
     "android": {
       "adaptiveIcon": {
@@ -18,7 +24,20 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "package": "com.nextstep.app"
+      "package": "com.nextstep.app",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": [
+            {
+              "scheme": "nextstep"
+            }
+          ],
+          "category": "BROWSABLE",
+          "autoVerify": true
+        }
+      ],
+      "windowSoftInputMode": "adjustResize"
     },
     "web": {
       "favicon": "./assets/favicon.png",

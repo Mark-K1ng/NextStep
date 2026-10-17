@@ -3,16 +3,40 @@
  * Handles university-related API operations
  */
 
-import { ApiClient } from './api';
+import { supabase } from '../lib';
 import { University, ExploreFilters } from '../types';
+
+export interface UniversitiesResponse {
+  data: University[];
+  error: string | null;
+}
 
 /**
  * Fetch a single university by ID
  * @param id - University ID
  * @returns University data or error
  */
-export async function fetchUniversity(id: string) {
-  return ApiClient.fetchOne<University>('universities', id);
+export async function fetchUniversity(id: string): Promise<{ data: University | null; error: string | null }> {
+  try {
+    if (!supabase) {
+      return { data: null, error: 'Supabase nu este configurat' };
+    }
+
+    const { data, error } = await supabase
+      .from('universities')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) {
+      return { data: null, error: 'Nu s-a putut încărca universitatea' };
+    }
+
+    return { data, error: null };
+  } catch (error) {
+    console.error('Error fetching university:', error);
+    return { data: null, error: 'Nu s-a putut încărca universitatea' };
+  }
 }
 
 /**
@@ -20,37 +44,31 @@ export async function fetchUniversity(id: string) {
  * @param filters - Optional filters (city, search)
  * @returns Universities array or error
  */
-export async function fetchUniversities(filters?: ExploreFilters) {
-  const queryFilters: Record<string, any> = {};
-  
-  if (filters?.county) {
-    queryFilters.city = filters.county;
-  }
-  
-  if (filters?.search) {
-    queryFilters.name = filters.search;
-  }
+export async function fetchUniversities(filters?: ExploreFilters): Promise<UniversitiesResponse> {
+  try {
+    if (!supabase) {
+      return { data: [], error: 'Supabase nu este configurat' };
+    }
 
-  return ApiClient.fetchMany<University>('universities', queryFilters);
-}
+    let query = supabase.from('universities').select('*');
+    
+    if (filters?.city) {
+      query = query.ilike('city', `%${filters.city}%`);
+    }
+    
+    if (filters?.search) {
+      query = query.ilike('name', `%${filters.search}%`);
+    }
 
-/**
- * Fetch paginated universities
- * @param filters - Optional filters
- * @param limit - Number of records per page
- * @param cursor - Optional cursor for pagination
- * @returns Paginated universities
- */
-export async function fetchUniversitiesPaginated(
-  filters?: ExploreFilters,
-  limit = 20,
-  cursor?: string
-) {
-  const queryFilters: Record<string, any> = {};
-  
-  if (filters?.county) {
-    queryFilters.city = filters.county;
+    const { data, error } = await query;
+
+    if (error) {
+      return { data: [], error: 'Nu s-au putut încărca universitățile' };
+    }
+
+    return { data: data || [], error: null };
+  } catch (error) {
+    console.error('Error fetching universities:', error);
+    return { data: [], error: 'Nu s-au putut încărca universitățile' };
   }
-
-  return ApiClient.fetchPaginated<University>('universities', queryFilters, limit, cursor);
 }

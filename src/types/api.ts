@@ -24,6 +24,7 @@ export interface PaginatedResponse<T> {
  */
 export interface ExploreFilters {
   county?: string;
+  city?: string;
   domain?: string;
   level?: string;
   is_free?: boolean;

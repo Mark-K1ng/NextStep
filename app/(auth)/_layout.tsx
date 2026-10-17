@@ -1,9 +1,9 @@
 import { Stack } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View } from 'react-native';
 
 export default function AuthLayout() {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#18171F' }} edges={['top', 'bottom']}>
+    <View style={{ flex: 1, backgroundColor: '#18171F' }}>
       <Stack
         screenOptions={{
           headerShown: false,
@@ -18,6 +18,6 @@ export default function AuthLayout() {
         <Stack.Screen name="screens/reset-password" />
         <Stack.Screen name="screens/verify-email" />
       </Stack>
-    </SafeAreaView>
+    </View>
   );
 }
