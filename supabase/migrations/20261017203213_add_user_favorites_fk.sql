@@ -1,0 +1,4 @@
+-- Add foreign key constraint to user_favorites
+-- This migration was applied directly to the database during security audit
+-- The FK is now included in the 006_create_user_favorites migration
+-- Placeholder for version control sync

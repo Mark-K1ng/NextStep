@@ -1,0 +1,3 @@
+-- Enable RLS on additional tables
+-- This migration was applied directly to the database during security audit
+-- Placeholder for version control sync
