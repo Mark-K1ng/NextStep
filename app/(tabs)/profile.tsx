@@ -86,7 +86,7 @@ export default function ProfileScreen() {
         </Pressable>
       </Card>
 
-      <View style={styles.dangerSection}>
+      <View style={{ marginBottom: spacing.xl }}>
         <Button
           title={loading ? 'Se șterge...' : 'Șterge contul'}
           onPress={() => setShowDeleteDialog(true)}
