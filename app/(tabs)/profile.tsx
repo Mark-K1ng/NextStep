@@ -1,72 +1,59 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { router } from 'expo-router';
 import { colors, spacing, title, heading, body, caption } from '../../src/theme';
-import { Button, Card } from '../../src/components';
+import { Button, Card, ConfirmDialog } from '../../src/components';
 import { supabase } from '../../src/lib';
 
 export default function ProfileScreen() {
   const [loading, setLoading] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   const handleLogout = async () => {
     await supabase?.auth.signOut();
     router.replace('/(auth)/login');
   };
 
-  const handleDeleteAccount = () => {
-    Alert.alert(
-      'Șterge contul',
-      'Ești sigur că vrei să ștergi contul? Această acțiune este ireversibilă și va șterge toate datele tale.',
-      [
-        { text: 'Anulează', style: 'cancel' },
+  const handleDeleteAccount = async () => {
+    try {
+      setLoading(true);
+      setShowDeleteDialog(false);
+      
+      if (!supabase) {
+        // Show error in dialog instead
+        return;
+      }
+
+      // Call the Supabase Edge Function to delete account
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        return;
+      }
+
+      const response = await fetch(
+        'https://nuwunxzibsvvtnxjjqzj.supabase.co/functions/v1/delete-account',
         {
-          text: 'Șterge',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              setLoading(true);
-              
-              if (!supabase) {
-                Alert.alert('Eroare', 'Supabase nu este configurat');
-                return;
-              }
-
-              // Call the Supabase Edge Function to delete account
-              const { data: { session } } = await supabase.auth.getSession();
-              if (!session?.access_token) {
-                Alert.alert('Eroare', 'Nu ești conectat');
-                return;
-              }
-
-              const response = await fetch(
-                'https://nuwunxzibsvvtnxjjqzj.supabase.co/functions/v1/delete-account',
-                {
-                  method: 'POST',
-                  headers: {
-                    'Authorization': `Bearer ${session.access_token}`,
-                    'Content-Type': 'application/json',
-                  },
-                }
-              );
-
-              if (!response.ok) {
-                const error = await response.text();
-                throw new Error(error);
-              }
-
-              // Sign out and redirect to login
-              await supabase.auth.signOut();
-              router.replace('/(auth)/login');
-            } catch (error) {
-              console.error('Delete account error:', error);
-              Alert.alert('Eroare', 'Nu s-a putut șterge contul. Încearcă din nou.');
-            } finally {
-              setLoading(false);
-            }
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${session.access_token}`,
+            'Content-Type': 'application/json',
           },
-        },
-      ]
-    );
+        }
+      );
+
+      if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error);
+      }
+
+      // Sign out and redirect to login
+      await supabase.auth.signOut();
+      router.replace('/(auth)/login');
+    } catch (error) {
+      console.error('Delete account error:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -102,10 +89,9 @@ export default function ProfileScreen() {
       <View style={styles.dangerSection}>
         <Button
           title={loading ? 'Se șterge...' : 'Șterge contul'}
-          onPress={handleDeleteAccount}
+          onPress={() => setShowDeleteDialog(true)}
           disabled={loading}
           variant="danger"
-          style={styles.dangerButton}
         />
       </View>
 
@@ -114,6 +100,17 @@ export default function ProfileScreen() {
         onPress={handleLogout}
         variant="outline"
         style={styles.button}
+      />
+
+      <ConfirmDialog
+        visible={showDeleteDialog}
+        title="Șterge contul"
+        message="Ești sigur că vrei să ștergi contul? Această acțiune este ireversibilă și va șterge toate datele tale."
+        confirmText="Șterge"
+        cancelText="Anulează"
+        onConfirm={handleDeleteAccount}
+        onCancel={() => setShowDeleteDialog(false)}
+        isDestructive
       />
     </ScrollView>
   );
@@ -157,9 +154,6 @@ const styles = StyleSheet.create({
     color: colors.dark.danger,
   },
   button: {
-    marginBottom: spacing.xl,
-  },
-  dangerSection: {
     marginBottom: spacing.xl,
   },
 });
