@@ -8,12 +8,17 @@ CREATE TABLE IF NOT EXISTS user_favorites (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX idx_user_favorites_user_id ON user_favorites(user_id);
-CREATE INDEX idx_user_favorites_item_id ON user_favorites(item_id);
-CREATE INDEX idx_user_favorites_item_type ON user_favorites(item_type);
+CREATE INDEX IF NOT EXISTS idx_user_favorites_user_id ON user_favorites(user_id);
+CREATE INDEX IF NOT EXISTS idx_user_favorites_item_id ON user_favorites(item_id);
+CREATE INDEX IF NOT EXISTS idx_user_favorites_item_type ON user_favorites(item_type);
 
 -- Enable RLS
 ALTER TABLE user_favorites ENABLE ROW LEVEL SECURITY;
+
+-- Drop existing policies if they exist (for idempotency)
+DROP POLICY IF EXISTS "Users can view their own favorites" ON user_favorites;
+DROP POLICY IF EXISTS "Users can insert their own favorites" ON user_favorites;
+DROP POLICY IF EXISTS "Users can delete their own favorites" ON user_favorites;
 
 -- Policies: Users can only see and modify their own favorites
 CREATE POLICY "Users can view their own favorites"
@@ -31,7 +36,36 @@ CREATE POLICY "Users can delete their own favorites"
   TO authenticated
   USING (auth.uid() = user_id);
 
--- Grant base permissions to authenticated role
-GRANT INSERT ON public.user_favorites TO authenticated;
-GRANT SELECT ON public.user_favorites TO authenticated;
-GRANT DELETE ON public.user_favorites TO authenticated;
+-- Grant base permissions to authenticated role (idempotent)
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.table_privileges
+    WHERE table_schema = 'public'
+    AND table_name = 'user_favorites'
+    AND grantee = 'authenticated'
+    AND privilege_type = 'INSERT'
+  ) THEN
+    GRANT INSERT ON public.user_favorites TO authenticated;
+  END IF;
+
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.table_privileges
+    WHERE table_schema = 'public'
+    AND table_name = 'user_favorites'
+    AND grantee = 'authenticated'
+    AND privilege_type = 'SELECT'
+  ) THEN
+    GRANT SELECT ON public.user_favorites TO authenticated;
+  END IF;
+
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.table_privileges
+    WHERE table_schema = 'public'
+    AND table_name = 'user_favorites'
+    AND grantee = 'authenticated'
+    AND privilege_type = 'DELETE'
+  ) THEN
+    GRANT DELETE ON public.user_favorites TO authenticated;
+  END IF;
+END $$;
