@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
-import { colors, spacing, title, body, caption } from '../../src/theme';
-import { Button, Input } from '../../src/components';
-import { supabase } from '../../src/lib';
+import { colors, spacing, title, body, caption } from '../../../src/theme';
+import { Button, Input } from '../../../src/components';
+import { supabase } from '../../../src/lib';
 
 export default function VerifyEmailScreen() {
   const params = useLocalSearchParams();
@@ -23,7 +23,7 @@ export default function VerifyEmailScreen() {
       }
 
       // Verify OTP with Supabase
-      const { data, error: verifyError } = await supabase.auth.verifyOtp({
+      const { error: verifyError } = await supabase.auth.verifyOtp({
         email: (params.email as string) || '',
         token: otp,
         type: 'signup',
@@ -36,7 +36,7 @@ export default function VerifyEmailScreen() {
 
       // Navigate to home screen on success
       router.replace('/(tabs)');
-    } catch (err) {
+    } catch {
       setError('Nu s-a putut verifica codul');
     } finally {
       setLoading(false);
@@ -64,7 +64,7 @@ export default function VerifyEmailScreen() {
       }
 
       setSent(true);
-    } catch (err) {
+    } catch {
       setError('Nu s-a putut trimite email-ul');
     } finally {
       setLoading(false);
@@ -112,7 +112,7 @@ export default function VerifyEmailScreen() {
         </Text>
       )}
 
-      <Pressable onPress={() => router.replace('/(auth)/login')}>
+      <Pressable onPress={() => router.replace('/(auth)/screens/login')}>
         <Text style={styles.link}>M-am întors la conectare</Text>
       </Pressable>
     </ScrollView>

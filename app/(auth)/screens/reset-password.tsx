@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
-import { router, useLocalSearchParams } from 'expo-router';
-import { colors, spacing, title, body, caption } from '../../src/theme';
-import { Button, Input } from '../../src/components';
-import { passwordSchema } from '../../src/lib';
+import { Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { router } from 'expo-router';
+import { colors, spacing, title, body, caption } from '../../../src/theme';
+import { Button, Input } from '../../../src/components';
+import { passwordSchema } from '../../../src/lib';
 
 export default function ResetPasswordScreen() {
-  const { token } = useLocalSearchParams<{ token?: string }>();
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -25,11 +24,10 @@ export default function ResetPasswordScreen() {
       }
 
       // TODO: Implement actual Supabase password reset with token
-      console.log('Reset password with token:', token);
 
       // Navigate to login
-      router.replace('/(auth)/login');
-    } catch (err) {
+      router.replace('/(auth)/screens/login');
+    } catch {
       setError('Nu s-a putut reseta parola');
     } finally {
       setLoading(false);
@@ -61,7 +59,7 @@ export default function ResetPasswordScreen() {
         style={styles.button}
       />
 
-      <Pressable onPress={() => router.replace('/(auth)/login')}>
+      <Pressable onPress={() => router.replace('/(auth)/screens/login')}>
         <Text style={styles.link}>Înapoi la conectare</Text>
       </Pressable>
     </ScrollView>

@@ -1,37 +1,93 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, Modal, StatusBar } from 'react-native';
 import { router } from 'expo-router';
-import { colors, spacing, title, heading, body, caption } from '../../src/theme';
-import { Button, Card, ConfirmDialog } from '../../src/components';
+import { colors, spacing, title, body } from '../../src/theme';
+import { Button, ConfirmDialog } from '../../src/components';
+import { SettingsItem } from '../../src/components/SettingsItem';
+import { SectionHeader } from '../../src/components/SectionHeader';
+import { Card } from '../../src/components/Card';
+import { Input } from '../../src/components/Input';
 import { supabase } from '../../src/lib';
 
 export default function ProfileScreen() {
   const [loading, setLoading] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showPasswordDialog, setShowPasswordDialog] = useState(false);
+  const [deletePassword, setDeletePassword] = useState('');
+  const [userName, setUserName] = useState('Utilizator');
+  const [userEmail, setUserEmail] = useState('user@example.com');
+
+  useEffect(() => {
+    const loadUserProfile = async () => {
+      if (!supabase) return;
+
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          // Try multiple metadata fields for the name
+          const displayName = user.user_metadata.display_name ||
+                             user.user_metadata.name ||
+                             user.user_metadata.full_name ||
+                             user.user_metadata.username ||
+                             user.email?.split('@')[0] ||
+                             'Utilizator';
+
+          setUserName(displayName);
+          setUserEmail(user.email || 'user@example.com');
+        }
+      } catch (error) {
+        console.error('Error loading user profile:', error);
+      }
+    };
+
+    loadUserProfile();
+  }, []);
 
   const handleLogout = async () => {
     await supabase?.auth.signOut();
-    router.replace('/(auth)/login');
+    router.replace('/(auth)/screens/login');
   };
 
   const handleDeleteAccount = async () => {
+    setShowDeleteDialog(false);
+    setShowPasswordDialog(true);
+  };
+
+  const handleDeleteWithPassword = async () => {
     try {
       setLoading(true);
-      setShowDeleteDialog(false);
-      
+      setShowPasswordDialog(false);
+
       if (!supabase) {
-        // Show error in dialog instead
         return;
       }
 
-      // Call the Supabase Edge Function to delete account
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user?.email) {
+        return;
+      }
+
+      // Verify password by signing in
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: deletePassword,
+      });
+
+      if (signInError) {
+        alert('Parola incorectă');
+        setDeletePassword('');
+        return;
+      }
+
+      // Call Edge Function to delete account
       const { data: { session } } = await supabase.auth.getSession();
       if (!session?.access_token) {
+        alert('Eroare la obținerea sesiunii');
         return;
       }
 
       const response = await fetch(
-        'https://nuwunxzibsvvtnxjjqzj.supabase.co/functions/v1/delete-account',
+        `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/delete-account`,
         {
           method: 'POST',
           headers: {
@@ -46,54 +102,76 @@ export default function ProfileScreen() {
         throw new Error(error);
       }
 
-      // Sign out and redirect to login
+      // Sign out after successful deletion
       await supabase.auth.signOut();
-      router.replace('/(auth)/login');
+      router.replace('/(auth)/screens/login');
     } catch (error) {
       console.error('Delete account error:', error);
+      alert('Eroare la ștergerea contului');
     } finally {
       setLoading(false);
+      setDeletePassword('');
     }
   };
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Text style={styles.title}>Profilul meu</Text>
+      <SectionHeader
+        title="Profilul meu"
+        subtitle="Gestionează contul tău"
+      />
 
-      <Card style={styles.card}>
-        <Text style={styles.cardTitle}>Utilizator</Text>
-        <Text style={styles.cardText}>nume@exemplu.com</Text>
+      <Card style={styles.userCard}>
+        <Text style={styles.userName}>{userName}</Text>
+        <Text style={styles.userEmail}>{userEmail}</Text>
       </Card>
 
-      <Card style={styles.card}>
-        <Pressable style={styles.menuItem}>
-          <Text style={styles.menuText}>Editează profilul</Text>
-        </Pressable>
-        <Pressable style={styles.menuItem}>
-          <Text style={styles.menuText}>Schimbă parola</Text>
-        </Pressable>
-        <Pressable style={styles.menuItem}>
-          <Text style={styles.menuText}>Exportă datele mele</Text>
-        </Pressable>
-      </Card>
+      <SettingsItem
+        icon="User"
+        label="Editează profilul"
+        onPress={() => {}}
+        squircle
+      />
+      <SettingsItem
+        icon="Settings"
+        label="Schimbă parola"
+        onPress={() => {}}
+        squircle
+      />
+      <SettingsItem
+        icon="Settings"
+        label="Exportă datele mele"
+        onPress={() => {}}
+        squircle
+        lastItem
+      />
 
-      <Card style={styles.card}>
-        <Pressable style={styles.menuItem}>
-          <Text style={styles.menuText}>Politica de confidențialitate</Text>
-        </Pressable>
-        <Pressable style={styles.menuItem}>
-          <Text style={styles.menuText}>Termeni și condiții</Text>
-        </Pressable>
-      </Card>
-
-      <View style={{ marginBottom: spacing.xl }}>
-        <Button
-          title={loading ? 'Se șterge...' : 'Șterge contul'}
-          onPress={() => setShowDeleteDialog(true)}
-          disabled={loading}
-          variant="danger"
+      <View style={styles.section}>
+        <SettingsItem
+          icon="Settings"
+          label="Politica de confidențialitate"
+          onPress={() => router.push('/privacy-policy')}
+          squircle
+        />
+        <SettingsItem
+          icon="Settings"
+          label="Termeni și condiții"
+          onPress={() => router.push('/terms-of-service')}
+          squircle
+          lastItem
         />
       </View>
+
+      <SettingsItem
+        icon="Trash2"
+        label="Șterge contul"
+        onPress={() => setShowDeleteDialog(true)}
+        showChevron={false}
+        iconColor={colors.dark.danger}
+        backgroundColor="rgba(239, 68, 68, 0.1)"
+        textColor={colors.dark.danger}
+        squircle
+      />
 
       <Button
         title="Deconectare"
@@ -112,6 +190,49 @@ export default function ProfileScreen() {
         onCancel={() => setShowDeleteDialog(false)}
         isDestructive
       />
+
+      <Modal
+        visible={showPasswordDialog}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowPasswordDialog(false)}
+        statusBarTranslucent
+      >
+        <StatusBar barStyle="light-content" backgroundColor="rgba(0, 0, 0, 0.7)" />
+        <View style={styles.overlay}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalTitle}>Confirmă parola</Text>
+            <Text style={styles.modalMessage}>Introdu parola pentru a confirma ștergerea contului.</Text>
+            
+            <Input
+              placeholder="Parola"
+              value={deletePassword}
+              onChangeText={setDeletePassword}
+              secureTextEntry
+              style={styles.passwordInput}
+            />
+          
+            <View style={styles.buttons}>
+              <Button
+                title="Anulează"
+                onPress={() => {
+                  setShowPasswordDialog(false);
+                  setDeletePassword('');
+                }}
+                variant="secondary"
+                style={styles.button}
+              />
+              <Button
+                title="Șterge"
+                onPress={handleDeleteWithPassword}
+                variant="danger"
+                disabled={loading}
+                style={styles.button}
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 }
@@ -122,38 +243,57 @@ const styles = StyleSheet.create({
     backgroundColor: colors.dark.background,
   },
   content: {
-    padding: spacing.xl,
+    padding: spacing.lg,
   },
-  title: {
-    ...title,
-    color: colors.dark.textPrimary,
-    marginBottom: spacing.xl,
-  },
-  card: {
+  userCard: {
+    padding: spacing.lg,
     marginBottom: spacing.lg,
   },
-  cardTitle: {
-    ...heading,
+  userName: {
+    ...title,
+    color: colors.dark.textPrimary,
+    marginBottom: spacing.xs,
+  },
+  userEmail: {
+    color: colors.dark.textSecondary,
+  },
+  section: {
+    marginBottom: spacing.sm,
+  },
+  button: {
+    marginTop: spacing.lg,
+    marginBottom: spacing.xl,
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: spacing.xl,
+    paddingTop: 0,
+  },
+  modalContainer: {
+    backgroundColor: colors.dark.surface,
+    borderRadius: 16,
+    padding: spacing.xl,
+    width: '100%',
+    maxWidth: 400,
+  },
+  modalTitle: {
+    ...title,
     color: colors.dark.textPrimary,
     marginBottom: spacing.md,
   },
-  cardText: {
+  modalMessage: {
     ...body,
     color: colors.dark.textSecondary,
-  },
-  menuItem: {
-    paddingVertical: spacing.md,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.dark.border,
-  },
-  menuText: {
-    ...body,
-    color: colors.dark.textPrimary,
-  },
-  dangerText: {
-    color: colors.dark.danger,
-  },
-  button: {
     marginBottom: spacing.xl,
+  },
+  passwordInput: {
+    marginBottom: spacing.lg,
+  },
+  buttons: {
+    flexDirection: 'row',
+    gap: spacing.md,
   },
 });

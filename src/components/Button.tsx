@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { Pressable, Text, StyleSheet, ViewStyle } from 'react-native';
 import { colors, spacing, radius, body } from '../theme';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'danger';
@@ -70,10 +70,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: spacing.md,
-    paddingHorizontal: spacing.xl,
+    paddingHorizontal: spacing.lg,
     borderRadius: radius.md,
     borderWidth: 1,
     minHeight: 44,
+    // @ts-ignore - borderCurve is iOS 13+ only
+    borderCurve: 'continuous',
   },
   text: {
     ...body,

@@ -4,19 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NextStep - Descoperă următorul tău pas</title>
-  <meta name="description" content="Aplicație educațională și de orientare profesională pentru elevii români">
+  <meta name="description" content="Aplicație educațională și de orientare profesională pentru elevii români. Nu mai fi confuz despre viitorul tău.">
+  <meta property="og:title" content="NextStep - Descoperă următorul tău pas">
+  <meta property="og:description" content="Aplicația care îți arată exact ce abilități îți trebuie pentru cariera visată.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.png">
   <style>
+    :root {
+      --background: #18171F;
+      --surface: #25232F;
+      --surface-elevated: #2E2B3A;
+      --border: #3A3748;
+      --text-primary: #F5F3FA;
+      --text-secondary: #A5A1B5;
+      --primary: #7C3AED;
+      --primary-hover: #6D28D9;
+      --accent: #A78BFA;
+      --success: #22C55E;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: #18171F;
-      color: #F5F3FA;
+      background-color: var(--background);
+      color: var(--text-primary);
       line-height: 1.6;
     }
 
@@ -26,9 +49,14 @@
       padding: 0 20px;
     }
 
+    /* Header */
     header {
       padding: 20px 0;
-      border-bottom: 1px solid #3A3748;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background-color: var(--background);
+      z-index: 100;
     }
 
     nav {
@@ -41,25 +69,27 @@
       font-size: 24px;
       font-weight: 800;
       font-style: italic;
-      color: #F5F3FA;
+      color: var(--text-primary);
     }
 
     .logo span {
-      color: #A78BFA;
+      color: var(--accent);
     }
 
     .nav-links a {
-      color: #A5A1B5;
+      color: var(--text-secondary);
       text-decoration: none;
       margin-left: 20px;
+      transition: color 0.3s;
     }
 
     .nav-links a:hover {
-      color: #A78BFA;
+      color: var(--accent);
     }
 
+    /* Hero Section */
     .hero {
-      padding: 80px 0;
+      padding: 100px 0 80px;
       text-align: center;
     }
 
@@ -68,37 +98,127 @@
       font-weight: 800;
       font-style: italic;
       margin-bottom: 20px;
+      line-height: 1.2;
     }
 
     .hero p {
       font-size: 20px;
-      color: #A5A1B5;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-cta {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
       margin-bottom: 40px;
     }
 
     .cta-button {
       display: inline-block;
-      background-color: #7C3AED;
+      background-color: var(--primary);
       color: white;
       padding: 12px 32px;
       border-radius: 12px;
       text-decoration: none;
       font-weight: 600;
+      transition: background-color 0.3s;
     }
 
     .cta-button:hover {
-      background-color: #6D28D9;
+      background-color: var(--primary-hover);
     }
 
-    .features {
+    .badge-link {
+      display: inline-block;
+      transition: opacity 0.3s;
+    }
+
+    .badge-link:hover {
+      opacity: 0.8;
+    }
+
+    .phone-mockup {
+      max-width: 300px;
+      margin: 40px auto;
+      border: 3px solid var(--border);
+      border-radius: 24px;
+      padding: 20px;
+      background: var(--surface);
+    }
+
+    .phone-screen {
+      background: var(--background);
+      border-radius: 12px;
+      padding: 20px;
+      min-height: 400px;
+    }
+
+    /* Section Styles */
+    section {
       padding: 80px 0;
     }
 
-    .features h2 {
+    section h2 {
+      font-size: 36px;
+      font-weight: 800;
+      font-style: italic;
       text-align: center;
       margin-bottom: 40px;
     }
 
+    /* Problem Section */
+    .problem-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .problem-item {
+      background-color: var(--surface);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      font-size: 18px;
+      color: var(--text-secondary);
+    }
+
+    /* Solution Section */
+    .solution-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .solution-step {
+      background-color: var(--surface);
+      padding: 32px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .solution-step .icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .solution-step h3 {
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .solution-step p {
+      color: var(--text-secondary);
+    }
+
+    /* Features Section */
     .feature-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -106,40 +226,222 @@
     }
 
     .feature-card {
-      background-color: #25232F;
-      padding: 24px;
+      background-color: var(--surface);
+      padding: 32px;
       border-radius: 12px;
-      border: 1px solid #3A3748;
+      border: 1px solid var(--border);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
     }
 
     .feature-card h3 {
       margin-bottom: 12px;
+      color: var(--text-primary);
     }
 
     .feature-card p {
-      color: #A5A1B5;
+      color: var(--text-secondary);
     }
 
-    footer {
-      padding: 40px 0;
-      border-top: 1px solid #3A3748;
+    /* Target Audience */
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .audience-card {
+      background-color: var(--surface);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .audience-card .icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .audience-card h3 {
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .audience-card p {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    /* Trust Section */
+    .trust-section {
+      background-color: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trust-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .trust-item {
       text-align: center;
     }
 
-    footer a {
-      color: #A5A1B5;
-      text-decoration: none;
-      margin: 0 10px;
+    .trust-item .icon {
+      font-size: 40px;
+      margin-bottom: 12px;
     }
 
-    footer a:hover {
-      color: #A78BFA;
+    .trust-item p {
+      color: var(--text-secondary);
+    }
+
+    /* How It Works */
+    .steps-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .step-number {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--primary);
+      min-width: 60px;
+    }
+
+    .step-content h3 {
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .step-content p {
+      color: var(--text-secondary);
+    }
+
+    /* FAQ Section */
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background-color: var(--surface);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .faq-item h3 {
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .faq-item p {
+      color: var(--text-secondary);
+    }
+
+    /* Download Section */
+    .download-section {
+      background-color: var(--surface);
+      border-radius: 24px;
+      padding: 60px;
+      text-align: center;
+      margin: 80px auto;
+      max-width: 800px;
+    }
+
+    .download-section h2 {
+      margin-bottom: 20px;
+    }
+
+    .download-section p {
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+
+    .download-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    footer-links {
+      margin-bottom: 20px;
+    }
+
+    footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.3s;
+    }
+
+    footer-links a:hover {
+      color: var(--accent);
     }
 
     .disclaimer {
-      margin-top: 20px;
       font-size: 12px;
-      color: #A5A1B5;
+      color: var(--text-secondary);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      section h2 {
+        font-size: 28px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .container {
+        padding: 0 16px;
+      }
+
+      section {
+        padding: 60px 0;
+      }
     }
   </style>
 </head>
@@ -149,9 +451,10 @@
       <nav>
         <div class="logo">Next<span>Step</span></div>
         <div class="nav-links">
+          <a href="#how-it-works">Cum funcționează</a>
           <a href="#features">Funcționalități</a>
+          <a href="#faq">FAQ</a>
           <a href="privacy.html">Politica de confidențialitate</a>
-          <a href="terms.html">Termeni și condiții</a>
         </div>
       </nav>
     </div>
@@ -159,51 +462,248 @@
 
   <section class="hero">
     <div class="container">
-      <h1>Descoperă următorul tău pas</h1>
-      <p>Aplicație educațională și de orientare profesională pentru elevii români</p>
-      <a href="#" class="cta-button">Descarcă aplicația</a>
+      <h1>Nu știu ce să fac după școală?</h1>
+      <p>NextStep te ajută să găsești calea ta. Aplicația care îți arată exact ce abilități îți trebuie pentru cariera visată.</p>
+      
+      <div class="hero-cta">
+        <a href="#download" class="cta-button">Descarcă gratuit</a>
+      </div>
+
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div style="text-align: center; color: var(--text-secondary); padding-top: 50%;">
+            <p>Aplicația NextStep</p>
+            <p style="font-size: 12px; margin-top: 8px;">Screenshot placeholder</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="features" id="features">
+  <section>
+    <div class="container">
+      <h2>Ești confuz despre viitorul tău?</h2>
+      <div class="problem-list">
+        <div class="problem-item">🤔 Licee sute de opțiuni, dar care e bun pentru tine?</div>
+        <div class="problem-item">📚 Facultăți și profiluri complicate, cum ți dai seama?</div>
+        <div class="problem-item">💼 Cariere care nu știi de unde începi</div>
+        <div class="problem-item">🎓 Cursuri online, dar care chiar te ajută?</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>NextStep îți arată exact ce să faci, pas cu pas</h2>
+      <div class="solution-steps">
+        <div class="solution-step">
+          <div class="icon">🎯</div>
+          <h3>Setează-ți profilul</h3>
+          <p>Clasa, județul, materiile preferate</p>
+        </div>
+        <div class="solution-step">
+          <div class="icon">🔍</div>
+          <h3>Explorează opțiunile</h3>
+          <p>Licee, facultăți, cariere verificate</p>
+        </div>
+        <div class="solution-step">
+          <div class="icon">📊</div>
+          <h3>Vezi traseul tău</h3>
+          <p>De unde ești acum până la cariera dorită</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
     <div class="container">
       <h2>Funcționalități</h2>
       <div class="feature-grid">
         <div class="feature-card">
-          <h3>Explorează Licee</h3>
-          <p>Descoperă liceele și profilurile lor pentru a găsi cea mai bună potrivire pentru tine.</p>
+          <h3>Licee verificate</h3>
+          <p>Nu mai ghicești după informații neconfirmate. Toate datele sunt verificate din surse oficiale.</p>
         </div>
         <div class="feature-card">
-          <h3>Facultăți și Programe</h3>
-          <p>Informă-te despre universități, programe de studii și cerințele lor.</p>
+          <h3>Traseu personalizat</h3>
+          <p>Vezi exact ce să înveți în următorii 4-6 ani pentru a ajunge la cariera dorită.</p>
         </div>
         <div class="feature-card">
-          <h3>Cariere</h3>
-          <p>Explorează diverse cariere și află ce abilități sunt necesare.</p>
+          <h3>Analiză de lacune</h3>
+          <p>Compară ce știi cu ce trebuie să știi pentru cariera pe care o vrei.</p>
         </div>
         <div class="feature-card">
-          <h3>Traseul Tău</h3>
-          <p>Vizualizează calea ta educațională și profesională către obiectivul tău.</p>
+          <h3>Cursuri recomandate</h3>
+          <p>Primește recomandări de cursuri care chiar te ajută să dezvolți abilitățile necesare.</p>
         </div>
         <div class="feature-card">
-          <h3>Recomandări</h3>
-          <p>Primește recomandări personalizate de cursuri pentru a-ți dezvolta abilitățile.</p>
+          <h3>În limba română</h3>
+          <p>Totul este în română, ușor de înțeles. Nicio barieră lingvistică.</p>
         </div>
         <div class="feature-card">
-          <h3>Analiză de Lacune</h3>
-          <p>Compară abilitățile tale cu cele necesare pentru cariera dorită.</p>
+          <h3>Complet gratuit</h3>
+          <p>Fără reclame, fără costuri ascunse. Aplicația este gratuită pentru toți elevii.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>Pentru cine e NextStep?</h2>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <div class="icon">🎓</div>
+          <h3>Elevi de gimnaziu</h3>
+          <p>V-VIII, care vor să aleagă liceul potrivit</p>
+        </div>
+        <div class="audience-card">
+          <div class="icon">🏫</div>
+          <h3>Elevi de liceu</h3>
+          <p>IX-XII, care se gândesc la facultate</p>
+        </div>
+        <div class="audience-card">
+          <div class="icon">🎓</div>
+          <h3>Studenți</h3>
+          <p>Care vor să se reorienteze sau să își dezvolte abilitățile</p>
+        </div>
+        <div class="audience-card">
+          <div class="icon">👨‍👫</div>
+          <h3>Părinți</h3>
+          <p>Care vor să își ajute copiii să ia decizii informate</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-section">
+    <div class="container">
+      <h2>De ce să ai încredere în noi?</h2>
+      <div class="trust-items">
+        <div class="trust-item">
+          <div class="icon">✅</div>
+          <p>Toate datele sunt verificate din surse oficiale</p>
+        </div>
+        <div class="trust-item">
+          <div class="icon">🔒</div>
+          <p>Nu colectăm date inutile</p>
+        </div>
+        <div class="trust-item">
+          <div class="icon">🛡️</div>
+          <p>Confidențialitate garantată conform GDPR</p>
+        </div>
+        <div class="trust-item">
+          <div class="icon">🇷🇪</div>
+          <p>100% în limba română</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works">
+    <div class="container">
+      <h2>Cum funcționează?</h2>
+      <div class="steps-container">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Înregistrează-te</h3>
+            <p>Creează cont în 30 de secunde cu email și parolă</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Completează profilul</h3>
+            <p>Spune-ne despre tine: clasa, județul, materiile preferate și interesele</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Alege un obiectiv</h3>
+            <p>Selectează o carieră pe care o vrei să urmezi</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Vezi traseul</h3>
+            <p>Descoperă ce licee, facultăți și abilități îți trebuie</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Începe să înveți</h3>
+            <p>Urmează recomandările de cursuri pentru a-ți dezvolta abilitățile</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-number">6</div>
+          <div class="step-content">
+            <h3>Progresează</h3>
+            <p>Ține evidența progresului tău și ajustează traseul când e necesar</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="container">
+      <h2>Întrebări frecvente</h2>
+      <div class="faq-container">
+        <div class="faq-item">
+          <h3>E gratis?</h3>
+          <p>Da, NextStep este complet gratuit. Nu există costuri ascunse sau reclame.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Îmi protejează datele?</h3>
+          <p>Da, respectăm strict GDPR. Nu vindem datele tale și le folosim doar pentru a oferi recomandări personalizate.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Funcționează offline?</h3>
+          <p>Da, parțial. Poți accesa majoritatea informațiilor și profilul tău chiar fără internet.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Cum îmi recomandă cursuri?</h3>
+          <p>Bazat pe analiza de lacune - comparăm ce abilități ai cu ce îți trebuie pentru cariera dorită.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Dacă îmi schimb părerea?</h3>
+          <p>Poți schimba obiectivul oricând. NextStep se adaptează automat la noua ta alegere.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="download">
+    <div class="container">
+      <div class="download-section">
+        <h2>Gata să începi?</h2>
+        <p>Descarcă NextStep acum și începe să îți planifici viitorul.</p>
+        <div class="download-buttons">
+          <a href="#" class="badge-link">
+            <img src="assets/app-store-badge.svg" alt="Download on App Store" width="135" height="40">
+          </a>
+          <a href="#" class="badge-link">
+            <img src="assets/google-play-badge.svg" alt="Get it on Google Play" width="135" height="40">
+          </a>
+        </div>
+        <p style="margin-top: 20px; font-size: 14px; color: var(--text-secondary);">Disponibil pe iOS și Android</p>
       </div>
     </div>
   </section>
 
   <footer>
     <div class="container">
-      <a href="privacy.html">Politica de confidențialitate</a>
-      <a href="terms.html">Termeni și condiții</a>
-      <a href="support.html">Suport</a>
-      <a href="delete-account.html">Șterge contul</a>
-      <p class="disclaimer">Această politică și acești termeni sunt în formă de proiect și necesită revizuire juridică înainte de lansare.</p>
+      <div class="footer-links">
+        <a href="privacy.html">Politica de confidențialitate</a>
+        <a href="terms.html">Termeni și condiții</a>
+        <a href="support.html">Suport</a>
+        <a href="delete-account.html">Șterge contul</a>
+      </div>
+      <p class="disclaimer">© 2026 NextStep. Toate drepturile rezervate.</p>
     </div>
   </footer>
 </body>

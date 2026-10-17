@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { router } from 'expo-router';
-import { colors, spacing, title, body, caption } from '../../src/theme';
-import { Button, Input } from '../../src/components';
-import { loginSchema } from '../../src/lib';
-import { supabase } from '../../src/lib';
+import { colors, spacing, title, body, caption } from '../../../src/theme';
+import { Button, Input } from '../../../src/components';
+import { FormField } from '../../../src/components/FormField';
+import { loginSchema , supabase } from '../../../src/lib';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -31,7 +31,7 @@ export default function LoginScreen() {
       }
 
       // Sign in with Supabase
-      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+      const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -43,7 +43,7 @@ export default function LoginScreen() {
 
       // Navigate to tabs on success
       router.replace('/(tabs)');
-    } catch (err) {
+    } catch {
       setError('Email-ul sau parola sunt incorecte');
     } finally {
       setLoading(false);
@@ -54,37 +54,37 @@ export default function LoginScreen() {
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <Text style={styles.title}>Conectare</Text>
 
-      <Input
-        label="Email"
-        placeholder="nume@exemplu.com"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
+      <FormField label="Email" error={error}>
+        <Input
+          placeholder="nume@exemplu.com"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+      </FormField>
 
-      <Input
-        label="Parolă"
-        placeholder="Parola ta"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      <FormField label="Parolă">
+        <Input
+          placeholder="Parola ta"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+      </FormField>
 
       <Button
-        title="Conectare"
+        title="Autentificare"
         onPress={handleLogin}
         disabled={loading}
         style={styles.button}
       />
 
-      <Pressable onPress={() => router.push('/(auth)/forgot-password')}>
+      <Pressable onPress={() => router.push('/(auth)/screens/forgot-password')}>
         <Text style={styles.link}>Ai uitat parola?</Text>
       </Pressable>
 
-      <Pressable onPress={() => router.push('/(auth)/register')}>
+      <Pressable onPress={() => router.push('/(auth)/screens/personalization')}>
         <Text style={styles.link}>Nu ai cont? Înregistrare</Text>
       </Pressable>
     </ScrollView>
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     ...title,
     color: colors.dark.textPrimary,
     marginBottom: spacing.xl,
+    fontSize: 32,
   },
   button: {
     marginBottom: spacing.lg,

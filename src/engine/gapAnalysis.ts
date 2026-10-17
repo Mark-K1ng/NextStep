@@ -1,20 +1,55 @@
+/**
+ * User skill interface
+ * Represents a skill the user has acquired
+ */
 export interface Skill {
   id: string;
   name: string;
-  level: number; // 1-3
+  level: number; // 1-3, where 1 = beginner, 2 = intermediate, 3 = advanced
 }
 
+/**
+ * Career skill requirement interface
+ * Represents a skill required for a specific career
+ */
 export interface CareerSkill {
   skillId: string;
-  importance: number; // 1-3
+  importance: number; // 1-3, where 1 = nice to have, 2 = recommended, 3 = required
 }
 
+/**
+ * Gap analysis result interface
+ * Categorizes skills based on user's current level vs career requirements
+ */
 export interface GapResult {
-  covered: Skill[];
-  partial: Skill[];
-  missing: Skill[];
+  covered: Skill[]; // Skills user has at sufficient level
+  partial: Skill[]; // Skills user has but at insufficient level
+  missing: Skill[]; // Skills user doesn't have at all
 }
 
+/**
+ * Analyzes skill gaps between user's current skills and career requirements
+ * 
+ * This function compares user skills against career skill requirements and categorizes
+ * them into three groups:
+ * - covered: user has the skill at or above the required level
+ * - partial: user has the skill but below the required level
+ * - missing: user doesn't have the skill at all
+ * 
+ * Results are sorted by importance within each category (highest importance first)
+ * 
+ * @param userSkills - Array of skills the user currently has
+ * @param careerSkills - Array of skill requirements for the target career
+ * @returns GapResult with categorized skills
+ * 
+ * @example
+ * ```ts
+ * const userSkills = [{ id: '1', name: 'JavaScript', level: 2 }];
+ * const careerSkills = [{ skillId: '1', importance: 3 }];
+ * const result = analyzeGaps(userSkills, careerSkills);
+ * // result.partial will contain the JavaScript skill
+ * ```
+ */
 export function analyzeGaps(
   userSkills: Skill[],
   careerSkills: CareerSkill[]

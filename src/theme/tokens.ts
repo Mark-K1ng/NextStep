@@ -37,6 +37,7 @@ export const radius = {
   sm: 8,
   md: 12,
   lg: 16,
+  xl: 24,
 } as const;
 
 export const typography = {
@@ -65,7 +66,12 @@ export const typography = {
   },
 } as const;
 
+export const squircle = {
+  borderCurve: 'continuous',
+} as const;
+
 export type Colors = typeof colors;
 export type Spacing = typeof spacing;
 export type Radius = typeof radius;
 export type Typography = typeof typography;
+export type Squircle = typeof squircle;

@@ -1,5 +1,9 @@
-import { analyzeGaps, GapResult, Skill } from './gapAnalysis';
+import { analyzeGaps, Skill } from './gapAnalysis';
 
+/**
+ * Course interface
+ * Represents a learning course that teaches specific skills
+ */
 export interface Course {
   id: string;
   title: string;
@@ -11,16 +15,28 @@ export interface Course {
   skills: CourseSkill[];
 }
 
+/**
+ * Course skill interface
+ * Represents a skill taught by a course with depth level
+ */
 export interface CourseSkill {
   skillId: string;
-  depth: number; // 1-3
+  depth: number; // 1-3, where 1 = basic coverage, 2 = good coverage, 3 = comprehensive
 }
 
+/**
+ * Recommendation step interface
+ * Maps a skill to recommended courses for learning it
+ */
 export interface RecommendationStep {
   skill: Skill;
   courses: Course[];
 }
 
+/**
+ * Recommendation result interface
+ * Contains gap analysis and course recommendations
+ */
 export interface RecommendationResult {
   covered: Skill[];
   partial: Skill[];
@@ -28,6 +44,29 @@ export interface RecommendationResult {
   steps: RecommendationStep[];
 }
 
+/**
+ * Generates course recommendations based on skill gaps
+ * 
+ * This function performs gap analysis between user skills and career requirements,
+ * then maps courses to missing and partial skills. Courses are sorted by:
+ * 1. Free courses first
+ * 2. Skill depth (higher depth = more comprehensive coverage)
+ * 3. Course level (beginner courses first)
+ * 
+ * @param userSkills - Array of skills the user currently has
+ * @param careerSkills - Array of skill requirements for the target career
+ * @param courses - Array of available courses
+ * @returns RecommendationResult with gap analysis and course recommendations
+ * 
+ * @example
+ * ```ts
+ * const userSkills = [{ id: '1', name: 'JavaScript', level: 1 }];
+ * const careerSkills = [{ skillId: '1', importance: 3 }];
+ * const courses = [{ id: 'c1', title: 'JS Basics', skills: [{ skillId: '1', depth: 2 }], isFree: true }];
+ * const result = generateRecommendations(userSkills, careerSkills, courses);
+ * // result.steps will contain recommended courses for partial/missing skills
+ * ```
+ */
 export function generateRecommendations(
   userSkills: Skill[],
   careerSkills: { skillId: string; importance: number }[],
@@ -65,6 +104,18 @@ export function generateRecommendations(
   };
 }
 
+/**
+ * Finds and sorts courses relevant to a specific skill
+ * 
+ * @param skillId - The ID of the skill to find courses for
+ * @param courses - Array of available courses
+ * @returns Sorted array of relevant courses
+ * 
+ * Sorting priority:
+ * 1. Free courses first
+ * 2. Higher skill depth (more comprehensive coverage)
+ * 3. Beginner-level courses first
+ */
 function findRelevantCourses(skillId: string, courses: Course[]): Course[] {
   // Find courses that teach this skill
   const relevantCourses = courses.filter((course) =>

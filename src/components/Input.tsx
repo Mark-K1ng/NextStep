@@ -58,11 +58,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.dark.surface,
     color: colors.dark.textPrimary,
     borderWidth: 1,
-    borderRadius: radius.sm,
+    borderRadius: radius.md,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
     minHeight: 44,
     textAlign: 'left' as const,
+    // @ts-ignore - borderCurve is iOS 13+ only
+    borderCurve: 'continuous',
   },
   error: {
     ...caption,

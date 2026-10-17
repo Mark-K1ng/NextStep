@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { router } from 'expo-router';
-import { colors, spacing, title, body, caption } from '../../src/theme';
-import { Button, Input } from '../../src/components';
-import { emailSchema } from '../../src/lib';
+import { colors, spacing, title, body, caption } from '../../../src/theme';
+import { Button, Input } from '../../../src/components';
+import { emailSchema } from '../../../src/lib';
 
 export default function ForgotPasswordScreen() {
   const [email, setEmail] = useState('');
@@ -25,10 +25,9 @@ export default function ForgotPasswordScreen() {
       }
 
       // TODO: Implement actual Supabase password reset
-      console.log('Reset password for:', email);
 
       setSent(true);
-    } catch (err) {
+    } catch {
       setError('Nu s-a putut trimite email-ul de resetare');
     } finally {
       setLoading(false);
@@ -69,7 +68,7 @@ export default function ForgotPasswordScreen() {
         </Text>
       )}
 
-      <Pressable onPress={() => router.back()}>
+      <Pressable onPress={() => router.push('/(auth)/screens/login')}>
         <Text style={styles.link}>Înapoi la conectare</Text>
       </Pressable>
     </ScrollView>

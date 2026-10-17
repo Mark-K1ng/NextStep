@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { router } from 'expo-router';
-import { colors, spacing, display, body } from '../../src/theme';
+import { colors, spacing, title, body, heading } from '../../src/theme';
 import { Button } from '../../src/components';
 import { supabase } from '../../src/lib';
 
 export default function WelcomeScreen() {
   const handleGetStarted = () => {
     if (supabase) {
-      router.push('/(auth)/register');
+      router.push('/(auth)/screens/personalization');
     } else {
       // Skip auth for development without Supabase
       router.replace('/(tabs)');
@@ -17,18 +17,18 @@ export default function WelcomeScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.title}>NextStep</Text>
+      <View style={styles.topContent}>
+        <Text style={styles.logo}>NextStep</Text>
         <Text style={styles.subtitle}>Descoperă următorul tău pas</Text>
       </View>
 
-      <View style={styles.actions}>
+      <View style={styles.bottomContent}>
         <Button
           title="Începe"
           onPress={handleGetStarted}
           style={styles.button}
         />
-        <Pressable onPress={() => supabase && router.push('/(auth)/login')}>
+        <Pressable onPress={() => supabase && router.push('/(auth)/screens/login')}>
           <Text style={styles.link}>{supabase ? 'Ai deja cont? Conectare' : 'Modul dezvoltare (fără backend)'}</Text>
         </Pressable>
       </View>
@@ -40,31 +40,43 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.dark.background,
-    padding: spacing.xl,
-    justifyContent: 'center',
+    paddingHorizontal: spacing.xl,
+    justifyContent: 'space-between',
+    paddingTop: spacing.xxxl,
+    paddingBottom: spacing.xxxl,
   },
-  content: {
-    marginBottom: spacing.xxxl,
+  topContent: {
+    alignItems: 'center',
   },
-  title: {
-    ...display,
-    color: colors.dark.textPrimary,
-    marginBottom: spacing.sm,
+  logo: {
+    ...title,
+    color: colors.dark.primary,
+    fontSize: 56,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginBottom: spacing.lg,
+    letterSpacing: -0.5,
   },
   subtitle: {
-    ...body,
+    ...heading,
     color: colors.dark.textSecondary,
+    textAlign: 'center',
+    fontSize: 18,
+    lineHeight: 28,
+    fontWeight: '400',
   },
-  actions: {
+  bottomContent: {
+    alignItems: 'center',
     gap: spacing.lg,
   },
   button: {
-    marginBottom: spacing.md,
+    width: '100%',
   },
   link: {
     ...body,
     color: colors.dark.primary,
     textAlign: 'center',
     fontWeight: '600',
+    fontSize: 16,
   },
 });

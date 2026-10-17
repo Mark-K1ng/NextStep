@@ -1,6 +1,6 @@
 import React from 'react';
-import { Modal, View, Text, StyleSheet, Pressable } from 'react-native';
-import { colors, spacing, radius, title, body, caption } from '../theme';
+import { Modal, View, Text, StyleSheet, StatusBar } from 'react-native';
+import { colors, spacing, radius, title, body } from '../theme';
 import { Button } from './Button';
 
 interface ConfirmDialogProps {
@@ -30,7 +30,9 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
       transparent
       animationType="fade"
       onRequestClose={onCancel}
+      statusBarTranslucent
     >
+      <StatusBar barStyle="light-content" backgroundColor="rgba(0, 0, 0, 0.7)" />
       <View style={styles.overlay}>
         <View style={styles.container}>
           <Text style={styles.title}>{title}</Text>
@@ -63,6 +65,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: spacing.xl,
+    paddingTop: 0,
   },
   container: {
     backgroundColor: colors.dark.surface,

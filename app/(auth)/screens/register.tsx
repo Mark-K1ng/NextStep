@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { router } from 'expo-router';
-import { colors, spacing, title, body, caption } from '../../src/theme';
-import { Button, Input } from '../../src/components';
-import { registerSchema } from '../../src/lib';
-import { supabase } from '../../src/lib';
+import { colors, spacing, title, body, caption } from '../../../src/theme';
+import { Button, Input } from '../../../src/components';
+import { FormField } from '../../../src/components/FormField';
+import { registerSchema , supabase } from '../../../src/lib';
 
 export default function RegisterScreen() {
   const [email, setEmail] = useState('');
@@ -52,24 +52,22 @@ export default function RegisterScreen() {
 
       if (signUpError) {
         console.error('Sign up error:', signUpError);
-        
+
         // Check if user already exists
         if (signUpError.message.includes('already registered') || signUpError.message.includes('User already registered')) {
           setError('Există deja un cont cu acest email. Conectează-te.');
           return;
         }
-        
+
         // If it's a database error, the user might still be created despite trigger failure
         // Try to sign in to check
         if (signUpError.message.includes('Database error')) {
-          console.log('Trying to sign in to check if user was created...');
-          const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+          const { data: signInData } = await supabase.auth.signInWithPassword({
             email,
             password,
           });
-          
+
           if (signInData.user) {
-            console.log('User was created, proceeding to verification');
             // Create profile manually
             try {
               const { error: profileError } = await supabase
@@ -88,11 +86,11 @@ export default function RegisterScreen() {
             } catch (err) {
               console.error('Profile creation failed:', err);
             }
-            router.push({ pathname: '/(auth)/verify-email', params: { email } } as any);
+            router.push({ pathname: '/(auth)/screens/verify-email', params: { email } } as any);
             return;
           }
         }
-        
+
         setError(signUpError.message);
         return;
       }
@@ -121,11 +119,11 @@ export default function RegisterScreen() {
           // Continue anyway
         }
 
-        router.push({ pathname: '/(auth)/verify-email', params: { email } } as any);
+        router.push({ pathname: '/(auth)/screens/verify-email', params: { email } } as any);
       } else {
         setError('Nu s-a putut crea contul. Încearcă din nou.');
       }
-    } catch (err) {
+    } catch {
       setError('Nu s-a putut crea contul');
     } finally {
       setLoading(false);
@@ -136,31 +134,32 @@ export default function RegisterScreen() {
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <Text style={styles.title}>Înregistrare</Text>
 
-      <Input
-        label="Nume"
-        placeholder="Numele tău"
-        value={displayName}
-        onChangeText={setDisplayName}
-      />
+      <FormField label="Nume">
+        <Input
+          placeholder="Numele tău"
+          value={displayName}
+          onChangeText={setDisplayName}
+        />
+      </FormField>
 
-      <Input
-        label="Email"
-        placeholder="nume@exemplu.com"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
+      <FormField label="Email" error={error}>
+        <Input
+          placeholder="nume@exemplu.com"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+      </FormField>
 
-      <Input
-        label="Parolă"
-        placeholder="Parola ta"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      <FormField label="Parolă">
+        <Input
+          placeholder="Parola ta"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+      </FormField>
 
       <Button
         title="Înregistrare"
@@ -169,7 +168,7 @@ export default function RegisterScreen() {
         style={styles.button}
       />
 
-      <Pressable onPress={() => router.push('/(auth)/login')}>
+      <Pressable onPress={() => router.push('/(auth)/screens/login')}>
         <Text style={styles.link}>Ai deja cont? Conectare</Text>
       </Pressable>
     </ScrollView>
@@ -190,6 +189,7 @@ const styles = StyleSheet.create({
     ...title,
     color: colors.dark.textPrimary,
     marginBottom: spacing.xl,
+    fontSize: 32,
   },
   button: {
     marginBottom: spacing.lg,
