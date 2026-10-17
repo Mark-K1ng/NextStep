@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NextStep - Descoperă următorul tău pas</title>
+  <meta name="description" content="Aplicație educațională și de orientare profesională pentru elevii români">
+  <link rel="icon" href="/favicon.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #18171F;
+      color: #F5F3FA;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid #3A3748;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      font-style: italic;
+      color: #F5F3FA;
+    }
+
+    .logo span {
+      color: #A78BFA;
+    }
+
+    .nav-links a {
+      color: #A5A1B5;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .nav-links a:hover {
+      color: #A78BFA;
+    }
+
+    .hero {
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #A5A1B5;
+      margin-bottom: 40px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: #7C3AED;
+      color: white;
+      padding: 12px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .cta-button:hover {
+      background-color: #6D28D9;
+    }
+
+    .features {
+      padding: 80px 0;
+    }
+
+    .features h2 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background-color: #25232F;
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid #3A3748;
+    }
+
+    .feature-card h3 {
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      color: #A5A1B5;
+    }
+
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid #3A3748;
+      text-align: center;
+    }
+
+    footer a {
+      color: #A5A1B5;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      color: #A78BFA;
+    }
+
+    .disclaimer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #A5A1B5;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Next<span>Step</span></div>
+        <div class="nav-links">
+          <a href="#features">Funcționalități</a>
+          <a href="privacy.html">Politica de confidențialitate</a>
+          <a href="terms.html">Termeni și condiții</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Descoperă următorul tău pas</h1>
+      <p>Aplicație educațională și de orientare profesională pentru elevii români</p>
+      <a href="#" class="cta-button">Descarcă aplicația</a>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="container">
+      <h2>Funcționalități</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>Explorează Licee</h3>
+          <p>Descoperă liceele și profilurile lor pentru a găsi cea mai bună potrivire pentru tine.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Facultăți și Programe</h3>
+          <p>Informă-te despre universități, programe de studii și cerințele lor.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Cariere</h3>
+          <p>Explorează diverse cariere și află ce abilități sunt necesare.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Traseul Tău</h3>
+          <p>Vizualizează calea ta educațională și profesională către obiectivul tău.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Recomandări</h3>
+          <p>Primește recomandări personalizate de cursuri pentru a-ți dezvolta abilitățile.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Analiză de Lacune</h3>
+          <p>Compară abilitățile tale cu cele necesare pentru cariera dorită.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <a href="privacy.html">Politica de confidențialitate</a>
+      <a href="terms.html">Termeni și condiții</a>
+      <a href="support.html">Suport</a>
+      <a href="delete-account.html">Șterge contul</a>
+      <p class="disclaimer">Această politică și acești termeni sunt în formă de proiect și necesită revizuire juridică înainte de lansare.</p>
+    </div>
+  </footer>
+</body>
+</html>
