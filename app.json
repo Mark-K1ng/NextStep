@@ -11,10 +11,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.nextstep.app",
       "associatedDomains": [
-        {
-          "domains": ["*.supabase.co"],
-          "scheme": "nextstep"
-        }
+        "*.supabase.co"
       ]
     },
     "android": {
@@ -53,6 +50,12 @@
       "eas": {
         "projectId": "5743160c-570e-47a9-9465-69fff216c3ea"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/5743160c-570e-47a9-9465-69fff216c3ea"
     }
   }
 }
