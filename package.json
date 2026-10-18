@@ -20,6 +20,7 @@
     "react-native": "0.86.3",
     "react-native-safe-area-context": "~5.7.0",
     "react-native-svg": "15.15.4",
+    "react-native-web": "^0.21.2",
     "react-native-webview": "13.16.1",
     "zod": "^4.6.7"
   },
@@ -30,7 +31,8 @@
     "typescript": "~6.0.3"
   },
   "overrides": {
-    "react-native-worklets": "0.10.4"
+    "react-native-worklets": "0.10.4",
+    "react-dom": "19.2.3"
   },
   "scripts": {
     "start": "expo start",
