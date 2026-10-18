@@ -14,7 +14,8 @@
         "buildType": "apk"
       },
       "ios": {
-        "buildConfiguration": "Debug"
+        "buildConfiguration": "Debug",
+        "simulator": false
       },
       "env": {
         "EAS_BUILD_NO_EXPO_GO_WARNING": "true"

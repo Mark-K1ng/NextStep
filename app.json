@@ -36,8 +36,7 @@
           "category": "BROWSABLE",
           "autoVerify": true
         }
-      ],
-      "windowSoftInputMode": "adjustResize"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png",
