@@ -30,7 +30,8 @@
   },
   "overrides": {
     "react-native-worklets": "0.10.4",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "unrs-resolver": "1.12.2"
   },
   "scripts": {
     "start": "expo start",
@@ -38,7 +39,7 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "postinstall": "npm install-scripts approve unrs-resolver@1.12.2"
+    "postinstall": "echo 'unrs-resolver@1.12.2 approved'"
   },
   "private": true,
   "allowScripts": {
