@@ -3,11 +3,14 @@
   "compilerOptions": {
     "strict": true,
     "ignoreDeprecations": "6.0",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "noEmit": true
   },
   "exclude": [
     "node_modules",
     "node_modules/**",
+    "node_modules/expo-modules-core",
+    "node_modules/expo-modules-core/**",
     "supabase/functions"
   ],
   "include": [

@@ -8,8 +8,17 @@
   "js/ts.preferences.quoteStyle": "single",
   "typescript.disableAutomaticTypeAcquisition": true,
   "files.exclude": {
-    "**/node_modules/expo-modules-core": true
+    "**/node_modules": true,
+    "**/node_modules/**": true
   },
   "typescript.validate.enable": false,
-  "javascript.validate.enable": false
+  "javascript.validate.enable": false,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/node_modules/**": true
+  },
+  "typescript.tsserver.experimental.enableProjectDiagnostics": false,
+  "typescript.tsserver.useLibraryCodeForTypes": false,
+  "typescript.referencesCodeLens.enabled": false,
+  "typescript.implementationsCodeLens.enabled": false
 }
