@@ -29,7 +29,7 @@
     "typescript": "~6.0.3"
   },
   "overrides": {
-    "react-native-worklets": "0.10.4",
+    "react-native-worklets": "0.13.0",
     "react-dom": "19.2.3",
     "unrs-resolver": "1.12.2"
   },

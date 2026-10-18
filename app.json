@@ -12,7 +12,10 @@
       "bundleIdentifier": "com.nextstep.app",
       "associatedDomains": [
         "*.supabase.co"
-      ]
+      ],
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
