@@ -1,6 +1,6 @@
 import { act, createElement } from 'react';
 import { createRoot, type Root } from 'test-renderer';
-import Home from './Home';
+import Home from './home';
 import { ro } from '@/i18n/ro';
 let mockGoal: { name: string } | null;
 let mockLoading = false;

@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "NextStep",
-    "slug": "NextStep",
-    "owner": "secondaccount123",
+    "slug": "nextstep",
+    "owner": "nextstepapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -107,14 +107,14 @@
         }
       },
       "eas": {
-        "projectId": "d6577a0d-d589-4bd5-aa34-e7371ffdec5b"
+        "projectId": "5743160c-570e-47a9-9465-69fff216c3ea"
       }
     },
     "runtimeVersion": {
       "policy": "appVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/d6577a0d-d589-4bd5-aa34-e7371ffdec5b"
+      "url": "https://u.expo.dev/5743160c-570e-47a9-9465-69fff216c3ea"
     }
   }
 }

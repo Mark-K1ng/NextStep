@@ -38,6 +38,7 @@ supabase/.temp/
 supabase/.branches/
 
 # Private planning, agent instructions and development notes
+/docs/
 *.md
 *.mdc
 !/README.md
