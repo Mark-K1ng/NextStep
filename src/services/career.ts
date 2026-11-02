@@ -1,13 +1,13 @@
 // Service for career-related data access
-import { supabase } from "@/lib/supabase";
+import { supabase } from '@/lib/supabase';
 
 export const careerService = {
   // Get all careers
   async getCareers() {
     const { data, error } = await supabase
-      .from("careers")
-      .select("*")
-      .order("name");
+      .from('careers')
+      .select('*')
+      .order('name');
 
     if (error) {
       throw error;
@@ -18,9 +18,9 @@ export const careerService = {
   // Get career by ID
   async getCareerById(id: string) {
     const { data, error } = await supabase
-      .from("careers")
-      .select("*")
-      .eq("id", id)
+      .from('careers')
+      .select('*')
+      .eq('id', id)
       .single();
 
     if (error) {
@@ -32,10 +32,10 @@ export const careerService = {
   // Get careers by domain
   async getCareersByDomain(domain: string) {
     const { data, error } = await supabase
-      .from("careers")
-      .select("*")
-      .eq("domain", domain)
-      .order("name");
+      .from('careers')
+      .select('*')
+      .eq('domain', domain)
+      .order('name');
 
     if (error) {
       throw error;
@@ -46,7 +46,7 @@ export const careerService = {
   // Get skills for a career
   async getCareerSkills(careerId: string) {
     const { data, error } = await supabase
-      .from("career_skills")
+      .from('career_skills')
       .select(
         `
         *,
@@ -57,8 +57,8 @@ export const careerService = {
         )
       `
       )
-      .eq("career_id", careerId)
-      .order("importance", { ascending: false });
+      .eq('career_id', careerId)
+      .order('importance', { ascending: false });
 
     if (error) {
       throw error;
@@ -69,7 +69,7 @@ export const careerService = {
   // Get programs for a career
   async getCareerPrograms(careerId: string) {
     const { data, error } = await supabase
-      .from("program_careers")
+      .from('program_careers')
       .select(
         `
         *,
@@ -84,7 +84,7 @@ export const careerService = {
         )
       `
       )
-      .eq("career_id", careerId);
+      .eq('career_id', careerId);
 
     if (error) {
       throw error;

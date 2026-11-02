@@ -1,11 +1,11 @@
 // Service for program-related data access
-import { supabase } from "@/lib/supabase";
+import { supabase } from '@/lib/supabase';
 
 export const programService = {
   // Get all programs
   async getPrograms() {
     const { data, error } = await supabase
-      .from("programs")
+      .from('programs')
       .select(
         `
         *,
@@ -17,7 +17,7 @@ export const programService = {
         )
       `
       )
-      .order("name");
+      .order('name');
 
     if (error) {
       throw error;
@@ -28,7 +28,7 @@ export const programService = {
   // Get program by ID
   async getProgramById(id: string) {
     const { data, error } = await supabase
-      .from("programs")
+      .from('programs')
       .select(
         `
         *,
@@ -40,7 +40,7 @@ export const programService = {
         )
       `
       )
-      .eq("id", id)
+      .eq('id', id)
       .single();
 
     if (error) {
@@ -52,7 +52,7 @@ export const programService = {
   // Get programs by university
   async getProgramsByUniversity(universityId: string) {
     const { data, error } = await supabase
-      .from("programs")
+      .from('programs')
       .select(
         `
         *,
@@ -64,8 +64,8 @@ export const programService = {
         )
       `
       )
-      .eq("university_id", universityId)
-      .order("name");
+      .eq('university_id', universityId)
+      .order('name');
 
     if (error) {
       throw error;
@@ -76,7 +76,7 @@ export const programService = {
   // Get programs by degree level
   async getProgramsByDegreeLevel(level: string) {
     const { data, error } = await supabase
-      .from("programs")
+      .from('programs')
       .select(
         `
         *,
@@ -88,8 +88,8 @@ export const programService = {
         )
       `
       )
-      .eq("degree_level", level)
-      .order("name");
+      .eq('degree_level', level)
+      .order('name');
 
     if (error) {
       throw error;
@@ -100,7 +100,7 @@ export const programService = {
   // Get skills for a program
   async getProgramSkills(programId: string) {
     const { data, error } = await supabase
-      .from("program_skills")
+      .from('program_skills')
       .select(
         `
         *,
@@ -111,7 +111,7 @@ export const programService = {
         )
       `
       )
-      .eq("program_id", programId);
+      .eq('program_id', programId);
 
     if (error) {
       throw error;
@@ -122,7 +122,7 @@ export const programService = {
   // Get careers for a program
   async getProgramCareers(programId: string) {
     const { data, error } = await supabase
-      .from("program_careers")
+      .from('program_careers')
       .select(
         `
         *,
@@ -136,7 +136,7 @@ export const programService = {
         )
       `
       )
-      .eq("program_id", programId);
+      .eq('program_id', programId);
 
     if (error) {
       throw error;

@@ -1,578 +1,559 @@
+import { useBottomSafeArea } from '@/hooks/use-bottom-safe-area';
+import { Platform, StyleSheet, useWindowDimensions } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useSession } from '@/providers/auth';
 import {
   View,
-  Text,
-  Image,
-  StyleSheet,
   FlatList,
-  Pressable,
-} from "react-native";
-import { useRouter } from "expo-router";
-import { Button, Input, Chip, Card, EmptyState, Toast } from "@/components";
-import { useTranslation } from "@/hooks/use-translation";
-import { useState, useEffect } from "react";
-import { useSupabase } from "@/hooks/use-supabase";
-import { useTheme } from "@/hooks/use-theme";
-import { spacing, radius, theme } from "@/theme/tokens";
+  BackHandler,
+  Keyboard,
+  RefreshControl,
+} from 'react-native';
+import { SafeAreaView } from '@/components/safe-area';
+import { SafeAreaView as NavigationSafeAreaView } from 'react-native-screens/experimental';
+import { useLocalSearchParams, useFocusEffect, usePathname } from 'expo-router';
+import { useAppRouter as useRouter } from '@/hooks/use-app-router';
+import { MotionLayout, MotionPressable } from '@/components/motion';
+import { BottomNavigation } from '@/components/bottom-navigation';
+import { useJourney } from '@/providers/journey';
+import {
+  School,
+  GraduationCap,
+  Briefcase,
+  BookOpen,
+  Layers,
+  Search,
+  SlidersHorizontal,
+  BrainCircuit,
+} from 'lucide-react-native';
+import { Copy, Panel, Row, design } from '@/components/design';
+import { BackButton } from '@/components/back-button';
+import { NavigationSurface } from '@/components/navigation-surface';
+import { Input, Button } from '@/components';
+import { DataState } from '@/components/data-state';
+import { CatalogueResult } from './CatalogueResult';
+import { useTheme } from '@/hooks/use-theme';
+import { ro } from '@/i18n/ro';
+import { spacing as s, radius } from '@/theme/tokens';
 
+import { openOption } from '@/lib/option-navigation';
+import { searchCatalogue } from '@/services/catalogue';
+import { useDebouncedValue } from '@/hooks/use-debounced-value';
+import { useProfileQuery } from '@/hooks/use-profile';
+import { normalizeCounty, COUNTIES } from '@/constants/profile-options';
+import { useAccountMode } from '@/providers/account-mode';
+import { StudentPreviewBanner } from '@/components/student-preview-banner';
+import { institutionTables } from '@/lib/institution-scope';
+import { SelectField } from '@/components/SelectField';
+import { loadCatalogueKeywords } from '@/services/catalogue-filters';
+const categories = [
+  {
+    id: 'skills',
+    icon: BrainCircuit,
+    label: ro.common.skills,
+    hint: ro.visual.skillsHint,
+  },
+  {
+    id: 'schools',
+    icon: School,
+    label: ro.explore.sections.schools,
+    hint: ro.visual.categoryHints[0],
+  },
+  {
+    id: 'school_profiles',
+    icon: BookOpen,
+    label: ro.visual.specializations,
+    hint: ro.visual.specializationsHint,
+  },
+  {
+    id: 'universities',
+    icon: GraduationCap,
+    label: ro.explore.sections.universities,
+    hint: ro.visual.categoryHints[1],
+  },
+  {
+    id: 'programs',
+    icon: Layers,
+    label: ro.visual.studyPrograms,
+    hint: ro.visual.programsHint,
+  },
+  {
+    id: 'careers',
+    icon: Briefcase,
+    label: ro.explore.sections.careers,
+    hint: ro.visual.categoryHints[2],
+  },
+  {
+    id: 'courses',
+    icon: BookOpen,
+    label: ro.explore.sections.courses,
+    hint: ro.visual.categoryHints[3],
+  },
+];
 export default function Explore() {
   const router = useRouter();
-  const { t } = useTranslation();
-  const { supabase } = useSupabase();
+  const pathname = usePathname();
+  const standalone =
+    pathname === '/explore' ||
+    (Platform.OS === 'ios' && pathname === '/_tabs/explore');
+  const journey = useJourney();
   const theme = useTheme();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedSection, setSelectedSection] = useState("schools");
-  const [selectedFilters, setSelectedFilters] = useState({
-    county: "",
-    domain: "",
-    level: "",
-  });
-  const [loading, setLoading] = useState(false);
-  const [items, setItems] = useState<any[]>([]);
-  const [error, setError] = useState<string | null>(null);
-
-  // Sections for exploration
-  const sections = [
-    { id: "schools", label: t("explore.sections.schools"), icon: "school" },
-    {
-      id: "universities",
-      label: t("explore.sections.universities"),
-      icon: "university",
-    },
-    { id: "careers", label: t("explore.sections.careers"), icon: "career" },
-    { id: "courses", label: t("explore.sections.courses"), icon: "course" },
-  ];
-
+  const bottom = useBottomSafeArea();
+  const { isPreview, previewCounty, setPreviewCounty } = useAccountMode();
+  const { height, fontScale } = useWindowDimensions();
+  const compactMenu = height < 760 || fontScale > 1.1;
+  // Keep enlarged text and very short windows reachable without shrinking targets.
+  const needsOverflow = fontScale > 1.3 || height < 640 || isPreview;
+  const { section: initialSection, intent } = useLocalSearchParams<{
+    section?: string;
+    intent?: string;
+  }>();
+  const [section, setSection] = useState(
+    initialSection &&
+      categories.some((category) => category.id === initialSection)
+      ? initialSection
+      : ''
+  );
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        let query;
-
-        // Build query based on selected section
-        switch (selectedSection) {
-          case "schools":
-            query = supabase.from("schools").select(`
-                *,
-                school_profiles (
-                  *,
-                  school_profile_programs (
-                    *,
-                    programs (*)
-                  )
-                )
-              `);
-            break;
-          case "universities":
-            query = supabase.from("universities").select(`
-                *,
-                programs (
-                  *,
-                  program_skills (
-                    *,
-                    skills (*)
-                  ),
-                  program_careers (
-                    *,
-                    careers (*)
-                  )
-                )
-              `);
-            break;
-          case "careers":
-            query = supabase.from("careers").select(`
-                *,
-                career_skills (
-                  *,
-                  skills (*)
-                ),
-                program_careers (
-                  *,
-                  programs (
-                    *,
-                    universities (*)
-                  )
-                )
-              `);
-            break;
-          case "courses":
-            query = supabase.from("courses").select(`
-                *,
-                course_skills (
-                  *,
-                  skills (*)
-                )
-              `);
-            break;
-          default:
-            query = supabase.from("schools").select("*");
-        }
-
-        // Apply search query if provided
-        if (searchQuery.trim()) {
-          // For text search, we'll need to use ilike or full-text search
-          // For simplicity, we'll filter on the client side after fetching
-          // In a production app, you'd use Supabase's full-text search capabilities
-        }
-
-        // Apply filters
-        if (selectedFilters.county && selectedSection === "schools") {
-          query = query.eq("county", selectedFilters.county);
-        }
-
-        // Execute query
-        const { data, error: queryError } = await query;
-
-        if (queryError) {
-          throw queryError;
-        }
-
-        // Process and format the data for display
-        const formattedItems = formatItemsForDisplay(data, selectedSection);
-        setItems(formattedItems);
-      } catch (err) {
-        console.error("Error fetching explore data:", err);
-        setError("Failed to load data. Please try again.");
-        setItems([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [selectedSection, searchQuery, selectedFilters, supabase]);
-
-  // Format items for display based on section type
-  const formatItemsForDisplay = (rawData: any[], section: string): any[] => {
-    return rawData.map((item) => {
-      const baseItem = {
-        id: item.id,
-        type: section as any,
-      };
-
-      switch (section) {
-        case "schools":
-          return {
-            ...baseItem,
-            name: item.name,
-            specialization: item.school_profiles?.[0]?.specialization || "",
-            county: item.county || "",
-            description: item.description || "",
-            sourceUrl: item.source_url || "",
-          };
-        case "universities":
-          return {
-            ...baseItem,
-            name: item.name,
-            degreeLevel: item.programs?.[0]?.degree_level || "",
-            duration: `${item.programs?.[0]?.duration_years} ani`,
-            description: item.description || "",
-            sourceUrl: item.source_url || "",
-          };
-        case "careers":
-          return {
-            ...baseItem,
-            name: item.name,
-            domain: item.domain || "",
-            description: item.description || "",
-            sourceUrl: item.source_url || "",
-          };
-        case "courses":
-          return {
-            ...baseItem,
-            title: item.title || "",
-            provider: item.provider || "",
-            language: item.language || "română",
-            isFree: item.is_free ?? false,
-            level: item.level || "începător",
-            description: item.description || "",
-            sourceUrl: item.source_url || "",
-          };
-        default:
-          return baseItem;
-      }
-    });
-  };
-
-  const handleSectionPress = (sectionId: string) => {
-    setSelectedSection(sectionId);
-    // Reset filters when changing section
-    setSelectedFilters({ county: "", domain: "", level: "" });
-  };
-
-  const handleSearch = () => {
-    // Search is handled by the useEffect hook when searchQuery changes
-  };
-
-  const handleFilterChange = (filterType: string, value: string) => {
-    setSelectedFilters((prev) => ({
-      ...prev,
-      [filterType]: value,
-    }));
-    // Search is handled by the useEffect hook
-  };
-
-  // Filter items based on search query and filters
-  const filteredItems = items.filter((item) => {
-    // Text search
-    if (searchQuery.trim()) {
-      const searchableFields = [
-        item.name,
-        item.title,
-        item.description,
-        item.specialization,
-        item.provider,
-        item.domain,
-        item.degreeLevel,
-      ].filter(Boolean) as string[];
-
-      const matchesSearch = searchableFields.some((field) =>
-        field.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-
-      if (!matchesSearch) {
-        return false;
-      }
+    if (
+      initialSection &&
+      categories.some((category) => category.id === initialSection)
+    ) {
+      setSection(initialSection);
     }
-
-    // Filter by selected section (already handled by useEffect, but double-checking)
-    if (item.type !== selectedSection) {
-      return false;
-    }
-
-    // Apply additional filters
-    if (selectedFilters.county && item.county !== selectedFilters.county) {
-      return false;
-    }
-    if (selectedFilters.domain && item.domain !== selectedFilters.domain) {
-      return false;
-    }
-    if (selectedFilters.level && item.level !== selectedFilters.level) {
-      return false;
-    }
-
-    return true;
+  }, [initialSection]);
+  const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
+  const { session } = useSession();
+  const profileQuery = useProfileQuery();
+  const county = normalizeCounty(
+    isPreview ? previewCounty : profileQuery.data?.county
+  );
+  const catalogueReady = isPreview || profileQuery.isSuccess;
+  const settledSearch = useDebouncedValue(search.trim().slice(0, 200));
+  const settledFilter = filter.trim().slice(0, 200);
+  const keywords = useQuery({
+    queryKey: [
+      'catalogue-keywords',
+      session?.user.id,
+      section,
+      county,
+      isPreview ? 'preview' : 'student',
+    ],
+    enabled: !!session && catalogueReady && showFilters && !!section,
+    queryFn: ({ signal }) => loadCatalogueKeywords(section, county, signal),
+    staleTime: 300_000,
   });
-
-  const renderItem = ({ item }: { item: any }) => {
-    return (
-      <Card style={styles.card}>
-        <View style={styles.itemContent}>
-          {item.type === "schools" && (
-            <View>
-              <Text style={styles.itemTitle}>{item.name}</Text>
-              <Text style={styles.itemSubtitle}>{item.specialization}</Text>
-              <Chip variant='outline' size='sm'>
-                {item.county}
-              </Chip>
-            </View>
-          )}
-          {item.type === "universities" && (
-            <View>
-              <Text style={styles.itemTitle}>{item.name}</Text>
-              <Text style={styles.itemSubtitle}>
-                {item.degreeLevel} • {item.duration}
-              </Text>
-            </View>
-          )}
-          {item.type === "careers" && (
-            <View>
-              <Text style={styles.itemTitle}>{item.name}</Text>
-              <Chip variant='outline' size='sm'>
-                {item.domain}
-              </Chip>
-            </View>
-          )}
-          {item.type === "courses" && (
-            <View>
-              <Text style={styles.itemTitle}>{item.title}</Text>
-              <View style={styles.courseDetails}>
-                <Text style={styles.detailText}>
-                  {item.provider} • {item.language}
-                </Text>
-                <Chip variant={item.isFree ? "secondary" : "outline"} size='sm'>
-                  {item.isFree ? t("common.isFree") : t("common.paid")}
-                </Chip>
-                <Chip variant='outline' size='sm'>
-                  {item.level}
-                </Chip>
-              </View>
-            </View>
-          )}
-          <View style={styles.itemActions}>
-            <Text style={styles.itemDescription}>{item.description}</Text>
-            <Button
-              variant='outline'
-              size='sm'
-              onPress={() => {
-                // Navigate to detail screen based on item type
-                let detailPath = "";
-                switch (item.type) {
-                  case "schools":
-                    detailPath = `/(tabs)/explore/school/${item.id}`;
-                    break;
-                  case "universities":
-                    detailPath = `/(tabs)/explore/university/${item.id}`;
-                    break;
-                  case "careers":
-                    detailPath = `/(tabs)/explore/career/${item.id}`;
-                    break;
-                  case "courses":
-                    detailPath = `/(tabs)/explore/course/${item.id}`;
-                    break;
-                }
-                router.push(detailPath as any);
-              }}
-            >
-              {t("detail.source")}
-            </Button>
-          </View>
-        </View>
-      </Card>
-    );
+  const hasSearch = !!settledSearch;
+  const query = useInfiniteQuery({
+    queryKey: [
+      'explore',
+      session?.user.id,
+      section,
+      county,
+      settledSearch,
+      settledFilter,
+      isPreview ? 'preview' : 'student',
+    ],
+    enabled: !!session && catalogueReady && (!!section || hasSearch),
+    initialPageParam: 0,
+    queryFn: ({ pageParam, signal }) =>
+      searchCatalogue({
+        section,
+        search: settledSearch,
+        filter: settledFilter,
+        county,
+        page: pageParam,
+        signal,
+      }),
+    getNextPageParam: (last) => (last.more ? last.page + 1 : undefined),
+  });
+  const items = query.data?.pages.flatMap((page) => page.items) || [];
+  const settling =
+    settledSearch !== search.trim().slice(0, 200) ||
+    settledFilter !== filter.trim().slice(0, 200);
+  const loading = query.isLoading || (!isPreview && profileQuery.isPending);
+  const error = query.isError || (!isPreview && profileQuery.isError);
+  const filtered = items;
+  const browsing = !!section || !!search.trim();
+  const fixedMenu = !browsing && !needsOverflow;
+  const returnToCategories = useCallback(() => {
+    if (standalone) {
+      if (router.canGoBack()) {
+        router.back();
+      } else {
+        router.replace('/_tabs/explore');
+      }
+      return;
+    }
+    setSection('');
+    setSearch('');
+    setFilter('');
+    setShowFilters(false);
+  }, [standalone, router]);
+  useFocusEffect(
+    useCallback(() => {
+      if (!browsing) {
+        return;
+      }
+      // Categories are local state, so consume Back before the tab navigator.
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        () => {
+          returnToCategories();
+          return true;
+        }
+      );
+      return () => subscription.remove();
+    }, [browsing, returnToCategories])
+  );
+  const refreshCatalogue = () => {
+    if (!browsing) {
+      return;
+    }
+    profileQuery.refetch();
+    query.refetch();
   };
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>{t("explore.title")}</Text>
-        <View style={styles.searchBar}>
+  const header = (
+    <MotionLayout
+      style={[fixedMenu && uiStyles.fill, { gap: browsing ? s.xl : s.lg }]}
+    >
+      {isPreview && (
+        <View style={{ gap: s.sm }}>
+          <SelectField
+            label='Județ pentru previzualizare'
+            value={county}
+            options={COUNTIES.map((value) => ({ value, label: value }))}
+            onChange={setPreviewCounty}
+          />
+          <Copy kind='caption' style={{ color: theme.textSecondary }}>
+            Alegerea filtrează catalogul public și nu modifică profilul
+            contului.
+          </Copy>
+        </View>
+      )}
+      {!browsing && (
+        <View style={{ gap: s.sm }}>
+          <Copy kind='title'>{ro.explore.title}</Copy>
+          <Copy kind='caption' style={{ color: theme.textSecondary }}>
+            Catalog local pilot: Bihor. Acoperirea altor județe este limitată.
+          </Copy>
+          {!compactMenu && (
+            <Copy kind='caption' style={{ color: theme.textSecondary }}>
+              {ro.visual.exploreHint}
+            </Copy>
+          )}
+        </View>
+      )}
+      {intent === 'goal' && (
+        <Panel accent>
+          <Copy kind='heading'>{ro.refinement.findCareer}</Copy>
+          <Copy>{ro.refinement.goalPicking}</Copy>
+        </Panel>
+      )}
+      <View style={[uiStyles.s1, { gap: s.sm }]}>
+        {browsing && <BackButton onPress={returnToCategories} />}
+        <View style={uiStyles.s3}>
           <Input
-            label={t("explore.search")}
-            placeholder={t("explore.search")}
-            value={searchQuery}
-            onChangeText={setSearchQuery}
+            variant='search'
+            material='navigation'
+            placeholder={
+              ro.refinement.searchScopes[section] || ro.visual.searchHint
+            }
+            value={search}
+            onChangeText={setSearch}
           />
-          <Button variant='outline' size='md' onPress={handleSearch}>
-            {t("common.search")}
-          </Button>
         </View>
-      </View>
-
-      {error && (
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>{error}</Text>
-          <Button
-            variant='outline'
-            size='md'
+        {browsing && (
+          <MotionPressable
+            accessibilityRole='button'
+            accessibilityLabel={ro.common.filter}
+            accessibilityState={{ expanded: showFilters, selected: !!filter }}
             onPress={() => {
-              // Retry fetching data
-              setLoading(true);
-              // Trigger a refetch by updating selectedSection temporarily
-              setSelectedSelectedSection(selectedSection);
+              Keyboard.dismiss();
+              setShowFilters(true);
             }}
-          >
-            {t("common.retry")}
-          </Button>
-        </View>
-      )}
-
-      <View style={styles.tabs}>
-        {sections.map((section) => (
-          <Pressable
-            key={section.id}
-            style={[
-              styles.tabButton,
-              selectedSection === section.id && styles.tabButtonActive,
+            style={({ pressed }) => [
+              uiStyles.filterButton,
+              {
+                borderColor:
+                  filter || showFilters ? theme.accent : theme.border,
+                backgroundColor:
+                  Platform.OS === 'ios'
+                    ? 'transparent'
+                    : filter || showFilters
+                      ? theme.accent + '26'
+                      : theme.surface,
+                opacity: pressed && Platform.OS !== 'ios' ? 0.7 : 1,
+              },
             ]}
-            onPress={() => handleSectionPress(section.id)}
           >
-            <Text style={styles.tabText}>{section.label}</Text>
-          </Pressable>
-        ))}
-      </View>
-
-      {selectedSection !== "courses" && (
-        <View style={styles.filters}>
-          <View style={styles.filterGroup}>
-            <Text style={styles.filterLabel}>
-              {t("explore.filters.county")}
-            </Text>
-            <Input
-              label={t("explore.filters.county")}
-              placeholder={t("explore.filters.county")}
-              value={selectedFilters.county}
-              onChangeText={(value) => handleFilterChange("county", value)}
-            />
-          </View>
-          <View style={styles.filterGroup}>
-            <Text style={styles.filterLabel}>
-              {t("explore.filters.domain")}
-            </Text>
-            <Input
-              label={t("explore.filters.domain")}
-              placeholder={t("explore.filters.domain")}
-              value={selectedFilters.domain}
-              onChangeText={(value) => handleFilterChange("domain", value)}
-            />
-          </View>
-          <View style={styles.filterGroup}>
-            <Text style={styles.filterLabel}>{t("explore.filters.level")}</Text>
-            <Input
-              label={t("explore.filters.level")}
-              placeholder={t("explore.filters.level")}
-              value={selectedFilters.level}
-              onChangeText={(value) => handleFilterChange("level", value)}
-            />
-          </View>
-        </View>
-      )}
-
-      <View style={styles.listContainer}>
-        {loading ? (
-          <View style={styles.loading}>
-            {/* Loading spinner would go here */}
-            <Text style={styles.loadingText}>{t("common.loading")}</Text>
-          </View>
-        ) : filteredItems.length === 0 ? (
-          <View style={styles.emptyState}>
-            <Text style={styles.emptyStateText}>{t("explore.noResults")}</Text>
-          </View>
-        ) : (
-          <FlatList
-            data={filteredItems}
-            keyExtractor={(item) => item.id}
-            renderItem={renderItem}
-            contentContainerStyle={styles.listContentContainer}
-          />
+            {Platform.OS === 'ios' && (
+              <NavigationSurface
+                pointerEvents='none'
+                accessible={false}
+                style={[
+                  StyleSheet.absoluteFill,
+                  uiStyles.filterMaterial,
+                  { backgroundColor: theme.surface },
+                ]}
+              />
+            )}
+            <SlidersHorizontal size={22} color={theme.accentText} />
+            {!!filter && (
+              <View
+                style={[
+                  uiStyles.filterDot,
+                  { backgroundColor: theme.accentText },
+                ]}
+              />
+            )}
+          </MotionPressable>
         )}
       </View>
-    </View>
+      {browsing && (
+        <>
+          <Copy
+            accessibilityLiveRegion='polite'
+            kind='caption'
+            style={{ color: theme.textSecondary }}
+          >
+            {settling
+              ? ro.common.loading
+              : filtered.length === 1 && !query.hasNextPage
+                ? ro.refinement.oneResult
+                : `${filtered.length}${query.hasNextPage ? '+' : ''} ${query.hasNextPage ? ro.refinement.allResults : ro.visual.results}`}
+          </Copy>
+        </>
+      )}
+      {!browsing && (
+        <View style={[fixedMenu && uiStyles.fill, { gap: s.sm }]}>
+          <Copy kind='heading'>{ro.visual.categories}</Copy>
+          <View
+            style={[
+              uiStyles.categoryPanel,
+              fixedMenu && uiStyles.fill,
+              { backgroundColor: theme.surface, borderColor: theme.border },
+            ]}
+          >
+            {categories.map((category, index) => (
+              <View
+                key={category.id}
+                style={[
+                  index < categories.length - 1 && uiStyles.divider,
+                  fixedMenu && uiStyles.spreadRow,
+                  !compactMenu && uiStyles.categoryRow,
+                  {
+                    borderBottomColor: theme.border,
+                  },
+                ]}
+              >
+                <Row
+                  icon={category.icon}
+                  title={category.label}
+                  subtitle={compactMenu ? undefined : category.hint}
+                  onPress={() => {
+                    Keyboard.dismiss();
+                    router.push({
+                      pathname: '/explore',
+                      params: {
+                        section: category.id,
+                        ...(intent ? { intent } : {}),
+                      },
+                    });
+                  }}
+                />
+              </View>
+            ))}
+          </View>
+        </View>
+      )}
+    </MotionLayout>
+  );
+  return (
+    <SafeAreaView
+      edges={['top', 'left', 'right']}
+      style={[uiStyles.s4, { backgroundColor: theme.background }]}
+    >
+      <NavigationSafeAreaView
+        edges={{ bottom: Platform.OS === 'ios' && !bottom.content }}
+      >
+        <StudentPreviewBanner />
+        <FlatList
+          scrollEnabled={browsing || needsOverflow}
+          bounces={browsing || needsOverflow}
+          alwaysBounceVertical={false}
+          showsVerticalScrollIndicator={browsing || needsOverflow}
+          refreshing={browsing && query.isRefetching}
+          onRefresh={browsing ? refreshCatalogue : undefined}
+          // Android RefreshControl wraps the scroll view. Keep that wrapper
+          // mounted across menu/search so the focused TextInput is not replaced.
+          refreshControl={
+            Platform.OS === 'android' ? (
+              <RefreshControl
+                enabled={browsing}
+                refreshing={browsing && query.isRefetching}
+                onRefresh={refreshCatalogue}
+              />
+            ) : undefined
+          }
+          ListFooterComponent={
+            browsing && query.hasNextPage ? (
+              <Button
+                loading={query.isFetchingNextPage}
+                variant='outline'
+                onPress={() => {
+                  query.fetchNextPage();
+                }}
+              >
+                {ro.common.showMore}
+              </Button>
+            ) : null
+          }
+          data={browsing && !loading ? filtered : []}
+          keyExtractor={(item) => item.type + item.id}
+          contentContainerStyle={[
+            design.screen,
+            fixedMenu && uiStyles.staticMenu,
+            bottom.content && { paddingBottom: s.lg + bottom.inset },
+            { gap: s.md },
+          ]}
+          ListHeaderComponentStyle={fixedMenu ? uiStyles.fill : undefined}
+          ListHeaderComponent={header}
+          keyboardShouldPersistTaps='handled'
+          ListEmptyComponent={
+            browsing ? (
+              loading || error ? (
+                <DataState
+                  loadingLayout='catalogue'
+                  loading={loading}
+                  error={error}
+                  retry={() => {
+                    profileQuery.refetch();
+                    query.refetch();
+                  }}
+                />
+              ) : (
+                <Panel>
+                  <Search size={32} color={theme.textSecondary} />
+                  <Copy kind='heading'>{ro.explore.noResults}</Copy>
+                  {(institutionTables as readonly string[]).includes(section) &&
+                    !items.length &&
+                    !query.hasNextPage &&
+                    !search.trim() &&
+                    !filter.trim() && (
+                      <Copy style={{ color: theme.textSecondary }}>
+                        {ro.profileChoices.countyEmpty}
+                      </Copy>
+                    )}
+                  <Button
+                    variant='secondary'
+                    onPress={() => {
+                      setFilter('');
+                      setSearch('');
+                    }}
+                  >
+                    {ro.visual.resetFilters}
+                  </Button>
+                </Panel>
+              )
+            ) : null
+          }
+          renderItem={({ item }) => (
+            <CatalogueResult
+              item={item}
+              category={
+                !section
+                  ? categories.find((category) => category.id === item.type)
+                      ?.label
+                  : undefined
+              }
+              onPress={() => openOption(router, item)}
+            />
+          )}
+        />
+        <SelectField
+          hideTrigger
+          presented={showFilters}
+          onDismiss={() => setShowFilters(false)}
+          label={section ? ro.refinement.filterKeyword : ro.visual.categories}
+          sheetTitle={ro.refinement.filterOptions}
+          value={section ? filter : ''}
+          options={
+            section
+              ? (keywords.data?.values || []).map((value) => ({
+                  value,
+                  label: value,
+                }))
+              : categories.map((category) => ({
+                  value: category.id,
+                  label: category.label,
+                }))
+          }
+          onChange={(value) => {
+            if (section) {
+              setFilter(value);
+            } else {
+              setSection(value);
+              setFilter('');
+            }
+          }}
+          onReset={() => setFilter('')}
+          searchPlaceholder={ro.common.search}
+          content={
+            section && (keywords.isPending || keywords.isError) ? (
+              <DataState
+                loadingLayout='row'
+                loading={keywords.isPending}
+                error={keywords.isError}
+                retry={() => {
+                  keywords.refetch();
+                }}
+              />
+            ) : undefined
+          }
+        />
+      </NavigationSafeAreaView>
+      {standalone && Platform.OS === 'web' && (
+        <BottomNavigation active={journey.activeTab || 'explore'} />
+      )}
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.background,
-  },
-  header: {
-    padding: spacing.lg,
-    paddingBottom: spacing.md,
-    borderBottomWidth: 1,
-    borderColor: theme.border,
-  },
-  title: {
-    color: theme.textPrimary,
-    fontSize: 24,
-    fontWeight: 600 as const,
-  },
-  searchBar: {
-    flexDirection: "row",
-    marginTop: spacing.md,
-  },
-  tabs: {
-    flexDirection: "row",
-    marginTop: spacing.md,
-    borderBottomWidth: 1,
-    borderColor: theme.border,
-    paddingBottom: spacing.xs,
-  },
-  tabButton: {
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
-    marginRight: spacing.xs,
-  },
-  tabButtonActive: {
-    borderBottomWidth: 2,
-    borderColor: theme.primary,
-  },
-  tabText: {
-    color: theme.textSecondary,
-    fontSize: 16,
-  },
-  errorContainer: {
-    padding: spacing.lg,
-    marginVertical: spacing.md,
-    alignItems: "center",
-  },
-  errorText: {
-    color: theme.danger,
-    fontSize: 16,
-    textAlign: "center",
-  },
-  filters: {
-    padding: spacing.lg,
-  },
-  filterGroup: {
-    marginBottom: spacing.md,
-  },
-  filterLabel: {
-    color: theme.textSecondary,
-    fontSize: 14,
-    marginBottom: spacing.xs,
-  },
-  listContainer: {
-    flex: 1,
-    padding: spacing.lg,
-  },
-  loading: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  loadingText: {
-    color: theme.textPrimary,
-    fontSize: 18,
-  },
-  emptyState: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: spacing.lg,
-  },
-  emptyStateText: {
-    color: theme.textSecondary,
-    fontSize: 16,
-    textAlign: "center",
-  },
-  listContentContainer: {
-    paddingBottom: spacing.lg,
-  },
-  card: {
-    backgroundColor: theme.surface,
-    marginBottom: spacing.md,
+const uiStyles = StyleSheet.create({
+  filterMaterial: { borderRadius: 24 },
+  fill: { flex: 1 },
+  staticMenu: { flex: 1, paddingBottom: s.lg },
+  spreadRow: { flex: 1, justifyContent: 'center' },
+  categoryPanel: {
+    padding: s.sm,
+    borderWidth: 1,
     borderRadius: radius.md,
-    overflow: "hidden",
+    borderCurve: 'continuous',
   },
-  itemContent: {
-    padding: spacing.md,
+  categoryRow: { paddingVertical: s.xs },
+  divider: { borderBottomWidth: 1 },
+  s1: { flexDirection: 'row', alignItems: 'center' },
+  filterButton: {
+    width: 48,
+    height: 48,
+    flexShrink: 0,
+    borderRadius: 24,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  itemTitle: {
-    color: theme.textPrimary,
-    fontSize: 18,
-    fontWeight: 600 as const,
-    marginBottom: spacing.xs,
+  filterDot: {
+    position: 'absolute',
+    top: 7,
+    right: 7,
+    width: 6,
+    height: 6,
+    borderRadius: 3,
   },
-  itemSubtitle: {
-    color: theme.textSecondary,
-    fontSize: 14,
-    marginBottom: spacing.sm,
-  },
-  itemDescription: {
-    color: theme.textSecondary,
-    fontSize: 14,
-    lineHeight: 20,
-    marginBottom: spacing.md,
-  },
-  courseDetails: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: spacing.sm,
-    marginTop: spacing.xs,
-  },
-  detailText: {
-    color: theme.textPrimary,
-    fontSize: 14,
-  },
-  itemActions: {
-    marginTop: spacing.md,
-  },
+  s3: { flex: 1, minWidth: 0 },
+  s4: { flex: 1 },
 });
-
-// Helper function to trigger refetch when needed
-const setSelectedSelectedSection = (section: string) => {
-  // This is a workaround to trigger a refetch
-  // In a real implementation, you might use query keys or other React Query patterns
-};

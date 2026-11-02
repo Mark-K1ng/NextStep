@@ -1,0 +1,22 @@
+{
+  "name": "@nextstep/ascii-reveal-native",
+  "version": "0.1.0",
+  "description": "Native ASCII skeletons, decoding text and content reveals for React Native.",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "react-native": "src/index.native.ts",
+  "files": [
+    "src",
+    "README.md",
+    "UPSTREAM-LICENSE",
+    "assets"
+  ],
+  "peerDependencies": {
+    "react": ">=19",
+    "react-native": ">=0.81",
+    "react-native-reanimated": ">=4",
+    "react-native-worklets": ">=0.5",
+    "@shopify/react-native-skia": ">=2.14"
+  }
+}

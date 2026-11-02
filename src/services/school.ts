@@ -1,13 +1,13 @@
 // Service for school-related data access
-import { supabase } from "@/lib/supabase";
+import { supabase } from '@/lib/supabase';
 
 export const schoolService = {
   // Get all schools
   async getSchools() {
     const { data, error } = await supabase
-      .from("schools")
-      .select("*")
-      .order("name");
+      .from('schools')
+      .select('*')
+      .order('name');
 
     if (error) {
       throw error;
@@ -18,9 +18,9 @@ export const schoolService = {
   // Get school by ID
   async getSchoolById(id: string) {
     const { data, error } = await supabase
-      .from("schools")
-      .select("*")
-      .eq("id", id)
+      .from('schools')
+      .select('*')
+      .eq('id', id)
       .single();
 
     if (error) {
@@ -32,10 +32,10 @@ export const schoolService = {
   // Get schools by county
   async getSchoolsByCounty(county: string) {
     const { data, error } = await supabase
-      .from("schools")
-      .select("*")
-      .eq("county", county)
-      .order("name");
+      .from('schools')
+      .select('*')
+      .eq('county', county)
+      .order('name');
 
     if (error) {
       throw error;
@@ -46,9 +46,10 @@ export const schoolService = {
   // Get school profiles for a school
   async getSchoolProfiles(schoolId: string) {
     const { data, error } = await supabase
-      .from("school_profiles")
-      .select("*")
-      .eq("school_id", schoolId);
+      .from('school_profiles')
+      .select('*')
+      .eq('school_id', schoolId)
+      .eq('is_current', true);
 
     if (error) {
       throw error;

@@ -128,55 +128,57 @@ export const analyzeGap = (
     courses: Course[];
   }> = [];
 
-  missing.forEach((missingSkill) => {
-    // Find courses that teach this skill
-    const relevantCourses = courses.filter((course) =>
-      course.skills.some((skill) => skill.id === missingSkill.id)
-    );
+  [...missing, ...partial]
+    .sort((a, b) => b.required - a.required || a.name.localeCompare(b.name))
+    .forEach((missingSkill) => {
+      // Find courses that teach this skill
+      const relevantCourses = courses.filter((course) =>
+        course.skills.some((skill) => skill.id === missingSkill.id)
+      );
 
-    // Sort courses: free first, then by level, then by language match (Romanian preferred)
-    const sortedCourses = [...relevantCourses].sort((a, b) => {
-      // Free courses first
-      if (a.is_free && !b.is_free) {
-        return -1;
-      }
-      if (!a.is_free && b.is_free) {
-        return 1;
-      }
+      // Sort courses: free first, then by level, then by language match (Romanian preferred)
+      const sortedCourses = [...relevantCourses].sort((a, b) => {
+        // Free courses first
+        if (a.is_free && !b.is_free) {
+          return -1;
+        }
+        if (!a.is_free && b.is_free) {
+          return 1;
+        }
 
-      // Then by level (beginner < intermediate < advanced)
-      const levelOrder: Record<string, number> = {
-        începător: 1,
-        beginner: 1,
-        intermediar: 2,
-        intermediate: 2,
-        avansat: 3,
-        advanced: 3,
-      };
+        // Then by level (beginner < intermediate < advanced)
+        const levelOrder: Record<string, number> = {
+          începător: 1,
+          beginner: 1,
+          intermediar: 2,
+          intermediate: 2,
+          avansat: 3,
+          advanced: 3,
+        };
 
-      const levelA = levelOrder[a.level.toLowerCase()] || 99;
-      const levelB = levelOrder[b.level.toLowerCase()] || 99;
+        const levelA = levelOrder[a.level.toLowerCase()] || 99;
+        const levelB = levelOrder[b.level.toLowerCase()] || 99;
 
-      if (levelA !== levelB) {
-        return levelA - levelB;
-      }
+        if (levelA !== levelB) {
+          return levelA - levelB;
+        }
 
-      // Then by language (Romanian preferred)
-      const langA: number = a.language.toLowerCase() === "română" ? 0 : 1;
-      const langB: number = b.language.toLowerCase() === "română" ? 0 : 1;
+        // Then by language (Romanian preferred)
+        const langA: number = a.language.toLowerCase() === 'română' ? 0 : 1;
+        const langB: number = b.language.toLowerCase() === 'română' ? 0 : 1;
 
-      if (langA !== langB) {
-        return langA - langB;
-      }
+        if (langA !== langB) {
+          return langA - langB;
+        }
 
-      return 0;
+        return 0;
+      });
+
+      steps.push({
+        skill: missingSkill.name,
+        courses: sortedCourses,
+      });
     });
-
-    steps.push({
-      skill: missingSkill.name,
-      courses: sortedCourses,
-    });
-  });
 
   return {
     covered,

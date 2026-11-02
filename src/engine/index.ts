@@ -1,2 +1,2 @@
-export { analyzeGap } from "./gapAnalysis";
-export { recommendCourses } from "./recommendationEngine";
+export { analyzeGap } from './gapAnalysis';
+export { recommendCourses } from './recommendationEngine';

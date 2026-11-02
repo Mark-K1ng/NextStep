@@ -1,0 +1,13 @@
+[functions.tutoring-payments]
+verify_jwt = true
+
+# Stripe authenticates raw requests with a timestamped HMAC signature.
+[functions.tutoring-webhook]
+verify_jwt = false
+
+[functions.educational-route]
+verify_jwt = true
+
+# Email/password accounts sign in immediately; no SMTP confirmation is required.
+[auth.email]
+enable_confirmations = false

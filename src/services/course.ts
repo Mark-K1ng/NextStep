@@ -1,13 +1,13 @@
 // Service for course-related data access
-import { supabase } from "@/lib/supabase";
+import { supabase } from '@/lib/supabase';
 
 export const courseService = {
   // Get all courses
   async getCourses() {
     const { data, error } = await supabase
-      .from("courses")
-      .select("*")
-      .order("title");
+      .from('courses')
+      .select('*')
+      .order('title');
 
     if (error) {
       throw error;
@@ -18,9 +18,9 @@ export const courseService = {
   // Get course by ID
   async getCourseById(id: string) {
     const { data, error } = await supabase
-      .from("courses")
-      .select("*")
-      .eq("id", id)
+      .from('courses')
+      .select('*')
+      .eq('id', id)
       .single();
 
     if (error) {
@@ -32,7 +32,7 @@ export const courseService = {
   // Get courses by skill
   async getCoursesBySkill(skillId: string) {
     const { data, error } = await supabase
-      .from("course_skills")
+      .from('course_skills')
       .select(
         `
         *,
@@ -49,8 +49,8 @@ export const courseService = {
         )
       `
       )
-      .eq("skill_id", skillId)
-      .order("is_free", { ascending: false }); // Free courses first
+      .eq('skill_id', skillId)
+      .order('is_free', { ascending: false }); // Free courses first
 
     if (error) {
       throw error;
@@ -61,10 +61,10 @@ export const courseService = {
   // Get free courses
   async getFreeCourses() {
     const { data, error } = await supabase
-      .from("courses")
-      .select("*")
-      .eq("is_free", true)
-      .order("title");
+      .from('courses')
+      .select('*')
+      .eq('is_free', true)
+      .order('title');
 
     if (error) {
       throw error;
@@ -75,10 +75,10 @@ export const courseService = {
   // Get courses by language
   async getCoursesByLanguage(language: string) {
     const { data, error } = await supabase
-      .from("courses")
-      .select("*")
-      .eq("language", language)
-      .order("title");
+      .from('courses')
+      .select('*')
+      .eq('language', language)
+      .order('title');
 
     if (error) {
       throw error;
@@ -89,10 +89,10 @@ export const courseService = {
   // Get courses by level
   async getCoursesByLevel(level: string) {
     const { data, error } = await supabase
-      .from("courses")
-      .select("*")
-      .eq("level", level)
-      .order("title");
+      .from('courses')
+      .select('*')
+      .eq('level', level)
+      .order('title');
 
     if (error) {
       throw error;

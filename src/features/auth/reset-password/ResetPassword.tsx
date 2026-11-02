@@ -1,114 +1,86 @@
-import { View, Text, Image, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
-import { Button, Input } from "@/components";
-import { useTranslation } from "@/hooks/use-translation";
-import { useState, useEffect } from "react";
-import { useSupabase } from "@/hooks/use-supabase";
-import { useTheme } from "@/hooks/use-theme";
-import { spacing, radius, theme } from "@/theme/tokens";
-
+import { useState } from 'react';
+import { useAppRouter as useRouter } from '@/hooks/use-app-router';
+import { Check } from 'lucide-react-native';
+import { Brand, Copy, Panel, Row, Screen } from '@/components/design';
+import { Button, Input } from '@/components';
+import { supabase } from '@/lib/supabase';
+import { passwordSchema } from '@/lib/validators';
+import { ro } from '@/i18n/ro';
 export default function ResetPassword() {
   const router = useRouter();
-  const { t } = useTranslation();
-  const { supabase } = useSupabase();
-  const currentTheme = useTheme();
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState('');
+  const [confirmation, setConfirmation] = useState('');
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    // Token extraction or validation if needed
-  }, []);
-
-  const handleSubmit = async () => {
+  const [done, setDone] = useState(false);
+  const [error, setError] = useState('');
+  const submit = async () => {
+    const parsed = passwordSchema.safeParse(password);
+    if (!parsed.success) {
+      setError(parsed.error.issues[0].message);
+      return;
+    }
+    if (password !== confirmation) {
+      setError(ro.validation.passwordsDoNotMatch);
+      return;
+    }
     setLoading(true);
-
+    setError('');
     try {
       const {
         data: { user },
-        error: userError,
+        error: authError,
       } = await supabase.auth.getUser();
-      if (userError) {
-        throw userError;
+      if (authError || !user) {
+        throw new Error('Session required');
       }
-
-      const { error } = await supabase.auth.updateUser({
-        password: password,
-      });
-
-      if (error) {
-        throw error;
+      const updated = await supabase.auth.updateUser({ password });
+      if (updated.error) {
+        throw updated.error;
       }
-
-      router.replace("/(auth)/login" as any);
-    } catch (error) {
-      console.error("Reset password error:", error);
-      alert("Eroare la resetarea parolei. Vă rugăm să încercați din nou.");
+      const signedOut = await supabase.auth.signOut();
+      if (signedOut.error) {
+        throw signedOut.error;
+      }
+      setDone(true);
+    } catch {
+      setError(ro.feedback.resetFailed);
     } finally {
       setLoading(false);
     }
   };
-
   return (
-    <View style={styles.container}>
-      <Image
-        source={require("@/assets/images/logo-glow.png")}
-        style={styles.logo}
-        resizeMode='contain'
-      />
-      <Text style={styles.title}>{t("auth.resetPassword")}</Text>
-      <View style={styles.form}>
-        <Input
-          label={t("auth.password")}
-          placeholder={t("auth.password")}
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-        <Input
-          label={t("auth.confirmPassword")}
-          placeholder={t("auth.confirmPassword")}
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          secureTextEntry
-        />
-        <Button
-          variant='primary'
-          size='lg'
-          loading={loading}
-          onPress={handleSubmit}
-          disabled={
-            !(password && confirmPassword && password === confirmPassword)
-          }
-        >
-          {t("auth.resetPassword")}
-        </Button>
-      </View>
-    </View>
+    <Screen auth>
+      <Brand />
+      <Copy kind='title'>{ro.auth.resetPassword}</Copy>
+      {done ? (
+        <Panel>
+          <Row icon={Check} title={ro.feedback.passwordUpdated} />
+        </Panel>
+      ) : (
+        <>
+          <Input
+            label={ro.auth.password}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            autoComplete='new-password'
+          />
+          <Input
+            label={ro.auth.confirmPassword}
+            value={confirmation}
+            onChangeText={setConfirmation}
+            secureTextEntry
+            autoComplete='new-password'
+            error={error}
+          />
+          <Button loading={loading} onPress={submit}>
+            {ro.auth.resetPassword}
+          </Button>
+        </>
+      )}
+      <Button variant='outline' onPress={() => router.replace('/(auth)/login')}>
+        {ro.auth.login}
+      </Button>
+    </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.background,
-    padding: spacing.lg,
-    justifyContent: "center",
-  },
-  logo: {
-    width: 80,
-    height: 80,
-    marginBottom: spacing.md,
-    alignSelf: "center",
-  },
-  title: {
-    color: theme.textPrimary,
-    fontSize: 28,
-    fontWeight: "700" as const,
-    textAlign: "center",
-    marginBottom: spacing.md,
-  },
-  form: {
-    gap: spacing.md,
-  },
-});

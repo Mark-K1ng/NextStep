@@ -1,0 +1,569 @@
+{
+  "checked_on": "2026-10-24",
+  "scope": "Street addresses from primary institution/Ministry sources; Google Maps spot checks only, not all pins certified.",
+  "locations": [
+    {
+      "id": "71750f31-52ea-4221-b2d5-15aa31ae5aa9",
+      "official_code": "0561100034",
+      "name": "Colegiul Național „Octavian Goga”",
+      "city": "Marghita",
+      "address": "Strada Nicolae Bălcescu nr. 80",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "d72e812d-58b7-5179-a36d-bcb595d67fa9",
+      "official_code": "0561100043",
+      "name": "Colegiul Tehnic „Traian Vuia”",
+      "city": "Oradea",
+      "address": "Strada Constantin Brâncoveanu nr. 12–12/A",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "bde7eee4-c1b2-4911-ba18-f42403f6e75f",
+      "official_code": "0561100079",
+      "name": "Colegiul Economic „Partenie Cosma”",
+      "city": "Oradea",
+      "address": "Strada Armatei Române nr. 1/F",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "6eed5e45-64b8-56a5-b4d6-a64b3f2a3697",
+      "official_code": "0561100097",
+      "name": "Liceul Tehnologic Nr.1",
+      "city": "Șuncuiuș",
+      "address": "Strada Avram Iancu nr. 425",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "024f4383-311d-530f-adf4-17ac610f4efc",
+      "official_code": "0561100102",
+      "name": "Liceul Tehnologic „Horea”",
+      "city": "Marghita",
+      "address": "Strada Ion Luca Caragiale nr. 44",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "17dedd52-263f-4ad7-b40f-12a99f6f4252",
+      "official_code": "0561100129",
+      "name": "Liceul Vocațional Pedagogic „Nicolae Bolcaș”",
+      "city": "Beiuș",
+      "address": "Strada Mihai Eminescu nr. 4",
+      "address_source_url": "https://nbolcas.ro/contact/",
+      "location_note": null
+    },
+    {
+      "id": "a22bc14e-4417-5fee-b61b-77899ea130cf",
+      "official_code": "0561100147",
+      "name": "Liceul Teoretic „Gabriel Țepelea”",
+      "city": "Borod",
+      "address": "Strada Principală nr. 181",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "6e48ec66-08aa-5c35-b27d-246e97688918",
+      "official_code": "0561100174",
+      "name": "Liceul Teoretic „Constantin Șerban”",
+      "city": "Aleșd",
+      "address": "Strada Cartier Șoimul nr. 1 bis",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "612d0e18-1a55-5240-a583-57e6d6836d10",
+      "official_code": "0561100183",
+      "name": "Liceul Teologic Romano-Catolic „Szent László”",
+      "city": "Oradea",
+      "address": "Strada Partenie Cosma nr. 3–5–7",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "49da833a-58e7-41a4-aa5e-34c4947fded7",
+      "official_code": "0561100206",
+      "name": "Colegiul Național „Emanuil Gojdu”",
+      "city": "Oradea",
+      "address": "Strada Spiru Haret nr. 3–5",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "fd3c0139-1a4f-40b1-824d-09f9d6b18033",
+      "official_code": "0561100224",
+      "name": "Liceul Tehnologic „Unirea”",
+      "city": "Ștei",
+      "address": "Strada Independenței nr. 19",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "db2a0533-b5b4-58ce-b778-93d80a822e89",
+      "official_code": "0561100242",
+      "name": "Liceul Teoretic „Nicolae Jiga”",
+      "city": "Tinca",
+      "address": "Strada Republicii nr. 36A",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "9fd53e2b-bb9f-5b25-9e5b-4f3860359ec2",
+      "official_code": "0561100251",
+      "name": "Liceul Teoretic „Horváth János”",
+      "city": "Marghita",
+      "address": "Strada 1 Decembrie nr. 5",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "085397fd-1123-4d73-b652-4171e52f0a77",
+      "official_code": "0561100762",
+      "name": "Liceul Sanitar „Vasile Voiculescu”",
+      "city": "Oradea",
+      "address": "Strada Clujului nr. 66",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "91a9ebf7-fc0e-567f-bb24-a1b6c459c6df",
+      "official_code": "0561100798",
+      "name": "Liceul Ortodox „Episcop Roman Ciorogariu”",
+      "city": "Oradea",
+      "address": "Strada Republicii nr. 48",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "f55256eb-34ec-4148-9244-9a8ab768163c",
+      "official_code": "0561100803",
+      "name": "Liceul Tehnologic Nr.1",
+      "city": "Salonta",
+      "address": "Strada Șarcadului nr. 1",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "65e4d492-ee65-4d0e-b58f-a174c94f984d",
+      "official_code": "0561100821",
+      "name": "Liceul Teoretic „Aurel Lazăr”",
+      "city": "Oradea",
+      "address": "Strada Avram Iancu nr. 10",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "10d4b7b3-f7d5-4e8c-9f54-d233d52d78f0",
+      "official_code": "0561100866",
+      "name": "Liceul Teoretic „Arany János”",
+      "city": "Salonta",
+      "address": "Strada Bocskai István nr. 21",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "b49d56f0-072c-5015-9b85-2a81c16f57d6",
+      "official_code": "0561100916",
+      "name": "Liceul Tehnologic Agroindustrial „Tamási Áron”",
+      "city": "Borș",
+      "address": "Strada Principală nr. 197/A",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "2e5cbba7-5c69-440c-b966-2960dc08a2c7",
+      "official_code": "0561100952",
+      "name": "Liceul Reformat „Lorántffy Zsuzsanna”",
+      "city": "Oradea",
+      "address": "Strada Andrei Șaguna nr. 1",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "0dc55a04-dd87-430a-95d7-72c52d69e912",
+      "official_code": "0561100961",
+      "name": "Colegiul Național „Iosif Vulcan”",
+      "city": "Oradea",
+      "address": "Strada Jean Calvin nr. 3",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": "Sediul principal: Jean Calvin nr. 3. Secretariatul este mutat temporar pe strada Decebal nr. 76, cu intrare din strada Tuberozelor. Verifică anunțul de pe site înainte de deplasare."
+    },
+    {
+      "id": "787459f4-69ed-5278-9829-78daae35eb14",
+      "official_code": "0561101089",
+      "name": "Liceul Teoretic „Lucian Blaga”",
+      "city": "Oradea",
+      "address": "Strada Posada nr. 1",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "90750114-86ef-584f-84a7-ea66c739363f",
+      "official_code": "0561101112",
+      "name": "Liceul Teoretic „Jozef Kozáček”",
+      "city": "Budoi",
+      "address": "Strada Principală nr. 78",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "1d8f9553-3820-5eea-99b2-291a936a6c75",
+      "official_code": "0561101148",
+      "name": "Liceul Teologic Penticostal „Betel”",
+      "city": "Oradea",
+      "address": "Strada Nicolae Șova nr. 6",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "9ca47ab2-ba1d-58b1-8d1e-d54155aa2f2f",
+      "official_code": "0561101302",
+      "name": "Liceul Tehnologic „Felix”",
+      "city": "Sânmartin",
+      "address": "Strada Ștefan cel Mare nr. 1",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "e233d9a2-743d-55f4-a6ce-50c4e10d4dc3",
+      "official_code": "0561101392",
+      "name": "Liceul Teologic Baptist „Emanuel”",
+      "city": "Oradea",
+      "address": "Bulevardul Decebal nr. 65A",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "eb95575d-31e7-58ff-b241-b7a56412df4d",
+      "official_code": "0561101528",
+      "name": "Liceul Teoretic „Petőfi Sándor”",
+      "city": "Săcueni",
+      "address": "Strada Dunării nr. 57",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "820e06c3-7eeb-5567-b621-91720b7fe99b",
+      "official_code": "0561101591",
+      "name": "Liceul Tehnologic Nr.1",
+      "city": "Valea lui Mihai",
+      "address": "Strada Hunyadi Mátyás nr. 43",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "9c3faec6-6def-5327-8de1-a2b188ecf4e0",
+      "official_code": "0561101695",
+      "name": "Colegiul Tehnic Nr.1",
+      "city": "Vadu Crișului",
+      "address": null,
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": "Registrul oficial indică mai multe adrese. Campusul exact trebuie confirmat înainte de deplasare."
+    },
+    {
+      "id": "069fc976-7556-5c2c-949d-a5907d391296",
+      "official_code": "0561101709",
+      "name": "Liceul Tehnologic Nr.1",
+      "city": "Cadea",
+      "address": "Strada de Jos nr. 48",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "c75b5357-6908-4df7-a627-aa6dc3ec3019",
+      "official_code": "0561101718",
+      "name": "Liceul Teoretic „Ady Endre”",
+      "city": "Oradea",
+      "address": "Strada Moscovei nr. 1",
+      "address_source_url": "https://www.adyliceum.ro/kapcsolat/elerhetosegeink/",
+      "location_note": null
+    },
+    {
+      "id": "75e9ae4d-5a4a-4966-9090-b74d7401e38f",
+      "official_code": "0561101736",
+      "name": "Liceul Teoretic German „Friedrich Schiller”",
+      "city": "Oradea",
+      "address": "Strada William Shakespeare nr. 22",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "b8633034-a150-42fd-a589-654261b10ce5",
+      "official_code": "0561101754",
+      "name": "Colegiul Tehnic „Alexandru Roman”",
+      "city": "Aleșd",
+      "address": "Strada Ciocârliei nr. 4",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "8995b180-c833-4526-bbc9-d3ec99abbdde",
+      "official_code": "0561101763",
+      "name": "Colegiul Național „Avram Iancu”",
+      "city": "Ștei",
+      "address": "Strada Lucian Blaga nr. 6",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "551e7383-2c9c-4686-a864-63c5ba051626",
+      "official_code": "0561101822",
+      "name": "Colegiul Național „Teodor Neș”",
+      "city": "Salonta",
+      "address": "Strada Republicii nr. 90",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "52078c3e-1148-4149-9832-34f8b260daa5",
+      "official_code": "0561101849",
+      "name": "Colegiul Național „Mihai Eminescu”",
+      "city": "Oradea",
+      "address": "Strada Roman Ciorogariu nr. 18",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "48cc86b0-32a6-4201-a0e6-26b98b845310",
+      "official_code": "0561101971",
+      "name": "Colegiul Național „Samuil Vulcan”",
+      "city": "Beiuș",
+      "address": "Piața Samuil Vulcan nr. 18",
+      "address_source_url": "https://www.cnsvbeius.ro/contact",
+      "location_note": null
+    },
+    {
+      "id": "5dcf2ba4-6972-45de-b06d-e9e7b26b0021",
+      "official_code": "0561102027",
+      "name": "Colegiul Tehnic „Ioan Ciordaș”",
+      "city": "Beiuș",
+      "address": "Strada Ioan Ciordaș nr. 5",
+      "address_source_url": "https://www.ciordas.ro/contact/",
+      "location_note": null
+    },
+    {
+      "id": "9340e00c-b25c-4f21-ad6d-a358a998ac9d",
+      "official_code": "0561102081",
+      "name": "Colegiul Național „Onisifor Ghibu”",
+      "city": "Oradea",
+      "address": "Strada Onisifor Ghibu nr. 3",
+      "address_source_url": "https://ghibuoradea.ro/wp-content/uploads/2025/02/Regulament-Ghibu-2024-2025.pdf",
+      "location_note": null
+    },
+    {
+      "id": "f7f0e2b6-e96f-51dd-9a45-64847eca0337",
+      "official_code": "0561108241",
+      "name": "Liceul Tehnologic „Livia Maria Gego”",
+      "city": "Dobrești",
+      "address": null,
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": "Registrul oficial indică mai multe adrese. Campusul exact trebuie confirmat înainte de deplasare."
+    },
+    {
+      "id": "d7cdc750-858c-5d6e-8ef6-6c4d727abaf6",
+      "official_code": "0561108404",
+      "name": "Liceul Teoretic Nr.1",
+      "city": "Bratca",
+      "address": "Strada Principală nr. 134",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "8d0ad16a-5eb5-4ebc-8dfb-2cb04c769b98",
+      "official_code": "0561108431",
+      "name": "Liceul Greco-Catolic „Iuliu Maniu”",
+      "city": "Oradea",
+      "address": "Strada Iuliu Maniu nr. 5",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "4c39a9c4-5f5d-42ec-adfb-baaa83fba27a",
+      "official_code": "0561108458",
+      "name": "Liceul Tehnologic „Constantin Brâncuși”",
+      "city": "Oradea",
+      "address": "Strada Alexandru Cazaban nr. 48",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "198ff683-4b98-429d-9726-139a2b3e0512",
+      "official_code": "0561108589",
+      "name": "Colegiul Tehnic „Mihai Viteazul”",
+      "city": "Oradea",
+      "address": "Strada Poieniței nr. 25",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "48d35e4a-aedc-5a28-8c42-d0e2e84bb3db",
+      "official_code": "0561108621",
+      "name": "Liceul Tehnologic Nr.1",
+      "city": "Suplacu de Barcău",
+      "address": "Piața Republicii nr. 1",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "2e0c708d-d9d1-53f5-956f-b48a957185c2",
+      "official_code": "0561108639",
+      "name": "Liceul Tehnologic Nr.1",
+      "city": "Popești",
+      "address": "Strada Principală nr. 80",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    },
+    {
+      "id": "6046253a-eb1f-58d7-983f-4845479973d3",
+      "official_code": "0562109934",
+      "name": "Liceul Tehnologic Dual",
+      "city": "Oradea",
+      "address": "Strada Ceyrat nr. 4",
+      "address_source_url": "https://static.admitere.edu.ro/2026/repartizare/BH/data/highschool.json",
+      "location_note": null
+    }
+  ],
+  "websites": [
+    {
+      "id": "bde7eee4-c1b2-4911-ba18-f42403f6e75f",
+      "website": "https://www.colegiuleconomicoradea.ro/",
+      "previous_website": "https://www.colegiuleconomicoradea.ro/",
+      "source_url": "https://www.colegiuleconomicoradea.ro/"
+    },
+    {
+      "id": "8995b180-c833-4526-bbc9-d3ec99abbdde",
+      "website": "https://www.cnavramiancu.ro/",
+      "previous_website": "https://www.cnavramiancu.ro/",
+      "source_url": "https://www.cnavramiancu.ro/"
+    },
+    {
+      "id": "49da833a-58e7-41a4-aa5e-34c4947fded7",
+      "website": "https://cnego.ro/",
+      "previous_website": "https://cnego.ro/",
+      "source_url": "https://cnego.ro/"
+    },
+    {
+      "id": "0dc55a04-dd87-430a-95d7-72c52d69e912",
+      "website": "https://www.cnivor.ro/",
+      "previous_website": "https://www.cnvulcan.ro/",
+      "source_url": "https://www.cnivor.ro/"
+    },
+    {
+      "id": "52078c3e-1148-4149-9832-34f8b260daa5",
+      "website": "https://eminescuoradea.ro/",
+      "previous_website": "https://eminescuoradea.ro/",
+      "source_url": "https://eminescuoradea.ro/"
+    },
+    {
+      "id": "9340e00c-b25c-4f21-ad6d-a358a998ac9d",
+      "website": "https://ghibuoradea.ro/",
+      "previous_website": "https://www.cneghibu.ro/",
+      "source_url": "https://ghibuoradea.ro/"
+    },
+    {
+      "id": "48cc86b0-32a6-4201-a0e6-26b98b845310",
+      "website": "https://www.cnsvbeius.ro/",
+      "previous_website": "https://www.cnsvulcan.ro/",
+      "source_url": "https://www.cnsvbeius.ro/"
+    },
+    {
+      "id": "b8633034-a150-42fd-a589-654261b10ce5",
+      "website": "https://www.ctalesd.ro/",
+      "previous_website": "https://www.ctalesd.ro/",
+      "source_url": "https://www.ctalesd.ro/"
+    },
+    {
+      "id": "5dcf2ba4-6972-45de-b06d-e9e7b26b0021",
+      "website": "https://www.ciordas.ro/",
+      "previous_website": "https://www.ctciordas.ro/",
+      "source_url": "https://www.ciordas.ro/"
+    },
+    {
+      "id": "c75b5357-6908-4df7-a627-aa6dc3ec3019",
+      "website": "https://www.adyliceum.ro/",
+      "previous_website": "https://www.adyliceum.ro/",
+      "source_url": "https://www.adyliceum.ro/"
+    },
+    {
+      "id": "ed2a964a-8117-469b-916d-24dd07a223e9",
+      "website": "https://bolyai.ro/",
+      "previous_website": "https://bolyai.ro/",
+      "source_url": "https://bolyai.ro/"
+    },
+    {
+      "id": "75e9ae4d-5a4a-4966-9090-b74d7401e38f",
+      "website": "https://liceulgermanoradea.ro/",
+      "previous_website": "https://liceulgermanoradea.ro/",
+      "source_url": "https://liceulgermanoradea.ro/"
+    },
+    {
+      "id": "17dedd52-263f-4ad7-b40f-12a99f6f4252",
+      "website": "https://nbolcas.ro/",
+      "previous_website": "https://www.lvnicolaebolcas.ro/",
+      "source_url": "https://nbolcas.ro/"
+    },
+    {
+      "id": "551e7383-2c9c-4686-a864-63c5ba051626",
+      "website": "https://cnteodornes.ro/",
+      "previous_website": null,
+      "source_url": "https://cnteodornes.ro/"
+    }
+  ],
+  "wrong_county_correction": {
+    "id": "ed2a964a-8117-469b-916d-24dd07a223e9",
+    "name": "Liceul Teoretic „Bolyai Farkas”",
+    "city": "Târgu Mureș",
+    "county": "Mureș",
+    "address": "Strada Bolyai nr. 3",
+    "source_url": "https://aracip.eu/detalii-unitate-de-invatamant/218459"
+  },
+  "location_note_sources": {
+    "0561100961": "https://www.cnivor.ro/"
+  },
+  "google_maps_spot_checks": [
+    {
+      "school": "Onisifor Ghibu",
+      "result": "Named school in Oradea, Aleea Onisifor Ghibu 3; website ghibuoradea.ro. Official sources call the street Strada Onisifor Ghibu.",
+      "status": "school_address_and_website_match"
+    },
+    {
+      "school": "Bolyai Farkas",
+      "before": "Oradea/Bihor query returned Lucian Blaga results.",
+      "after": "Corrected query resolves to Liceul Teoretic Bolyai Farkas, Strada Bolyai 3, Târgu Mureș; bolyai.ro.",
+      "status": "wrong_county_corrected"
+    },
+    {
+      "school": "Samuil Vulcan",
+      "result": "Named college in Beiuș; Maps omits the street address. Official contact page states Piața Samuil Vulcan 18.",
+      "status": "school_identity_match_street_pin_not_fully_confirmed"
+    },
+    {
+      "school": "Nicolae Bolcaș",
+      "result": "Liceul Nicolae Bolcas, Strada Mihai Eminescu 4, Beiuș; nbolcas.ro.",
+      "status": "school_address_and_website_match"
+    },
+    {
+      "school": "Ioan Ciordaș",
+      "result": "Colegiul Tehnic Ioan Ciordaș, Strada Ioan Ciordaș 5, Beiuș; ciordas.ro.",
+      "status": "school_address_and_website_match"
+    },
+    {
+      "school": "Iosif Vulcan",
+      "result": "Named college, Strada Jean Calvin 3, Oradea; cnivor.ro. Official website separately announces temporary secretariat on Decebal 76.",
+      "status": "main_campus_match_office_note_added"
+    },
+    {
+      "school": "Liceul Tehnologic Nr.1 Cadea",
+      "result": "Named school in Cadea; Maps does not show the street number. Ministry address is Strada de Jos 48.",
+      "status": "school_identity_match_street_pin_not_fully_confirmed"
+    },
+    {
+      "school": "Octavian Goga",
+      "result": "Named college in Marghita, Strada Nicolae Bălcescu 80.",
+      "status": "school_and_address_match"
+    }
+  ]
+}

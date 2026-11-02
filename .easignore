@@ -1,0 +1,110 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+!.env.template
+
+# Local AI-agent settings and credentials
+.claude/
+.codex/
+.agents/
+.mcp.json
+.mcp.*.json
+
+# Local authentication, package registries and cloud credentials
+.npmrc
+.netrc
+_netrc
+.pypirc
+.authinfo
+.authinfo.gpg
+.aws/
+.azure/
+.gcloud/
+.secrets/
+.credentials/
+secrets/
+credentials/
+credentials.json
+credentials.*.json
+client_secret*.json
+service-account*.json
+*-service-account*.json
+serviceAccount*.json
+*-adminsdk-*.json
+supabase/.temp/
+supabase/.branches/
+
+# Private planning, agent instructions and development notes
+*.md
+*.mdc
+!/README.md
+!/data/catalogue/README.md
+
+# Dependencies
+node_modules/
+.preview-ui/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.keystore
+*.p8
+*.p12
+*.pfx
+*.pkcs8
+*.ppk
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# Debug
+*.log
+*.log.*
+*.har
+*.hprof
+*.heapsnapshot
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# Local databases, exports and installable build artifacts
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.db
+*.db-journal
+*.dump
+*.sql.gz
+*.sql.zip
+*.apk
+*.aab
+*.ipa
+
+# macOS
+.DS_Store
+*.pem
+
+# TypeScript
+*.tsbuildinfo
+
+# Generated native folders
+/ios
+/android
+
+# Original artwork exports are archived under assets/brand.
+/PNG/
+/SVG/
+

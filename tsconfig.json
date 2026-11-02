@@ -5,7 +5,6 @@
     "noImplicitAny": false,
     "strictNullChecks": false,
     "skipLibCheck": true,
-    "baseUrl": ".",
     "moduleResolution": "bundler",
     "module": "esnext",
     "paths": {
@@ -14,8 +13,13 @@
     }
   },
   "include": [
+    "app/**/*.ts",
+    "app/**/*.tsx",
     "src/**/*.ts",
     "src/**/*.tsx",
+    "packages/ascii-reveal-native/src/**/*.ts",
+    "packages/ascii-reveal-native/src/**/*.tsx",
+    "src/assets.d.ts",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
   ],

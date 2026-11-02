@@ -1,369 +1,370 @@
-import { View, Text, Image, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
-import { Button, Input } from "@/components";
-import { useTranslation } from "@/hooks/use-translation";
-import { useState, useEffect } from "react";
-import { useSupabase } from "@/hooks/use-supabase";
-import { useTheme } from "@/hooks/use-theme";
-import { spacing, radius, theme } from "@/theme";
-
+import { StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react';
+import { AsciiContentGate } from '@/components/ascii-skin';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { View } from 'react-native';
+import { MotionContent, MotionPressable } from '@/components/motion';
+import { useAppRouter as useRouter } from '@/hooks/use-app-router';
+import {
+  BrainCircuit,
+  Bookmark,
+  LockKeyhole,
+  Palette,
+  CircleHelp,
+  Settings,
+  CircleUserRound,
+} from 'lucide-react-native';
+import {
+  Screen,
+  Copy,
+  Panel,
+  Row,
+  Choice,
+  GroupedList,
+  design,
+} from '@/components/design';
+import { Button, Input } from '@/components';
+import { DataState } from '@/components/data-state';
+import { useSession } from '@/providers/auth';
+import { useSaved } from '@/providers/saved';
+import { supabase } from '@/lib/supabase';
+import { useTheme } from '@/hooks/use-theme';
+import { showMessage } from '@/lib/show-message';
+import type { Profile as ProfileModel } from '@/types/models';
+import { ro } from '@/i18n/ro';
+import { radius, spacing as s } from '@/theme/tokens';
+import { GradeSelect, CountySelect } from '@/components/profile-selectors';
+import { gradeSchema, locationSchema } from '@/lib/validators';
+import { normalizeCounty } from '@/constants/profile-options';
+import { useAccountMode } from '@/providers/account-mode';
+import { StudentPreview } from '@/features/preview/student-preview';
 export default function Profile() {
+  const { isPreview } = useAccountMode();
+  return isPreview ? <StudentPreview section='profile' /> : <StudentProfile />;
+}
+function StudentProfile() {
   const router = useRouter();
-  const { t } = useTranslation();
-  const { supabase } = useSupabase();
-  const currentTheme = useTheme();
-  const [profile, setProfile] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [editMode, setEditMode] = useState(false);
-  const [displayName, setDisplayName] = useState("");
-  const [gradeLevel, setGradeLevel] = useState("");
-  const [county, setCounty] = useState("");
-  const [interests, setInterests] = useState<string[]>([]);
-  const [favoriteSubjects, setFavoriteSubjects] = useState<string[]>([]);
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        setLoading(true);
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-
-        if (!user) {
-          router.replace("/(auth)/login" as any);
-          return;
-        }
-
-        const { data, error } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", user.id)
-          .single();
-
-        if (error) {
-          throw error;
-        }
-
-        if (data) {
-          setProfile(data);
-          setDisplayName(data.display_name || "");
-          setGradeLevel(data.grade_level || "");
-          setCounty(data.county || "");
-          setInterests(data.interests || []);
-          setFavoriteSubjects(data.favorite_subjects || []);
-        }
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProfile();
-  }, [supabase, router]);
-
-  const handleEdit = () => {
-    setEditMode(true);
-  };
-
-  const handleSave = async () => {
-    setLoading(true);
-
-    try {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (!user) {
-        router.replace("/(auth)/login" as any);
-        return;
-      }
-
-      const { error } = await supabase
-        .from("profiles")
-        .update({
-          display_name: displayName || null,
-          grade_level: gradeLevel || null,
-          county: county || null,
-          interests: interests.length > 0 ? interests : null,
-          favorite_subjects:
-            favoriteSubjects.length > 0 ? favoriteSubjects : null,
-          updated_at: new Date().toISOString(),
-        })
-        .eq("id", user.id);
-
-      if (error) {
-        throw error;
-      }
-
-      const { data } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", user.id)
+  const theme = useTheme();
+  const { session } = useSession();
+  const { items } = useSaved();
+  const [profile, setProfile] = useState<ProfileModel | null>(null);
+  const [draft, setDraft] = useState<ProfileModel | null>(null);
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const queryClient = useQueryClient();
+  const query = useQuery({
+    queryKey: ['profile', session?.user.id],
+    enabled: !!session,
+    queryFn: async ({ signal }) => {
+      const result = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', session!.user.id)
+        .abortSignal(signal)
         .single();
-
-      if (data) {
-        setProfile(data);
+      if (result.error) {
+        throw result.error;
       }
-
-      setEditMode(false);
-      alert("Profilul a fost actualizat cu succes!");
-    } catch (error) {
-      console.error("Error saving profile:", error);
-      alert("Eroare la salvarea profilului. Vă rugăm să încercați din nou.");
+      return result.data as ProfileModel;
+    },
+  });
+  const loading = query.isLoading;
+  const error = query.isError;
+  useEffect(() => {
+    if (query.data && !editing) {
+      setProfile(query.data);
+      setDraft(query.data);
+    }
+  }, [query.data, editing]);
+  const save = async () => {
+    if (!draft || !session) {
+      return;
+    }
+    if (
+      !draft.display_name.trim() ||
+      !locationSchema.safeParse({
+        county: normalizeCounty(draft.county),
+        sector: draft.sector,
+      }).success ||
+      !gradeSchema.safeParse(draft.grade_level).success
+    ) {
+      showMessage(ro.visual.profileRequired);
+      return;
+    }
+    setSaving(true);
+    const values = {
+      display_name: draft.display_name.trim(),
+      county: normalizeCounty(draft.county),
+      sector: draft.sector ?? null,
+      grade_level: draft.grade_level,
+      interests: draft.interests,
+      favorite_subjects: draft.favorite_subjects,
+      updated_at: new Date().toISOString(),
+    };
+    try {
+      const result = await supabase
+        .from('profiles')
+        .update(values)
+        .eq('id', session.user.id)
+        .select('*')
+        .single();
+      if (result.error) {
+        throw result.error;
+      }
+      queryClient.setQueryData(['profile', session.user.id], result.data);
+      await queryClient.invalidateQueries({
+        queryKey: ['student', session.user.id, 'path'],
+      });
+      await queryClient.invalidateQueries({ queryKey: ['explore'] });
+      await queryClient.invalidateQueries({ queryKey: ['option'] });
+      await queryClient.invalidateQueries({ queryKey: ['education-route'] });
+      setProfile(result.data);
+      setDraft(result.data);
+      setEditing(false);
+    } catch {
+      showMessage(ro.errors.serverError);
     } finally {
-      setLoading(false);
+      setSaving(false);
     }
   };
-
-  const handleCancel = () => {
-    setDisplayName(profile?.display_name || "");
-    setGradeLevel(profile?.grade_level || "");
-    setCounty(profile?.county || "");
-    setInterests(profile?.interests || []);
-    setFavoriteSubjects(profile?.favorite_subjects || []);
-    setEditMode(false);
+  const logout = async () => {
+    const result = await supabase.auth.signOut();
+    if (result.error) {
+      showMessage(ro.errors.serverError);
+    } else {
+      router.replace('/(auth)/login');
+    }
   };
-
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.loadingText}>{t("common.loading")}</Text>
-      </View>
-    );
-  }
-
-  if (!profile) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.errorText}>{t("errors.serverError")}</Text>
-      </View>
-    );
-  }
-
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Image
-          source={require("@/assets/images/logo-glow.png")}
-          style={styles.avatar}
-          resizeMode='contain'
+    <Screen>
+      {loading || error || !profile ? (
+        <DataState
+          loadingLayout='profile'
+          loading={loading}
+          error={error}
+          retry={() => {
+            query.refetch();
+          }}
         />
-        <View style={styles.info}>
-          <Text style={styles.name}>{profile.display_name || ""}</Text>
-          <Text style={styles.detail}>
-            {t("profile.gradeLevel")}: {profile.grade_level || ""}
-          </Text>
-          <Text style={styles.detail}>
-            {t("profile.county")}: {profile.county || ""}
-          </Text>
-        </View>
-      </View>
-
-      <View style={styles.stats}>
-        <View style={styles.stat}>
-          <Text style={styles.statLabel}>{t("common.interests")}</Text>
-          <Text style={styles.statValue}>{profile.interests?.length || 0}</Text>
-        </View>
-        <View style={styles.stat}>
-          <Text style={styles.statLabel}>{t("common.favoriteSubjects")}</Text>
-          <Text style={styles.statValue}>
-            {profile.favorite_subjects?.length || 0}
-          </Text>
-        </View>
-      </View>
-
-      {editMode ? (
-        <View style={styles.form}>
-          <Input
-            label={t("profile.displayName")}
-            placeholder={t("profile.displayName")}
-            value={displayName}
-            onChangeText={setDisplayName}
-          />
-          <Input
-            label={t("profile.gradeLevel")}
-            placeholder={t("profile.gradeLevel")}
-            value={gradeLevel}
-            onChangeText={setGradeLevel}
-          />
-          <Input
-            label={t("profile.county")}
-            placeholder={t("profile.county")}
-            value={county}
-            onChangeText={setCounty}
-          />
-          <View style={styles.formActions}>
-            <Button variant='outline' size='md' onPress={handleCancel}>
-              {t("common.cancel")}
-            </Button>
-            <Button variant='primary' size='md' onPress={handleSave}>
-              {t("common.save")}
-            </Button>
-          </View>
-        </View>
       ) : (
-        <View style={styles.profileSections}>
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>
-              {t("profile.favoriteSubjects")}
-            </Text>
-            <View style={styles.tags}>
-              {profile.favorite_subjects &&
-              profile.favorite_subjects.length > 0 ? (
-                profile.favorite_subjects.map(
-                  (subject: string, index: number) => (
-                    <View key={index} style={styles.tag}>
-                      <Text style={styles.tagText}>{subject}</Text>
+        <>
+          <View style={[uiStyles.s0, { gap: s.md }]}>
+            <AsciiContentGate cover nativeOnly radius={28}>
+              <CircleUserRound size={56} color={theme.accentText} />
+            </AsciiContentGate>
+            <View style={[uiStyles.s1, { gap: s.xs }]}>
+              <Copy kind='heading'>{profile.display_name}</Copy>
+              <Copy kind='caption' style={{ color: theme.textSecondary }}>
+                {session?.user.email}
+              </Copy>
+            </View>
+            <MotionPressable
+              accessibilityRole='button'
+              style={design.touch}
+              onPress={() => {
+                setDraft(profile);
+                setEditing(true);
+              }}
+            >
+              <Copy style={{ color: theme.accentText }}>{ro.visual.edit}</Copy>
+            </MotionPressable>
+          </View>
+          <MotionContent
+            key={editing ? 'edit' : 'summary'}
+            animateExit={false}
+            style={{ gap: s.xl }}
+          >
+            {editing && draft ? (
+              <Panel>
+                <Input
+                  label={ro.profile.displayName}
+                  value={draft.display_name}
+                  onChangeText={(value) =>
+                    setDraft({ ...draft, display_name: value })
+                  }
+                  autoCapitalize='words'
+                />
+                <GradeSelect
+                  value={draft.grade_level}
+                  onChange={(value) =>
+                    setDraft({ ...draft, grade_level: value })
+                  }
+                />
+                <CountySelect
+                  county={draft.county}
+                  sector={draft.sector}
+                  onChange={(county, sector) =>
+                    setDraft({ ...draft, county, sector })
+                  }
+                />
+                <Copy kind='heading'>{ro.profile.favoriteSubjects}</Copy>
+                <View style={design.wrap}>
+                  {ro.visual.personalize.subjects.map((value) => (
+                    <Choice
+                      key={value}
+                      selected={draft.favorite_subjects.includes(value)}
+                      onPress={() =>
+                        setDraft({
+                          ...draft,
+                          favorite_subjects: draft.favorite_subjects.includes(
+                            value
+                          )
+                            ? draft.favorite_subjects.filter(
+                                (item) => item !== value
+                              )
+                            : [...draft.favorite_subjects, value],
+                        })
+                      }
+                    >
+                      {value}
+                    </Choice>
+                  ))}
+                </View>
+                <Copy kind='heading'>{ro.profile.interests}</Copy>
+                <View style={design.wrap}>
+                  {ro.visual.personalize.domains.map((value) => (
+                    <Choice
+                      key={value}
+                      selected={draft.interests.includes(value)}
+                      onPress={() =>
+                        setDraft({
+                          ...draft,
+                          interests: draft.interests.includes(value)
+                            ? draft.interests.filter((item) => item !== value)
+                            : [...draft.interests, value],
+                        })
+                      }
+                    >
+                      {value}
+                    </Choice>
+                  ))}
+                </View>
+                <Button loading={saving} onPress={save}>
+                  {ro.common.save}
+                </Button>
+                <Button
+                  variant='outline'
+                  disabled={saving}
+                  onPress={() => setEditing(false)}
+                >
+                  {ro.common.cancel}
+                </Button>
+              </Panel>
+            ) : (
+              <>
+                <View style={uiStyles.interestsSection}>
+                  <Copy
+                    kind='label'
+                    accessibilityRole='header'
+                    style={{ color: theme.textSecondary }}
+                  >
+                    {ro.visual.interests}
+                  </Copy>
+                  {!!(
+                    profile.favorite_subjects.length || profile.interests.length
+                  ) && (
+                    <View style={design.wrap}>
+                      {[
+                        ...new Set([
+                          ...profile.favorite_subjects,
+                          ...profile.interests,
+                        ]),
+                      ].map((value) => (
+                        <View
+                          key={value}
+                          style={[
+                            uiStyles.tag,
+                            { backgroundColor: theme.surfaceElevated },
+                          ]}
+                        >
+                          <Copy kind='caption'>{value}</Copy>
+                        </View>
+                      ))}
                     </View>
-                  )
-                )
-              ) : (
-                <Text style={styles.noItems}>{t("common.noItems")}</Text>
-              )}
-            </View>
-          </View>
-
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>{t("common.interests")}</Text>
-            <View style={styles.tags}>
-              {profile.interests && profile.interests.length > 0 ? (
-                profile.interests.map((interest: string, index: number) => (
-                  <View key={index} style={styles.tag}>
-                    <Text style={styles.tagText}>{interest}</Text>
-                  </View>
-                ))
-              ) : (
-                <Text style={styles.noItems}>{t("common.noItems")}</Text>
-              )}
-            </View>
-          </View>
-        </View>
+                  )}
+                </View>
+                <View style={uiStyles.section}>
+                  <Copy
+                    kind='label'
+                    accessibilityRole='header'
+                    style={{ color: theme.textSecondary }}
+                  >
+                    {ro.visual.account}
+                  </Copy>
+                  <GroupedList inset>
+                    <Row
+                      icon={BrainCircuit}
+                      title='Preferințe și recomandări'
+                      subtitle='Chestionare, interese și direcții de explorat'
+                      onPress={() => router.push('/personalize')}
+                    />
+                    <Row
+                      icon={Bookmark}
+                      title={ro.visual.saved}
+                      subtitle={`${items.length} ${items.length === 1 ? ro.refinement.optionOne : ro.refinement.optionMany}`}
+                      onPress={() => router.push('/saved')}
+                    />
+                    <Row
+                      icon={Settings}
+                      title={ro.visual.appearance}
+                      subtitle={ro.visual.appearanceHint}
+                      onPress={() => router.push('/settings')}
+                    />
+                    <Row
+                      icon={LockKeyhole}
+                      title={ro.visual.privacy}
+                      subtitle={ro.visual.privacyHint}
+                      onPress={() => router.push('/privacy-and-data')}
+                    />
+                    <Row
+                      icon={CircleHelp}
+                      title='Q&A'
+                      subtitle='Întrebări și răspunsuri despre NextStep'
+                      onPress={() => router.push('/qa')}
+                    />
+                    <Row
+                      icon={Palette}
+                      title='Paletă de culori'
+                      subtitle='Explorează și salvează o culoare principală'
+                      onPress={() => router.push('/palette')}
+                    />
+                  </GroupedList>
+                </View>
+                <Button
+                  variant='outline'
+                  style={uiStyles.s4}
+                  textStyle={{ color: theme.dangerText }}
+                  onPress={logout}
+                >
+                  {ro.visual.signOut}
+                </Button>
+                <Copy
+                  kind='caption'
+                  style={[uiStyles.s5, { color: theme.textSecondary }]}
+                >
+                  {ro.visual.version}
+                </Copy>
+              </>
+            )}
+          </MotionContent>
+        </>
       )}
-
-      <View style={styles.actionButtons}>
-        <Button variant='secondary' size='md' onPress={handleEdit}>
-          {t("profile.editProfile")}
-        </Button>
-        <View style={styles.divider} />
-        <Button
-          variant='outline'
-          size='md'
-          onPress={() => router.push("/(settings)" as any)}
-        >
-          {t("common.settings")}
-        </Button>
-      </View>
-    </View>
+    </Screen>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.background,
-    padding: spacing.lg,
-  },
-  header: {
-    alignItems: "center",
-    marginBottom: spacing.lg,
-  },
-  avatar: {
-    width: 80,
-    height: 80,
-    borderRadius: radius.lg,
-    marginBottom: spacing.md,
-  },
-  info: {
-    alignItems: "center",
-  },
-  name: {
-    color: theme.textPrimary,
-    fontSize: 20,
-    fontWeight: "600" as const,
-  },
-  detail: {
-    color: theme.textSecondary,
-    fontSize: 16,
-    marginBottom: spacing.xs,
-  },
-  stats: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginBottom: spacing.lg,
-    padding: spacing.md,
-    backgroundColor: theme.surfaceElevated,
-    borderRadius: radius.md,
-  },
-  stat: {
-    alignItems: "center",
-  },
-  statLabel: {
-    color: theme.textSecondary,
-    fontSize: 14,
-  },
-  statValue: {
-    color: theme.textPrimary,
-    fontSize: 18,
-    fontWeight: "600" as const,
-  },
-  profileSections: {
-    marginBottom: spacing.lg,
-  },
-  section: {
-    marginBottom: spacing.md,
-  },
-  sectionTitle: {
-    color: theme.textPrimary,
-    fontSize: 20,
-    fontWeight: "600" as const,
-    marginBottom: spacing.md,
-  },
-  tags: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: spacing.sm,
-  },
+const uiStyles = StyleSheet.create({
+  interestsSection: { gap: s.xs },
+  section: { gap: s.sm },
   tag: {
-    backgroundColor: theme.surfaceElevated,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.xs,
-    borderRadius: radius.md,
+    paddingHorizontal: s.md,
+    paddingVertical: s.sm,
+    borderRadius: radius.sm,
+    borderCurve: 'continuous',
+    alignSelf: 'center',
   },
-  tagText: {
-    color: theme.textPrimary,
-    fontSize: 14,
-  },
-  noItems: {
-    color: theme.textSecondary,
-    fontSize: 14,
-    fontStyle: "italic",
-  },
-  form: {
-    gap: spacing.md,
-    marginBottom: spacing.lg,
-  },
-  formActions: {
-    flexDirection: "row",
-    gap: spacing.md,
-  },
-  actionButtons: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-  divider: {
-    width: 1,
-    backgroundColor: theme.border,
-    height: 40,
-  },
-  loadingText: {
-    color: theme.textPrimary,
-    fontSize: 18,
-    textAlign: "center",
-  },
-  errorText: {
-    color: theme.danger,
-    fontSize: 18,
-    textAlign: "center",
-  },
+  s0: { flexDirection: 'row', alignItems: 'center' },
+  s1: { flex: 1 },
+  s4: { borderWidth: 0 },
+  s5: { textAlign: 'center' },
 });

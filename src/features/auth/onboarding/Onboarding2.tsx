@@ -1,132 +1,186 @@
-import { View, Text, Image, StyleSheet, Pressable } from "react-native";
-import { useRouter } from "expo-router";
-import { Button } from "@/components";
-import { useTranslation } from "@/hooks/use-translation";
-import { useTheme } from "@/hooks/use-theme";
-import { useState } from "react";
-import { spacing, radius, theme } from "@/theme/tokens";
+import { StyleSheet } from 'react-native';
+import { useState } from 'react';
+import { View } from 'react-native';
+import { MotionPressable, Reveal } from '@/components/motion';
+import { useAppRouter as useRouter } from '@/hooks/use-app-router';
+import { Backpack, School, CircleCheck } from 'lucide-react-native';
+import { Button } from '@/components';
+import { BackButton } from '@/components/back-button';
+import { Copy, Choice, Panel, Row, Screen, design } from '@/components/design';
+import { useTheme } from '@/hooks/use-theme';
+import { ro } from '@/i18n/ro';
+import { spacing as s, radius } from '@/theme/tokens';
+import { EDUCATION_ROUTES_ENABLED } from '@/constants/education-rollout';
+import GuestIntake from '@/features/personalization/GuestIntake';
 
 export default function Onboarding2() {
+  return EDUCATION_ROUTES_ENABLED ? <GuestIntake /> : <LegacyOnboarding2 />;
+}
+function LegacyOnboarding2() {
   const router = useRouter();
-  const { t } = useTranslation();
-  const currentTheme = useTheme();
-  const [gradeLevel, setGradeLevel] = useState("");
-
-  const handleSkip = () => {
-    router.replace("/_tabs/home" as any);
-  };
-
-  const handleNext = () => {
-    router.push({
-      pathname: "/(auth)/onboarding/3" as any,
-      params: { gradeLevel },
-    });
-  };
-
-  const gradeOptions = [
-    { value: "V", label: "Clasa a V-a" },
-    { value: "VI", label: "Clasa a VI-a" },
-    { value: "VII", label: "Clasa a VII-a" },
-    { value: "VIII", label: "Clasa a VIII-a" },
-    { value: "IX", label: "Clasa a IX-a" },
-    { value: "X", label: "Clasa a X-a" },
-    { value: "XI", label: "Clasa a XI-a" },
-    { value: "XII", label: "Clasa a XII-a" },
-  ];
-
+  const theme = useTheme();
+  const copy = ro.visual.personalize;
+  const [subjects, setSubjects] = useState<string[]>([]);
+  const [level, setLevel] = useState('');
+  const [grade, setGrade] = useState('');
   return (
-    <View style={styles.container}>
-      <Image
-        source={require("@/assets/images/logo-glow.png")}
-        style={styles.image}
-        resizeMode='contain'
-      />
-      <Text style={styles.title}>{t("onboarding2_title")}</Text>
-      <Text style={styles.description}>{t("onboarding2_description")}</Text>
-      <View style={styles.gradeSelector}>
-        <Text style={styles.gradeLabel}>{t("onboarding.gradeLevel")}</Text>
-        {gradeOptions.map((option) => (
-          <Pressable
-            key={option.value}
+    <Screen auth>
+      <View style={uiStyles.s0}>
+        <BackButton onPress={() => router.back()} />
+        <Copy kind='caption' style={{ color: theme.textSecondary }}>
+          {copy.step}
+        </Copy>
+        <MotionPressable
+          accessibilityRole='button'
+          onPress={() => router.push('/(auth)/register')}
+          style={design.touch}
+        >
+          <Copy kind='caption' style={{ color: theme.accentText }}>
+            {copy.skip}
+          </Copy>
+        </MotionPressable>
+      </View>
+      <View style={[uiStyles.s1, { gap: s.sm }]}>
+        {[0, 1, 2, 3].map((i) => (
+          <View
+            key={i}
             style={[
-              styles.gradeOption,
-              gradeLevel === option.value && styles.gradeOptionSelected,
+              uiStyles.s2,
+              {
+                height: s.xs,
+                borderRadius: radius.full,
+                backgroundColor: i < 2 ? theme.accent : theme.border,
+              },
             ]}
-            onPress={() => setGradeLevel(option.value)}
-          >
-            <Text style={styles.gradeOptionText}>{option.label}</Text>
-          </Pressable>
+          />
         ))}
       </View>
-      <View style={styles.buttons}>
-        <Button variant='outline' size='md' onPress={handleSkip}>
-          {t("common.skip")}
-        </Button>
-        <Button
-          variant='primary'
-          size='md'
-          onPress={handleNext}
-          disabled={!gradeLevel}
-        >
-          {t("common.next")}
-        </Button>
+      <Reveal style={{ gap: s.md }}>
+        <Copy kind='heading'>{copy.title}</Copy>
+        <Copy style={[uiStyles.s3, { color: theme.textSecondary }]}>
+          {copy.subtitle}
+        </Copy>
+      </Reveal>
+      <View style={design.wrap}>
+        {copy.subjects.map((subject) => (
+          <Choice
+            key={subject}
+            selected={subjects.includes(subject)}
+            onPress={() =>
+              setSubjects((current) =>
+                current.includes(subject)
+                  ? current.filter((value) => value !== subject)
+                  : current.length < 3
+                    ? [...current, subject]
+                    : current
+              )
+            }
+          >
+            {subject}
+          </Choice>
+        ))}
       </View>
-    </View>
+      <Copy kind='heading'>{copy.level}</Copy>
+      {[
+        {
+          value: 'VIII',
+          icon: Backpack,
+          title: copy.middle,
+          subtitle: copy.middleHint,
+        },
+        {
+          value: 'high',
+          icon: School,
+          title: copy.high,
+          subtitle: copy.highHint,
+        },
+      ].map((option) => (
+        <MotionPressable
+          accessibilityRole='radio'
+          accessibilityState={{ checked: level === option.value }}
+          aria-checked={level === option.value}
+          key={option.value}
+          onPress={() => {
+            setLevel(option.value);
+            setGrade(option.value === 'VIII' ? 'VIII' : '');
+          }}
+        >
+          <Panel accent={level === option.value}>
+            <Row
+              icon={option.icon}
+              title={option.title}
+              subtitle={option.subtitle}
+              trailing={
+                level === option.value ? (
+                  <CircleCheck size={22} color={theme.accentText} />
+                ) : undefined
+              }
+            />
+          </Panel>
+        </MotionPressable>
+      ))}
+      <Choice
+        selected={level === 'middle'}
+        onPress={() => {
+          setLevel('middle');
+          setGrade('');
+        }}
+      >
+        {ro.visual.otherGrade}
+      </Choice>
+      {(level === 'high' || level === 'middle') && (
+        <View style={design.wrap}>
+          {(level === 'high'
+            ? ['IX', 'X', 'XI', 'XII']
+            : ['V', 'VI', 'VII']
+          ).map((value) => (
+            <Choice
+              key={value}
+              selected={grade === value}
+              onPress={() => setGrade(value)}
+            >
+              {value}
+            </Choice>
+          ))}
+        </View>
+      )}
+      <Choice
+        selected={grade === 'student'}
+        onPress={() => {
+          setLevel('');
+          setGrade('student');
+        }}
+      >
+        {ro.profileChoices.university}
+      </Choice>
+      <Button
+        size='lg'
+        disabled={!grade}
+        onPress={() =>
+          router.push({
+            pathname: '/(auth)/onboarding/3',
+            params: {
+              gradeLevel: grade,
+              favoriteSubjects: JSON.stringify(subjects),
+            },
+          })
+        }
+        style={uiStyles.s4}
+      >
+        {copy.continue}
+      </Button>
+    </Screen>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.background,
-    padding: spacing.lg,
+const uiStyles = StyleSheet.create({
+  s0: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  image: {
-    width: 120,
-    height: 120,
-    marginBottom: spacing.md,
-    alignSelf: "center",
-  },
-  title: {
-    color: theme.textPrimary,
-    fontSize: 24,
-    fontWeight: "600" as const,
-    textAlign: "center",
-    marginBottom: spacing.md,
-  },
-  description: {
-    color: theme.textSecondary,
-    fontSize: 16,
-    textAlign: "center",
-    marginBottom: spacing.lg,
-  },
-  gradeSelector: {
-    marginVertical: spacing.md,
-  },
-  gradeLabel: {
-    color: theme.textPrimary,
-    fontSize: 16,
-    marginBottom: spacing.xs,
-  },
-  gradeOption: {
-    padding: spacing.sm,
-    borderWidth: 1,
-    borderColor: theme.border,
-    borderRadius: radius.sm,
-    marginBottom: spacing.xs,
-  },
-  gradeOptionSelected: {
-    borderColor: theme.primary,
-    backgroundColor: theme.surfaceElevated,
-  },
-  gradeOptionText: {
-    color: theme.textPrimary,
-    fontSize: 14,
-  },
-  buttons: {
-    flexDirection: "row",
-    gap: spacing.md,
-    width: "100%",
-    marginTop: spacing.lg,
-  },
+  s1: { flexDirection: 'row' },
+  s2: { flex: 1 },
+  s3: { lineHeight: 24 },
+  s4: { marginTop: 'auto' },
 });

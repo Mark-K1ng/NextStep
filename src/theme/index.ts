@@ -7,8 +7,8 @@ export {
   lightColors,
   theme,
   colors,
-} from "./tokens";
-export { spacing } from "./tokens";
-export { radius } from "./tokens";
-export { typography } from "./tokens";
-export type { Theme, Spacing, Radius } from "./tokens";
+} from './tokens';
+export { spacing } from './tokens';
+export { radius } from './tokens';
+export { typography } from './tokens';
+export type { Theme, Spacing, Radius } from './tokens';

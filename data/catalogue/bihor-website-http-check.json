@@ -1,0 +1,125 @@
+{
+  "checked_on": "2026-10-24",
+  "note": "Reachability and excerpts only; HTTP success is not proof of institution identity.",
+  "checks": [
+    {
+      "name": "Colegiul Economic \"Partenie Cosma\"",
+      "requested": "https://www.colegiuleconomicoradea.ro/",
+      "final": "https://www.colegiuleconomicoradea.ro/",
+      "status": 200,
+      "title": "Colegiul Economic Partenie Cosma Oradea",
+      "location_excerpt": [
+        " Colegiul Economic Partenie Cosma Oradea Home Prezentare Mesajul conducerii Misiunea si viziunea colegiului Istoric Personalul colegiului Oferta educa",
+        "2026 Transferuri Activitati extrascolare Revista scolii Excursii Targuri si expozitii Actiuni de voluntariat Scoala altfel Evenimente Documente Activități diverse Proiecte Proiecte",
+        "iecte POSDRU Euroscola Proiect ROSE Proiecte Proiecte internationale Derulate Comenius H & H Despre Mobilitate I Mobilitate II Mobilitate III Mobilitate IV Mobilitate V Mobilitate ",
+        "gajare pe piata muncii” (LEN/2011). Parteneri Parteneri Primaria Oradea, Euro Business Parc Oradea, Agentia Nationala de Administrare Fiscala, Corpul Expertilor Contabili si Contabi"
+      ]
+    },
+    {
+      "name": "Colegiul Național \"Avram Iancu\"",
+      "requested": "https://www.cnavramiancu.ro/",
+      "final": "https://www.cnavramiancu.ro/",
+      "status": 200,
+      "title": "Colegiul Național ”Avram Iancu” Ștei – slogan",
+      "location_excerpt": [
+        " Colegiul Național ”Avram Iancu” Ștei – slogan Sari la conținut Skip to content Acasă Despre școală Elevi Organizare Erasmus+ eTwinning Contact Tog",
+        " de Ingrijitor I le gasiți aici. Colegiul Național „Avram Iancu” Ștei organizează concurs pentru ocuparea a 2 posturi vacante de Îngrijitor I (funcții contractuale de execuție, pe",
+        "u ocuparea a 2 posturi vacante de Îngrijitor I (funcții contractuale de execuție, pe perioadă nedeterminată) . Informații principale: Tip post: Execuție, îngrijire în unități școla",
+        "e dezvoltare instituțională al Colegiului Național ”Avram Iancu” Ștei îl puteți vedea și descărca aici Citește tot articolul Înscrierea/reînscrierea în învățământul antepreșcolar "
+      ]
+    },
+    {
+      "name": "Colegiul Național \"Emanuil Gojdu\"",
+      "requested": "https://cnego.ro/",
+      "final": "https://cnego.ro/",
+      "status": 200,
+      "title": "Colegiul Național „Emanuil Gojdu” Oradea",
+      "location_excerpt": [
+        " Colegiul Național „Emanuil Gojdu” Oradea Acasă Elevi Profesori Evenimente și Proiecte Documente Site-ul vechi (se deschide într-o filă nouă) Acasă Ele",
+        "filă nouă) Descoperă școala noastră! Strada Spiru Haret Nr. 3-5, Oradea, Județul Bihor Noutăți Certificat Goethe Performanță de 107 ani Colegiul Național „Emanuil Gojdu” este un rep",
+        "de într-o filă nouă) CȘE CNEGO Colegiul Național „Emanuil Gojdu” Oradea Adresă Strada Spiru Haret Nr. 3-5 410066 Oradea, Județul Bihor Vezi pe hartă (se deschide într-o filă nouă) C",
+        " „Emanuil Gojdu” Oradea Adresă Strada Spiru Haret Nr. 3-5 410066 Oradea, Județul Bihor Vezi pe hartă (se deschide într-o filă nouă) Contact Secretariat 0259 417 668 0359 439 101 Dir"
+      ]
+    },
+    {
+      "name": "Colegiul Național \"Iosif Vulcan\"",
+      "requested": "https://www.cnvulcan.ro/",
+      "error": "<urlopen error [Errno 11001] getaddrinfo failed>"
+    },
+    {
+      "name": "Colegiul Național \"Mihai Eminescu\"",
+      "requested": "https://eminescuoradea.ro/",
+      "final": "https://eminescuoradea.ro/",
+      "status": 200,
+      "title": "Colegiul Național „Mihai Eminescu\" Oradea",
+      "location_excerpt": [
+        " Colegiul Național „Mihai Eminescu\" Oradea Skip to content Colegiul Național „Mihai Eminescu\" Oradea Menu Acasă Orar General Despre noi Istoric Misiunea",
+        "nescu\" Oradea Skip to content Colegiul Național „Mihai Eminescu\" Oradea Menu Acasă Orar General Despre noi Istoric Misiunea școlii Viziunea școlii Dotări Noutăți Anunțuri Elevi – Pă",
+        "umane Transparență Declarații de avere și interes Venituri salariale Documente financiare Achiziții publice Regulamente GDPR Avertizori de interes public Informații de interes publ",
+        "res public Search Search for: Colegiul Național „Mihai Eminescu\" Oradea Anunțuri Transfer Transferuri octombrie 2026 octombrie 23, 2026 octombrie 23, 2026 Cozma Daniela / Anunțuri O"
+      ]
+    },
+    {
+      "name": "Colegiul Național \"Onisifor Ghibu\"",
+      "requested": "https://www.cneghibu.ro/",
+      "error": "<urlopen error [Errno 11001] getaddrinfo failed>"
+    },
+    {
+      "name": "Colegiul Național \"Samuil Vulcan\"",
+      "requested": "https://www.cnsvulcan.ro/",
+      "error": "<urlopen error [Errno 11001] getaddrinfo failed>"
+    },
+    {
+      "name": "Colegiul Tehnic \"Alexandru Roman\"",
+      "requested": "https://www.ctalesd.ro/",
+      "final": "https://www.ctalesd.ro/",
+      "status": 200,
+      "title": "Prima Pagina",
+      "location_excerpt": [
+        " Prima Pagina Strada Ciocârliei 4, Aleșd 415100 +40770320188 contact@ctalesd.ro Colegiul Tehnic \"Alexandru Roman\" Alesd Prima Pagina Proiecte Despre n",
+        " Pagina Strada Ciocârliei 4, Aleșd 415100 +40770320188 contact@ctalesd.ro Colegiul Tehnic \"Alexandru Roman\" Alesd Prima Pagina Proiecte Despre noi Scurt Istoric MIsiunea Scolii Ofe",
+        "40770320188 contact@ctalesd.ro Colegiul Tehnic \"Alexandru Roman\" Alesd Prima Pagina Proiecte Despre noi Scurt Istoric MIsiunea Scolii Oferta Educationala Corp profesional Organigra",
+        "ista Copii Admisi Clasa Pregatitoare Adresă Strada Ciocarilei 4, Alesd 415100 Online +​40770320188 contact@ctalesd.ro Harta Copyright © 2025 Colegiul Tehnic Alexandru Roman, Alesd "
+      ]
+    },
+    {
+      "name": "Colegiul Tehnic \"Ioan Ciordaș\"",
+      "requested": "https://www.ctciordas.ro/",
+      "error": "<urlopen error [Errno 11001] getaddrinfo failed>"
+    },
+    {
+      "name": "Liceul Teoretic \"Ady Endre\"",
+      "requested": "https://www.adyliceum.ro/",
+      "final": "https://www.adyliceum.ro/",
+      "status": 200,
+      "title": "Kezdőoldal - Ady Endre Elméleti Líceum",
+      "location_excerpt": []
+    },
+    {
+      "name": "Liceul Teoretic \"Bolyai Farkas\"",
+      "requested": "https://bolyai.ro/",
+      "final": "https://bolyai.ro/",
+      "status": 200,
+      "title": "Kezdőlap",
+      "location_excerpt": []
+    },
+    {
+      "name": "Liceul Teoretic German \"Friedrich Schiller\"",
+      "requested": "https://liceulgermanoradea.ro/",
+      "final": "https://liceulgermanoradea.ro/",
+      "status": 200,
+      "title": " Liceul Teoretic German | Friedrich Schiller | Oradea ",
+      "location_excerpt": [
+        " Liceul Teoretic German | Friedrich Schiller | Oradea --> liceulgermanoradea@gmail.com +40-359-439-711 Login Register Home Despre Noi Viziunea noastra Misiunea noa",
+        "ul Teoretic German | Friedrich Schiller | Oradea --> liceulgermanoradea@gmail.com +40-359-439-711 Login Register Home Despre Noi Viziunea noastra Misiunea noastra Istoricul Liceului",
+        "ferta educationala Inscrieri Arii curriculare Orar Examene nationale Documente Legislatie CA Consiliul elevilor Consiliul parintilor Contact Inscrieri la Liceul Teoretic German \"Fr",
+        "Contact Inscrieri la Liceul Teoretic German \"Friedrich Schiller\" Oradea Sprechen Sie Deutsch? Înscrieri in clasa pregatitoare Inscrieri in clasa pregatitoare Sprechen Sie Deutsch? I"
+      ]
+    },
+    {
+      "name": "Liceul Vocational Pedagogic \"Nicolae Bolcaș\"",
+      "requested": "https://www.lvnicolaebolcas.ro/",
+      "error": "<urlopen error [Errno 11001] getaddrinfo failed>"
+    }
+  ]
+}

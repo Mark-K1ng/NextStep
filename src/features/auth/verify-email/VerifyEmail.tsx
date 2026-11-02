@@ -1,183 +1,150 @@
-import { View, Text, Image, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
-import { Button } from "@/components";
-import { useTranslation } from "@/hooks/use-translation";
-import { useState, useEffect } from "react";
-import { useSupabase } from "@/hooks/use-supabase";
-import { useTheme } from "@/hooks/use-theme";
-import { spacing, radius, theme } from "@/theme/tokens";
-
+import { useEffect, useState } from 'react';
+import { MailCheck, Check } from 'lucide-react-native';
+import { useLocalSearchParams } from 'expo-router';
+import { useAppRouter as useRouter } from '@/hooks/use-app-router';
+import { createURL } from 'expo-linking';
+import { Brand, Copy, Panel, Row, Screen } from '@/components/design';
+import { Button, Input } from '@/components';
+import { supabase } from '@/lib/supabase';
+import { completeRegistration } from '@/services/registration';
+import { emailSchema } from '@/lib/validators';
+import { ro } from '@/i18n/ro';
 export default function VerifyEmail() {
   const router = useRouter();
-  const { t } = useTranslation();
-  const { supabase } = useSupabase();
-  const currentTheme = useTheme();
-  const [loading, setLoading] = useState(false);
+  const params = useLocalSearchParams<{
+    email?: string;
+    accountKind?: string;
+  }>();
+  const [email, setEmail] = useState(params.email || '');
   const [verified, setVerified] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [cooldown, setCooldown] = useState(0);
-
+  const [error, setError] = useState('');
+  const [sent, setSent] = useState(false);
   useEffect(() => {
-    const checkVerificationStatus = async () => {
-      setLoading(true);
-      try {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-        if (user) {
-          setVerified(!user.email_confirmed_at);
-          if (user.email_confirmed_at) {
-            router.replace("/_tabs/home" as any);
-          }
-        }
-      } catch (error) {
-        console.error("Error checking verification status:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkVerificationStatus();
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session?.user) {
-        setVerified(!session.user.email_confirmed_at);
-        if (session.user.email_confirmed_at) {
-          router.replace("/_tabs/home" as any);
-        }
-      }
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [supabase, router]);
-
-  const handleResend = async () => {
-    setCooldown(30);
-    setLoading(true);
-
-    try {
+    let active = true;
+    const check = async () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      if (!user?.email) {
-        alert("Nu s-a putut determina adresa de email.");
-        return;
+      if (user?.email_confirmed_at) {
+        await completeRegistration(user);
+        if (active) {
+          setVerified(true);
+          router.replace('/');
+        }
       }
-
-      const { error } = await supabase.auth.resend({
-        type: "signup",
-        email: user.email,
+    };
+    check().catch(() => {
+      if (active) {
+        setError(ro.feedback.profileFailed);
+      }
+    });
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user.email_confirmed_at) {
+        check().catch(() => {
+          if (active) {
+            setError(ro.feedback.profileFailed);
+          }
+        });
+      }
+    });
+    return () => {
+      active = false;
+      subscription.unsubscribe();
+    };
+  }, [router]);
+  useEffect(() => {
+    if (cooldown <= 0) {
+      return;
+    }
+    const timer = setTimeout(() => setCooldown((value) => value - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [cooldown]);
+  const resend = async () => {
+    const parsed = emailSchema.safeParse(email);
+    if (!parsed.success) {
+      setError(parsed.error.issues[0].message);
+      return;
+    }
+    setLoading(true);
+    setError('');
+    setSent(false);
+    try {
+      const result = await supabase.auth.resend({
+        type: 'signup',
+        email: parsed.data,
+        options: { emailRedirectTo: createURL('/auth-callback') },
       });
-
-      if (error) {
-        throw error;
+      if (result.error) {
+        throw result.error;
       }
-
-      alert("Linkul de verificare a fost retrimis!");
-    } catch (error) {
-      console.error("Resend verification error:", error);
-      alert(
-        "Eroare la retrimiterea linkului de verificare. Vă rugăm să încercați din nou."
+      setSent(true);
+      setCooldown(30);
+    } catch (resendError) {
+      const limited =
+        resendError &&
+        typeof resendError === 'object' &&
+        (('status' in resendError && resendError.status === 429) ||
+          ('code' in resendError &&
+            resendError.code === 'over_email_send_rate_limit'));
+      setError(
+        limited ? ro.feedback.emailRateLimited : ro.feedback.verificationFailed
       );
+      if (limited) {
+        setCooldown(60);
+      }
     } finally {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (cooldown > 0) {
-      const timer = setTimeout(() => {
-        setCooldown((prev) => prev - 1);
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [cooldown]);
-
   return (
-    <View style={styles.container}>
-      <Image
-        source={require("@/assets/images/logo-glow.png")}
-        style={styles.logo}
-        resizeMode='contain'
-      />
-      {verified ? (
-        <View style={styles.form}>
-          <Text style={styles.description}>{t("auth.verificationSent")}</Text>
-          {cooldown > 0 ? (
-            <View style={styles.timer}>
-              <Text style={styles.timerText}>
-                {t("common.resendIn")} {cooldown}s
-              </Text>
-            </View>
-          ) : (
-            <Button
-              variant='outline'
-              size='md'
-              onPress={handleResend}
-              disabled={loading}
-            >
-              {loading ? t("common.loading") : t("auth.resendVerification")}
-            </Button>
-          )}
-        </View>
-      ) : (
-        <View style={styles.success}>
-          <Text style={styles.successTitle}>{t("auth.emailVerified")}</Text>
-          <Button
-            variant='primary'
-            size='md'
-            onPress={() => router.replace("/_tabs/home" as any)}
-          >
-            {t("common.continueToApp")}
-          </Button>
-        </View>
+    <Screen auth>
+      <Brand />
+      <Copy kind='title'>{ro.auth.verifyEmail}</Copy>
+      {params.accountKind === 'teacher' && (
+        <Copy kind='caption'>
+          După confirmare vei continua cu cererea contului de profesor.
+          Confirmarea e-mailului nu aprobă funcțiile de predare.
+        </Copy>
       )}
-    </View>
+      <Panel>
+        <Row
+          icon={verified ? Check : MailCheck}
+          title={verified ? ro.auth.emailVerified : ro.feedback.emailSent}
+          subtitle={verified ? undefined : ro.auth.verificationSent}
+        />
+      </Panel>
+      {!verified && (
+        <>
+          <Input
+            label={ro.auth.email}
+            keyboardType='email-address'
+            value={email}
+            onChangeText={setEmail}
+            error={error}
+            autoComplete='email'
+          />
+          <Button loading={loading} disabled={cooldown > 0} onPress={resend}>
+            {cooldown > 0
+              ? ro.common.resendIn + ' ' + cooldown + 's'
+              : ro.auth.resendVerification}
+          </Button>
+          {sent && (
+            <Copy accessibilityRole='alert'>
+              {ro.feedback.verificationResent}
+            </Copy>
+          )}
+        </>
+      )}
+      <Button
+        variant='outline'
+        onPress={() => router.replace(verified ? '/' : '/(auth)/login')}
+      >
+        {verified ? ro.common.continueToApp : ro.auth.login}
+      </Button>
+    </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.background,
-    padding: spacing.lg,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  logo: {
-    width: 80,
-    height: 80,
-    marginBottom: spacing.md,
-  },
-  success: {
-    alignItems: "center",
-  },
-  successTitle: {
-    color: theme.success,
-    fontSize: 24,
-    fontWeight: "600" as const,
-    textAlign: "center",
-    marginBottom: spacing.md,
-  },
-  form: {
-    width: "100%",
-    alignItems: "center",
-  },
-  description: {
-    color: theme.textSecondary,
-    fontSize: 16,
-    textAlign: "center",
-    marginBottom: spacing.md,
-  },
-  timer: {
-    marginTop: spacing.md,
-  },
-  timerText: {
-    color: theme.textPrimary,
-    fontSize: 14,
-    textAlign: "center",
-  },
-});

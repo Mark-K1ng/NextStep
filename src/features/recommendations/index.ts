@@ -1,1 +1,1 @@
-export { default as Recommendations, default } from "./Recommendations";
+export { default as Recommendations, default } from './Recommendations';

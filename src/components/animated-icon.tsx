@@ -1,11 +1,13 @@
-import { Image } from "expo-image";
-import * as SplashScreen from "expo-splash-screen";
-import { useState } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
-import Animated, { Easing, Keyframe } from "react-native-reanimated";
-import { scheduleOnRN } from "react-native-worklets";
+import { Image } from 'expo-image';
+import * as SplashScreen from 'expo-splash-screen';
+import { useState } from 'react';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import Animated, { Easing, Keyframe } from 'react-native-reanimated';
+import { scheduleOnRN } from 'react-native-worklets';
+import expoLogo from '@/assets/images/expo-logo.png';
+import logoGlow from '@/assets/images/logo-glow.png';
 
-const INITIAL_SCALE_FACTOR = Dimensions.get("screen").height / 90;
+const INITIAL_SCALE_FACTOR = Dimensions.get('screen').height / 90;
 const DURATION = 600;
 
 export function AnimatedSplashOverlay() {
@@ -35,17 +37,12 @@ export function AnimatedSplashOverlay() {
     },
   });
 
-  const image = (
-    <Image
-      style={styles.image}
-      source={require("@/assets/images/expo-logo.png")}
-    />
-  );
+  const image = <Image style={styles.image} source={expoLogo} />;
 
   return animate ? (
     <Animated.View
       entering={splashKeyframe.duration(DURATION).withCallback((finished) => {
-        "worklet";
+        'worklet';
         if (finished) {
           scheduleOnRN(setVisible, false);
         }
@@ -97,10 +94,10 @@ const logoKeyframe = new Keyframe({
 
 const glowKeyframe = new Keyframe({
   0: {
-    transform: [{ rotateZ: "0deg" }],
+    transform: [{ rotateZ: '0deg' }],
   },
   100: {
-    transform: [{ rotateZ: "7200deg" }],
+    transform: [{ rotateZ: '7200deg' }],
   },
 });
 
@@ -111,10 +108,7 @@ export function AnimatedIcon() {
         entering={glowKeyframe.duration(60 * 1000 * 4)}
         style={styles.glow}
       >
-        <Image
-          style={styles.glow}
-          source={require("@/assets/images/logo-glow.png")}
-        />
+        <Image style={styles.glow} source={logoGlow} />
       </Animated.View>
 
       <Animated.View
@@ -125,10 +119,7 @@ export function AnimatedIcon() {
         style={styles.imageContainer}
         entering={logoKeyframe.duration(DURATION)}
       >
-        <Image
-          style={styles.image}
-          source={require("@/assets/images/expo-logo.png")}
-        />
+        <Image style={styles.image} source={expoLogo} />
       </Animated.View>
     </View>
   );
@@ -136,17 +127,17 @@ export function AnimatedIcon() {
 
 const styles = StyleSheet.create({
   imageContainer: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   glow: {
     width: 201,
     height: 201,
-    position: "absolute",
+    position: 'absolute',
   },
   iconContainer: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 128,
     height: 128,
     zIndex: 100,
@@ -156,16 +147,17 @@ const styles = StyleSheet.create({
     height: 71,
   },
   background: {
+    borderCurve: 'continuous',
     borderRadius: 40,
     width: 128,
     height: 128,
-    position: "absolute",
+    position: 'absolute',
   },
   splashOverlay: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: "#208AEF",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#208AEF',
+    alignItems: 'center',
+    justifyContent: 'center',
     zIndex: 1000,
   },
 });

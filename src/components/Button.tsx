@@ -1,19 +1,21 @@
+import { StyleSheet } from 'react-native';
 import {
-  Pressable,
   PressableProps,
-  Text,
-  View,
   TextStyle,
   ViewStyle,
   StyleProp,
-} from "react-native";
-import { useTheme } from "@/hooks/use-theme";
-import { spacing, radius } from "@/theme/tokens";
-import { ReactNode } from "react";
-
-export type ButtonProps = Omit<PressableProps, "style" | "children"> & {
-  variant?: "primary" | "secondary" | "outline";
-  size?: "sm" | "md" | "lg";
+  View,
+} from 'react-native';
+import { useTheme } from '@/hooks/use-theme';
+import { spacing, radius, typography } from '@/theme/tokens';
+import { useState, ReactNode } from 'react';
+import { MotionPressable } from './motion';
+import { AsciiLoading } from './ascii-loading';
+import { AsciiSkinOverlay, AsciiElement } from './ascii-skin';
+import { DecodingText as Text } from './decoding-text';
+export type ButtonProps = Omit<PressableProps, 'style' | 'children'> & {
+  variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
   loading?: boolean;
   disabled?: boolean;
   fullWidth?: boolean;
@@ -21,10 +23,9 @@ export type ButtonProps = Omit<PressableProps, "style" | "children"> & {
   textStyle?: StyleProp<TextStyle>;
   children?: ReactNode;
 };
-
 export const Button = ({
-  variant = "primary",
-  size = "md",
+  variant = 'primary',
+  size: _size = 'md',
   loading = false,
   disabled = false,
   fullWidth = false,
@@ -34,106 +35,103 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const theme = useTheme();
-
-  const getButtonStyles = () => {
-    const baseStyles: ViewStyle = {
-      borderRadius: radius.md,
-      paddingVertical:
-        size === "sm" ? spacing.xs : size === "md" ? spacing.sm : spacing.md,
-      paddingHorizontal:
-        size === "sm" ? spacing.sm : size === "md" ? spacing.md : spacing.lg,
-      ...(fullWidth && { width: "100%" }),
-      alignItems: "center",
-      justifyContent: "center",
-    };
-
-    if (disabled) {
-      return {
-        container: [
-          baseStyles,
-          { backgroundColor: theme.surfaceElevated, opacity: 0.5 },
-          style,
-        ],
-        text: { color: theme.textSecondary, fontSize: size === "sm" ? 14 : 16 },
-      };
-    }
-
-    if (loading) {
-      return {
-        container: [baseStyles, { backgroundColor: theme.primary }, style],
-        text: { color: theme.background, fontSize: size === "sm" ? 14 : 16 },
-      };
-    }
-
-    switch (variant) {
-      case "primary":
-        return {
-          container: [baseStyles, { backgroundColor: theme.primary }, style],
-          text: {
-            color: "#FFFFFF",
-            fontSize: size === "sm" ? 14 : 16,
-            fontWeight: "600" as const,
-          },
-        };
-      case "secondary":
-        return {
-          container: [
-            baseStyles,
-            { backgroundColor: theme.surfaceElevated },
-            style,
-          ],
-          text: {
-            color: theme.textPrimary,
-            fontSize: size === "sm" ? 14 : 16,
-            fontWeight: "600" as const,
-          },
-        };
-      case "outline":
-        return {
-          container: [
-            baseStyles,
-            {
-              backgroundColor: "transparent",
-              borderWidth: 1,
-              borderColor: theme.border,
-            },
-            style,
-          ],
-          text: {
-            color: theme.textPrimary,
-            fontSize: size === "sm" ? 14 : 16,
-            fontWeight: "600" as const,
-          },
-        };
-      default:
-        return {
-          container: [baseStyles, { backgroundColor: theme.primary }, style],
-          text: { color: "#FFFFFF", fontSize: size === "sm" ? 14 : 16 },
-        };
-    }
-  };
-
-  const { container, text } = getButtonStyles();
-
-  if (loading) {
-    return (
-      <View style={container}>
-        <Text style={[text, textStyle, { fontSize: 12 }]}>{children}</Text>
-      </View>
-    );
-  }
-
+  const [labelSize, setLabelSize] = useState({ width: 0, height: 0 });
+  const primary = variant === 'primary';
+  const color = primary ? theme.onAccent : theme.textPrimary;
   return (
-    <Pressable
-      style={({ pressed }) => [container, pressed && { opacity: 0.8 }]}
-      disabled={disabled}
-      {...props}
-    >
-      {typeof children === "string" ? (
-        <Text style={[text, textStyle]}>{children}</Text>
-      ) : (
-        children
-      )}
-    </Pressable>
+    <AsciiElement>
+      <MotionPressable
+        {...props}
+        accessibilityRole='button'
+        accessibilityLabel={
+          props.accessibilityLabel ||
+          (typeof children === 'string' ? children : undefined)
+        }
+        aria-disabled={disabled || loading}
+        aria-busy={loading}
+        accessibilityState={{
+          ...props.accessibilityState,
+          disabled: disabled || loading,
+          busy: loading,
+        }}
+        disabled={disabled || loading}
+        style={({ pressed }) => [
+          [
+            uiStyles.s0,
+            {
+              minHeight: 48,
+              borderRadius: radius.md,
+              borderCurve: 'continuous',
+              paddingVertical: spacing.md,
+              paddingHorizontal: spacing.lg,
+              backgroundColor: primary
+                ? theme.accent
+                : variant === 'secondary'
+                  ? theme.surfaceElevated
+                  : theme.surface,
+              borderWidth: primary ? 0 : 1,
+              borderColor: theme.border,
+              ...(fullWidth && { width: '100%' }),
+              opacity: disabled ? 0.45 : pressed ? 0.8 : 1,
+            },
+          ],
+          style,
+        ]}
+      >
+        <View
+          onLayout={({ nativeEvent: { layout } }) => {
+            const width = Math.ceil(layout.width),
+              height = Math.ceil(layout.height);
+            setLabelSize((previous) =>
+              previous.width === width && previous.height === height
+                ? previous
+                : { width, height }
+            );
+          }}
+          style={[uiStyles.label, loading && uiStyles.hidden]}
+        >
+          {typeof children === 'string' || typeof children === 'number' ? (
+            <Text
+              style={[typography.body, [uiStyles.s1, { color }], textStyle]}
+            >
+              {children}
+            </Text>
+          ) : (
+            <View>{children}</View>
+          )}
+        </View>
+        {loading && labelSize.width > 0 && (
+          <View pointerEvents='none' style={uiStyles.busy}>
+            <AsciiLoading
+              compact
+              width={labelSize.width}
+              height={labelSize.height}
+              color={color}
+              decorative
+            />
+          </View>
+        )}
+        <AsciiSkinOverlay radius={radius.md} />
+      </MotionPressable>
+    </AsciiElement>
   );
 };
+
+const uiStyles = StyleSheet.create({
+  s0: { alignItems: 'center', justifyContent: 'center' },
+  s1: {
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  hidden: { opacity: 0 },
+  label: { zIndex: 1 },
+  busy: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

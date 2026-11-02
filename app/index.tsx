@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { Linking } from 'expo-linking';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 

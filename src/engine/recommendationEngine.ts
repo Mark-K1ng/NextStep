@@ -1,7 +1,7 @@
 // Recommendation engine functions
 // Implements the algorithm from section 9 of the master build prompt
 
-import type { GapAnalysisResult } from "./gapAnalysis";
+import type { GapAnalysisResult } from './gapAnalysis';
 
 export type DepthLevel = 1 | 2 | 3;
 

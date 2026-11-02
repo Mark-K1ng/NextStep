@@ -1,6 +1,6 @@
-import { View, ViewProps, ViewStyle, StyleSheet } from "react-native";
-import { useTheme } from "@/hooks/use-theme";
-import { spacing, radius } from "@/theme/tokens";
+import { View, ViewProps, ViewStyle } from 'react-native';
+import { useTheme } from '@/hooks/use-theme';
+import { radius, spacing } from '@/theme/tokens';
 
 export type CardProps = ViewProps & {
   elevated?: boolean;
@@ -19,20 +19,23 @@ export const Card = ({
   const containerStyles: ViewStyle = {
     backgroundColor: elevated ? theme.surfaceElevated : theme.surface,
     borderRadius: radius.md,
-    overflow: "hidden",
+    borderCurve: 'continuous',
+    padding: spacing.lg,
+    borderWidth: 1,
+    borderColor: theme.border,
+    overflow: 'hidden',
     ...(elevated && {
-      shadowColor: "#000",
+      shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.1,
       shadowRadius: 4,
       elevation: 2,
     }),
     ...(fullBleed && { borderRadius: 0 }),
-    ...(style as ViewStyle),
   };
 
   return (
-    <View style={[containerStyles]} {...props}>
+    <View style={[containerStyles, style]} {...props}>
       {children}
     </View>
   );

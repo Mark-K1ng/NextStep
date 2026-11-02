@@ -1,29 +1,30 @@
 module.exports = {
   extends: [
-    "eslint:recommended",
-    "@react-native-community",
-    "plugin:@typescript-eslint/recommended",
+    'eslint:recommended',
+    '@react-native-community',
+    'plugin:@typescript-eslint/recommended',
   ],
-  plugins: ["@typescript-eslint", "prettier"],
+  plugins: ['@typescript-eslint', 'prettier'],
   rules: {
-    "prettier/prettier": [
-      "error",
+    'prettier/prettier': [
+      'error',
       {
-        quoteSingle: true,
+        singleQuote: true,
         jsxSingleQuote: true,
       },
     ],
-    "func-call-spacing": "error",
-    "@typescript-eslint/func-call-spacing": "off",
-    quotes: "off",
-    "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/no-shadow": "warn",
+    'func-call-spacing': 'error',
+    '@typescript-eslint/func-call-spacing': 'off',
+    quotes: 'off',
+    'jsx-quotes': ['warn', 'prefer-single'],
+    'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/no-shadow': 'warn',
   },
   overrides: [
     {
-      files: ["*.ts", "*.tsx"],
+      files: ['*.ts', '*.tsx'],
       parserOptions: {
-        project: ["./tsconfig.json"],
+        project: ['./tsconfig.json'],
       },
     },
   ],

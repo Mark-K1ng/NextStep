@@ -1,5 +1,10 @@
-import Profile from "@/features/profile";
+import Content from '@/features/profile/Profile';
+import { TabAsciiReveal } from '@/components/tab-ascii-reveal';
 
-export default function ProfileTab() {
-  return <Profile />;
+export default function TabScreen() {
+  return (
+    <TabAsciiReveal tab='profile'>
+      <Content />
+    </TabAsciiReveal>
+  );
 }
